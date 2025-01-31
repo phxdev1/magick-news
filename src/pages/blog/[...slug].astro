@@ -1,26 +1,29 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
+import { type CollectionEntry, getCollection, getEntry } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
 	return posts.map((post) => ({
 		params: { slug: post.data.slug },
-		props: post,
+		props: { entry: post },
 	}));
 }
 
-type Props = CollectionEntry<'blog'>;
+type Props = {
+	entry: CollectionEntry<'blog'>;
+};
 
-const post = Astro.props;
-const { Content } = await post.render();
+const { entry } = Astro.props;
 
 // Validate required fields
-if (!post.data.title || !post.data.publish_date || !post.data.author) {
-	throw new Error(`Post ${post.data.slug} is missing required fields`);
+if (!entry.data.title || !entry.data.publish_date || !entry.data.author) {
+	throw new Error(`Post ${entry.data.slug} is missing required fields`);
 }
+
+const { Content } = await entry.render();
 ---
 
-<BlogPost {...post.data}>
+<BlogPost {...entry.data}>
 	<Content />
 </BlogPost>
