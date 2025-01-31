@@ -48,10 +48,11 @@ const { title, subtitle, description, publish_date, created_date, heroImage, rea
 				}
 				.hero-container {
 					width: 100%;
-					max-width: 1600px;
+					max-width: 2000px;
 					margin: 0 auto;
 					padding: 0 2rem;
 					perspective: 1000px;
+					position: relative;
 				}
 				.hero-image {
 					width: 100%;
@@ -63,7 +64,8 @@ const { title, subtitle, description, publish_date, created_date, heroImage, rea
 					aspect-ratio: 21/9;
 					transform: translateY(20px);
 					opacity: 0;
-					transition: transform 0.6s ease, opacity 0.6s ease, box-shadow 0.3s ease;
+					transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.2s ease;
+					position: relative;
 				}
 				.hero-image.visible {
 					transform: translateY(0);
@@ -83,25 +85,32 @@ const { title, subtitle, description, publish_date, created_date, heroImage, rea
 				.hero-image:hover img {
 					transform: scale(1.02);
 				}
+				.title-container {
+					position: absolute;
+					bottom: 2rem;
+					left: 4rem;
+					right: 4rem;
+					z-index: 2;
+					text-align: left;
+					padding: 2rem;
+					background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+					border-radius: 1rem;
+					opacity: 0;
+					transform: translateY(20px);
+					transition: transform 0.3s ease, opacity 0.3s ease;
+				}
+				.title-container.visible {
+					opacity: 1;
+					transform: translateY(0);
+				}
 				.title {
-					max-width: 70rem;
-					margin: 0 auto 1.5rem;
-					padding: 0 2rem;
-					text-align: center;
+					margin: 0 0 1rem;
 					line-height: 1.3;
 					font-size: 3.5rem;
 					font-weight: 700;
-					background: linear-gradient(to right, rgb(var(--primary-400)), rgb(var(--blue-400)));
-					-webkit-background-clip: text;
-					-webkit-text-fill-color: transparent;
-					opacity: 0;
-					transform: translateY(20px);
-					transition: transform 0.6s ease, opacity 0.6s ease;
-					animation: gradientFlow 8s linear infinite;
-				}
-				.title.visible {
-					opacity: 1;
-					transform: translateY(0);
+					color: #fff;
+					text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+					transition: color 0.3s ease;
 				}
 				@keyframes gradientFlow {
 					0% { background-position: 0% 50%; }
@@ -110,19 +119,11 @@ const { title, subtitle, description, publish_date, created_date, heroImage, rea
 				}
 				.subtitle {
 					max-width: 60rem;
-					margin: 0 auto 3rem;
-					padding: 0 2rem;
-					text-align: center;
+					margin: 0;
 					font-size: 1.5rem;
-					color: rgb(var(--gray-400));
+					color: rgba(255,255,255,0.9);
 					line-height: 1.6;
-					opacity: 0;
-					transform: translateY(20px);
-					transition: transform 0.6s ease 0.2s, opacity 0.6s ease 0.2s;
-				}
-				.subtitle.visible {
-					opacity: 1;
-					transform: translateY(0);
+					text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 				}
 				.metadata {
 					display: flex;
@@ -132,12 +133,12 @@ const { title, subtitle, description, publish_date, created_date, heroImage, rea
 					align-items: center;
 					margin: 0 auto;
 					padding: 0 2rem;
-					max-width: 42rem;
+					max-width: 60rem;
 					color: rgb(var(--gray-400));
 					font-size: 1rem;
 					opacity: 0;
 					transform: translateY(20px);
-					transition: transform 0.6s ease 0.3s, opacity 0.6s ease 0.3s;
+					transition: transform 0.3s ease 0.1s, opacity 0.3s ease 0.1s;
 				}
 				.metadata.visible {
 					opacity: 1;
@@ -163,7 +164,7 @@ const { title, subtitle, description, publish_date, created_date, heroImage, rea
 				}
 				.engagement-bar {
 					position: fixed;
-					left: max(2rem, calc((100vw - 1400px) / 2));
+					left: max(2rem, calc((100vw - 2000px) / 2));
 					top: 50%;
 					transform: translateY(-50%);
 					display: flex;
@@ -259,12 +260,12 @@ const { title, subtitle, description, publish_date, created_date, heroImage, rea
 				}
 				.article-content {
 					position: relative;
-					max-width: 42rem;
+					max-width: min(85ch, 60rem);
 					margin: 0 auto;
 					padding: 0 2rem 4rem;
 					opacity: 0;
 					transform: translateY(20px);
-					transition: transform 0.6s ease 0.4s, opacity 0.6s ease 0.4s;
+					transition: transform 0.3s ease 0.2s, opacity 0.3s ease 0.2s;
 				}
 				.article-content.visible {
 					opacity: 1;
@@ -385,7 +386,26 @@ const { title, subtitle, description, publish_date, created_date, heroImage, rea
 					padding-left: 2em;
 					color: rgb(var(--gray-200));
 				}
-				@media (max-width: 1400px) {
+				@media (min-width: 2200px) {
+					.article-content {
+						font-size: 1.125rem;
+						line-height: 1.9;
+					}
+					:global(.article-content p) {
+						font-size: 1.25rem;
+					}
+					:global(.article-content h2) {
+						font-size: 2.5rem;
+					}
+					:global(.article-content h3) {
+						font-size: 2rem;
+					}
+					:global(.article-content h4) {
+						font-size: 1.75rem;
+					}
+				}
+
+				@media (max-width: 2200px) {
 					.hero-container {
 						padding: 0 1.5rem;
 					}
@@ -393,13 +413,16 @@ const { title, subtitle, description, publish_date, created_date, heroImage, rea
 						aspect-ratio: 16/9;
 						margin-bottom: 3rem;
 					}
+					.title-container {
+						left: 2rem;
+						right: 2rem;
+						padding: 1.5rem;
+					}
 					.title {
 						font-size: 3rem;
-						padding: 0 1.5rem;
 					}
 					.subtitle {
 						font-size: 1.375rem;
-						padding: 0 1.5rem;
 					}
 					.engagement-bar {
 						display: none;
@@ -418,15 +441,18 @@ const { title, subtitle, description, publish_date, created_date, heroImage, rea
 						border-radius: 0;
 						margin-bottom: 2rem;
 					}
+					.title-container {
+						left: 1rem;
+						right: 1rem;
+						bottom: 1rem;
+						padding: 1.5rem;
+					}
 					.title {
 						font-size: 2rem;
-						padding: 0 1rem;
-						margin-bottom: 1rem;
+						margin-bottom: 0.5rem;
 					}
 					.subtitle {
 						font-size: 1.125rem;
-						padding: 0 1rem;
-						margin-bottom: 2rem;
 					}
 					.metadata {
 						padding: 0 1rem;
@@ -597,6 +623,45 @@ const { title, subtitle, description, publish_date, created_date, heroImage, rea
 			}
 		</style>
 		<script>
+			// Function to analyze image brightness and adjust text color
+			function analyzeImageBrightness(imgElement) {
+				const canvas = document.createElement('canvas');
+				const context = canvas.getContext('2d');
+				const width = imgElement.naturalWidth || imgElement.width;
+				const height = imgElement.naturalHeight || imgElement.height;
+				
+				canvas.width = width;
+				canvas.height = height;
+				context.drawImage(imgElement, 0, 0);
+				
+				const imageData = context.getImageData(0, 0, width, height);
+				const data = imageData.data;
+				let brightness = 0;
+				
+				// Sample the bottom portion of the image where the text will be
+				const sampleArea = {
+					top: Math.floor(height * 0.7),
+					bottom: height,
+					left: 0,
+					right: width
+				};
+				
+				let pixelCount = 0;
+				for (let y = sampleArea.top; y < sampleArea.bottom; y++) {
+					for (let x = sampleArea.left; x < sampleArea.right; x++) {
+						const i = (y * width + x) * 4;
+						const r = data[i];
+						const g = data[i + 1];
+						const b = data[i + 2];
+						brightness += (r + g + b) / 3;
+						pixelCount++;
+					}
+				}
+				
+				brightness = brightness / pixelCount;
+				return brightness > 128;
+			}
+
 			// Intersection Observer for fade-in animations
 			const observer = new IntersectionObserver((entries) => {
 				entries.forEach(entry => {
@@ -604,12 +669,26 @@ const { title, subtitle, description, publish_date, created_date, heroImage, rea
 						entry.target.classList.add('visible');
 					}
 				});
-			}, { threshold: 0.1 });
+			}, { threshold: 0.05 });
 
-			// Observe elements
 			document.addEventListener('DOMContentLoaded', () => {
-				const elements = document.querySelectorAll('.article-header, .hero-image, .title, .subtitle, .metadata, .article-content, .engagement-bar, .last-updated-on');
+				const elements = document.querySelectorAll('.article-header, .hero-image, .title-container, .metadata, .article-content, .engagement-bar, .last-updated-on');
 				elements.forEach(el => observer.observe(el));
+
+				// Analyze hero image and adjust text color
+				const heroImage = document.querySelector('.hero-image img');
+				const titleContainer = document.querySelector('.title-container');
+				
+				if (heroImage && titleContainer) {
+					heroImage.onload = () => {
+						const isLight = analyzeImageBrightness(heroImage);
+						if (isLight) {
+							titleContainer.style.background = 'linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.6), transparent)';
+						} else {
+							titleContainer.style.background = 'linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.4), transparent)';
+						}
+					};
+				}
 
 				// Reading progress
 				const progressBar = document.querySelector('.progress-bar');
@@ -655,10 +734,12 @@ const { title, subtitle, description, publish_date, created_date, heroImage, rea
 					<div class="hero-container">
 						<figure class="hero-image">
 							{heroImage && <img width={1600} height={686} src={heroImage} alt={`Hero image for article: ${title}`} loading="eager" />}
+							<div class="title-container">
+								<h1 class="title">{title}</h1>
+								{subtitle && <p class="subtitle" role="doc-subtitle">{subtitle}</p>}
+							</div>
 						</figure>
 					</div>
-					<h1 class="title">{title}</h1>
-					{subtitle && <p class="subtitle" role="doc-subtitle">{subtitle}</p>}
 					<div class="metadata" role="contentinfo" aria-label="Article metadata">
 						<span aria-label="Publication date">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
