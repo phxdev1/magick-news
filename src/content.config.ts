@@ -6,12 +6,18 @@ const blog = defineCollection({
 	loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
 	// Type-check frontmatter using a schema
 	schema: z.object({
+		author: z.string(),
 		title: z.string(),
-		description: z.string(),
-		// Transform string to Date object
-		pubDate: z.coerce.date(),
-		updatedDate: z.coerce.date().optional(),
+		subtitle: z.string().optional(),
+		slug: z.string(),
+		read_time: z.string(),
+		publish_date: z.string().transform((str) => new Date(str)),
+		created_date: z.string().transform((str) => new Date(str)),
 		heroImage: z.string().optional(),
+		description: z.string().optional(), // Making this optional as it's not in our new format
+		// Keeping these for backward compatibility
+		pubDate: z.coerce.date().optional(),
+		updatedDate: z.coerce.date().optional(),
 	}),
 });
 

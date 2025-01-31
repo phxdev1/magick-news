@@ -6,14 +6,20 @@ import { render } from 'astro:content';
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
 	return posts.map((post) => ({
-		params: { slug: post.id },
+		params: { slug: post.data.slug },
 		props: post,
 	}));
 }
+
 type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
-const { Content } = await render(post);
+const { Content } = await post.render();
+
+// Validate required fields
+if (!post.data.title || !post.data.publish_date || !post.data.author) {
+	throw new Error(`Post ${post.data.slug} is missing required fields`);
+}
 ---
 
 <BlogPost {...post.data}>
