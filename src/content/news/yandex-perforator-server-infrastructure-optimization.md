@@ -4,6 +4,9 @@ description: "How Yandex's new open-source tool could save businesses billions i
 pubDate: "Jan 31 2025"
 heroImage: "https://i.magick.ai/PIXE/1738358547834_magick_img.webp"
 author: "Ravi Patel"
+read_time: 5 min read
+publish_date: "2025-01-31"
+created_date: "2025-01-31"
 ---
 
 In an era where global cloud computing expenses are projected to reach $723 billion in 2025, Yandex has introduced a game-changing open-source tool that promises to revolutionize server infrastructure cost optimization. Perforator, released under the MIT license, represents a significant breakthrough in the ongoing battle against escalating infrastructure costs, potentially saving businesses billions of dollars annually.
