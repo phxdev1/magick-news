@@ -1,29 +1,35 @@
 ---
-import { type CollectionEntry, getCollection, getEntry } from 'astro:content';
+import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
 	return posts.map((post) => ({
 		params: { slug: post.data.slug },
-		props: { entry: post },
+		props: { id: post.id },
 	}));
 }
 
 type Props = {
-	entry: CollectionEntry<'blog'>;
+	id: string;
 };
 
-const { entry } = Astro.props;
+const { id } = Astro.props;
+const posts = await getCollection('blog');
+const post = posts.find(p => p.data.slug === Astro.params.slug);
 
-// Validate required fields
-if (!entry.data.title || !entry.data.publish_date || !entry.data.author) {
-	throw new Error(`Post ${entry.data.slug} is missing required fields`);
+if (!post) {
+	throw new Error(`Post "${Astro.params.slug}" not found`);
 }
 
-const { Content } = await entry.render();
+// Validate required fields
+if (!post.data.title || !post.data.publish_date || !post.data.author) {
+	throw new Error(`Post ${post.data.slug} is missing required fields`);
+}
+
+const { Content } = await post.render();
 ---
 
-<BlogPost {...entry.data}>
+<BlogPost {...post.data}>
 	<Content />
 </BlogPost>
