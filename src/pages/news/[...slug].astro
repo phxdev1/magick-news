@@ -1,0 +1,24 @@
+---
+import NewsArticle from '../../layouts/NewsArticle.astro';
+import { getPostBySlug, validatePost, getAllPosts } from '../../utils/news';
+
+export async function getStaticPaths() {
+    const posts = await getAllPosts();
+    return posts.map(post => ({
+        params: { slug: post.slug },
+        props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+const errors = validatePost(post);
+if (errors.length > 0) {
+	throw new Error(`Invalid news article: ${errors.join(', ')}`);
+}
+
+const { Content } = await post.render();
+---
+
+<NewsArticle {...post.data}>
+	<Content />
+</NewsArticle>

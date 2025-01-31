@@ -3,10 +3,11 @@ interface Props {
 	date: Date;
 }
 
-const { date } = Astro.props;
+const { date: rawDate } = Astro.props;
+const date = rawDate instanceof Date ? rawDate : new Date(rawDate);
 ---
 
-<time datetime={date.toISOString()}>
+<time datetime={date instanceof Date ? date.toISOString() : ''}>
 	{
 		date.toLocaleDateString('en-us', {
 			year: 'numeric',

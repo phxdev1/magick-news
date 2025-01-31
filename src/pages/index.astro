@@ -4,83 +4,11 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import FormattedDate from '../components/FormattedDate.astro';
+import { getAllPosts } from '../utils/news';
 
-const featuredArticles = [
-	{
-		title: "GPT-4's Latest Breakthrough: Understanding Complex Visual Inputs",
-		excerpt: "OpenAI's latest model shows remarkable ability to interpret and reason about images, diagrams, and charts with human-like understanding.",
-		image: "/blog-placeholder-1.jpg",
-		date: new Date('2024-01-30'),
-		author: "Sarah Chen",
-		category: "AI Research",
-		slug: "ai-research",
-		readingTime: "6 min read",
-		relevance: "98% match",
-		trending: true
-	},
-	{
-		title: "DeepMind Announces Revolutionary Protein Structure Prediction Model",
-		excerpt: "New AI system achieves unprecedented accuracy in predicting protein structures, promising breakthroughs in drug discovery and biological research.",
-		image: "/blog-placeholder-2.jpg",
-		date: new Date('2024-01-29'),
-		author: "Michael Roberts",
-		category: "Machine Learning",
-		slug: "machine-learning",
-		readingTime: "8 min read",
-		relevance: "95% match"
-	},
-	{
-		title: "Tesla's Self-Driving AI: A Deep Dive into the Latest Updates",
-		excerpt: "Analyzing the recent improvements in Tesla's autonomous driving capabilities and the AI technology behind them.",
-		image: "/blog-placeholder-3.jpg",
-		date: new Date('2024-01-28'),
-		author: "David Kumar",
-		category: "Robotics",
-		slug: "robotics",
-		readingTime: "5 min read",
-		relevance: "92% match",
-		hot: true
-	}
-];
-
-const forYouArticles = [
-	{
-		title: "The Rise of AI in Healthcare: 2024 Trends",
-		excerpt: "How artificial intelligence is transforming medical diagnosis, treatment planning, and patient care.",
-		image: "/blog-placeholder-4.jpg",
-		date: new Date('2024-01-27'),
-		author: "Emily Wong",
-		category: "Deep Learning",
-		slug: "deep-learning",
-		readingTime: "7 min read",
-		relevance: "96% match",
-		reason: "Based on your interest in healthcare AI"
-	},
-	{
-		title: "Understanding Transformer Architecture: A Comprehensive Guide",
-		excerpt: "A detailed exploration of the technology powering modern language models.",
-		image: "/blog-placeholder-5.jpg",
-		date: new Date('2024-01-26'),
-		author: "Alex Thompson",
-		category: "AI Research",
-		slug: "ai-research",
-		readingTime: "10 min read",
-		relevance: "94% match",
-		reason: "Similar to articles you've read"
-	},
-	{
-		title: "Ethical AI Development: Best Practices for 2024",
-		excerpt: "Guidelines and frameworks for developing responsible AI systems.",
-		image: "/blog-placeholder-about.jpg",
-		date: new Date('2024-01-25'),
-		author: "Rachel Martinez",
-		category: "AI Research",
-		slug: "ai-research",
-		readingTime: "6 min read",
-		relevance: "91% match",
-		reason: "Trending in your network"
-	}
-];
+const posts = await getAllPosts();
+const featuredPosts = posts.slice(0, 3); // Latest 3 posts for featured section
+const recentPosts = posts.slice(3, 6); // Next 3 posts for "For You" section
 ---
 
 <!doctype html>
@@ -106,52 +34,33 @@ const forYouArticles = [
 					</h2>
 					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
 						{
-							featuredArticles.map((article) => (
+							featuredPosts.map((post) => (
 								<article class="article-card group">
 									<div class="article-image-container">
 										<img 
-											src={article.image} 
+											src={post.data.image || "/blog-placeholder-1.jpg"} 
 											alt="" 
 											class="article-image group-hover:scale-105" 
 										/>
 										<div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/50 to-transparent opacity-80"></div>
-										{article.trending && (
-											<div class="absolute top-4 right-4 px-2 py-1 bg-primary-600/90 backdrop-blur-sm rounded-full text-xs font-medium text-white flex items-center gap-1">
-												<span class="relative flex h-2 w-2">
-													<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"></span>
-													<span class="relative inline-flex rounded-full h-2 w-2 bg-primary-500"></span>
-												</span>
-												Trending
-											</div>
-										)}
-										{article.hot && (
-											<div class="absolute top-4 right-4 px-2 py-1 bg-orange-600/90 backdrop-blur-sm rounded-full text-xs font-medium text-white flex items-center gap-1">
-												<span class="relative flex h-2 w-2">
-													<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-													<span class="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
-												</span>
-												Hot
-											</div>
-										)}
 									</div>
 									<div class="article-content">
 										<div class="flex items-center gap-4 mb-4">
-											<span class={`article-category ${article.slug}`}>
-												{article.category}
+											<span class="article-category">
+												{post.data.category || "AI News"}
 											</span>
-											<span class="text-gray-400 text-sm">{article.readingTime}</span>
+											<span class="text-gray-400 text-sm">{post.data.read_time}</span>
 										</div>
 										<h3>
-											<a href="#" class="article-title">
-												{article.title}
+											<a href={`/news/${post.slug}/`} class="article-title">
+												{post.data.title}
 											</a>
 										</h3>
-										<p class="article-excerpt">{article.excerpt}</p>
+										<p class="article-excerpt">{post.data.subtitle || post.data.description}</p>
 										<div class="article-meta">
-											<span class="font-medium">{article.author}</span>
+											<span class="font-medium">{post.data.author}</span>
 											<div class="flex items-center gap-3">
-												<FormattedDate date={article.date} />
-												<span class="text-primary-400/80">{article.relevance}</span>
+												<FormattedDate date={post.data.publish_date} />
 											</div>
 										</div>
 									</div>
@@ -164,19 +73,19 @@ const forYouArticles = [
 				<section class="mb-12 sm:mb-16">
 					<div class="flex items-center justify-between mb-6 sm:mb-8 pb-4 border-b border-dark-200/50">
 						<h2 class="text-2xl sm:text-3xl font-bold">
-							<span class="gradient-text">For You</span>
+							<span class="gradient-text">Latest Articles</span>
 						</h2>
-						<button class="text-primary-400 hover:text-primary-300 text-sm font-medium transition-colors">
-							Customize →
-						</button>
+						<a href="/news" class="text-primary-400 hover:text-primary-300 text-sm font-medium transition-colors">
+							View All →
+						</a>
 					</div>
 					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
 						{
-							forYouArticles.map((article) => (
+							recentPosts.map((post) => (
 								<article class="article-card group">
 									<div class="article-image-container">
 										<img 
-											src={article.image} 
+											src={post.data.image || "/blog-placeholder-1.jpg"} 
 											alt="" 
 											class="article-image group-hover:scale-105" 
 										/>
@@ -184,23 +93,21 @@ const forYouArticles = [
 									</div>
 									<div class="article-content">
 										<div class="flex items-center gap-4 mb-4">
-											<span class={`article-category ${article.slug}`}>
-												{article.category}
+											<span class="article-category">
+												{post.data.category || "AI News"}
 											</span>
-											<span class="text-gray-400 text-sm">{article.readingTime}</span>
+											<span class="text-gray-400 text-sm">{post.data.read_time}</span>
 										</div>
-										<div class="text-primary-400/80 text-sm mb-2">{article.reason}</div>
 										<h3>
-											<a href="#" class="article-title">
-												{article.title}
+											<a href={`/news/${post.slug}/`} class="article-title">
+												{post.data.title}
 											</a>
 										</h3>
-										<p class="article-excerpt">{article.excerpt}</p>
+										<p class="article-excerpt">{post.data.subtitle || post.data.description}</p>
 										<div class="article-meta">
-											<span class="font-medium">{article.author}</span>
+											<span class="font-medium">{post.data.author}</span>
 											<div class="flex items-center gap-3">
-												<FormattedDate date={article.date} />
-												<span class="text-primary-400/80">{article.relevance}</span>
+												<FormattedDate date={post.data.publish_date} />
 											</div>
 										</div>
 									</div>
