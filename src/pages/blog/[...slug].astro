@@ -1,30 +1,17 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
+import { getPostBySlug, validatePost } from '../../utils/blog';
 
-export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	return posts.map((post) => ({
-		params: { slug: post.data.slug },
-		props: { id: post.id },
-	}));
-}
-
-type Props = {
-	id: string;
-};
-
-const { id } = Astro.props;
-const posts = await getCollection('blog');
-const post = posts.find(p => p.data.slug === Astro.params.slug);
+const { slug } = Astro.params;
+const post = await getPostBySlug(slug || '');
 
 if (!post) {
-	throw new Error(`Post "${Astro.params.slug}" not found`);
+	return Astro.redirect('/404');
 }
 
-// Validate required fields
-if (!post.data.title || !post.data.publish_date || !post.data.author) {
-	throw new Error(`Post ${post.data.slug} is missing required fields`);
+const errors = validatePost(post);
+if (errors.length > 0) {
+	throw new Error(`Invalid blog post: ${errors.join(', ')}`);
 }
 
 const { Content } = await post.render();

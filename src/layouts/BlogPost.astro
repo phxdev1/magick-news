@@ -7,89 +7,71 @@ import FormattedDate from '../components/FormattedDate.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { 
-	title, 
-	subtitle, 
-	author, 
-	description, 
-	publish_date, 
-	created_date,
-	read_time, 
-	heroImage 
-} = Astro.props;
+const { title, subtitle, description, publish_date, created_date, heroImage, read_time, author } = Astro.props;
 ---
 
+<!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={title} description={description || subtitle} />
+		<BaseHead title={title} description={description || subtitle || ''} />
 		<style>
 			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
+				width: 960px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 3em 1em;
 			}
 			.hero-image {
 				width: 100%;
-				max-height: 400px;
-				overflow: hidden;
-				margin-bottom: 2em;
 			}
 			.hero-image img {
 				display: block;
 				margin: 0 auto;
 				border-radius: 12px;
 				box-shadow: var(--box-shadow);
-				width: 100%;
-				height: 100%;
+				max-height: 400px;
 				object-fit: cover;
 			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
 			.title {
-				margin-bottom: 2em;
-				padding: 1em 0;
+				margin-bottom: 0.5em;
+				padding: 0;
 				text-align: center;
-				line-height: 1.2;
+				line-height: 1;
 			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-				font-size: 2.5em;
-			}
-			.title h2 {
+			.subtitle {
+				margin-bottom: 1em;
+				padding: 0;
+				text-align: center;
+				font-size: 1.15em;
 				color: rgb(var(--gray));
-				font-weight: 400;
-				margin: 0.5em 0;
-				font-size: 1.5em;
-			}
-			.metadata {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				gap: 2em;
-				margin: 1em 0;
-				color: rgb(var(--gray));
-				font-size: 0.9em;
-			}
-			.metadata span {
-				display: flex;
-				align-items: center;
-				gap: 0.5em;
 			}
 			.date {
 				margin-bottom: 0.5em;
 				color: rgb(var(--gray));
 			}
+			.metadata {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 1rem;
+				justify-content: center;
+				align-items: center;
+				margin: 1rem 0 2rem;
+				color: rgb(var(--gray));
+				font-size: 0.875rem;
+			}
+			.metadata span {
+				display: flex;
+				align-items: center;
+				gap: 0.25rem;
+			}
 			.divider {
 				color: rgb(var(--gray-light));
 			}
-			hr {
-				border-top: 1px solid rgb(var(--gray-light));
-				margin: 2em 0;
+			.last-updated-on {
+				font-style: italic;
+			}
+			article {
+				margin-top: 2em;
 			}
 		</style>
 	</head>
@@ -101,41 +83,43 @@ const {
 				<div class="hero-image">
 					{heroImage && <img width={1020} height={510} src={heroImage} alt="" />}
 				</div>
-				<div class="prose">
-					<div class="title">
-						<h1>{title}</h1>
-						{subtitle && <h2>{subtitle}</h2>}
-						<div class="metadata">
-							<span>
-								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-									<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-									<circle cx="12" cy="7" r="4"></circle>
-								</svg>
-								{author}
-							</span>
-							<span class="divider">•</span>
-							<span>
-								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-									<circle cx="12" cy="12" r="10"></circle>
-									<polyline points="12 6 12 12 16 14"></polyline>
-								</svg>
-								{read_time}
-							</span>
-							<span class="divider">•</span>
-							<span>
-								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-									<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-									<line x1="16" y1="2" x2="16" y2="6"></line>
-									<line x1="8" y1="2" x2="8" y2="6"></line>
-									<line x1="3" y1="10" x2="21" y2="10"></line>
-								</svg>
-								<FormattedDate date={publish_date} />
-							</span>
-						</div>
-						<hr />
-					</div>
-					<slot />
+				<h1 class="title">{title}</h1>
+				{subtitle && <p class="subtitle">{subtitle}</p>}
+				<div class="metadata">
+					<span>
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+							<line x1="16" y1="2" x2="16" y2="6"></line>
+							<line x1="8" y1="2" x2="8" y2="6"></line>
+							<line x1="3" y1="10" x2="21" y2="10"></line>
+						</svg>
+						<FormattedDate date={publish_date} />
+					</span>
+					<span class="divider">•</span>
+					<span>
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<circle cx="12" cy="12" r="10"></circle>
+							<polyline points="12 6 12 12 16 14"></polyline>
+						</svg>
+						{read_time}
+					</span>
+					<span class="divider">•</span>
+					<span>
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+							<circle cx="12" cy="7" r="4"></circle>
+						</svg>
+						{author}
+					</span>
 				</div>
+				<slot />
+				{
+					created_date.getTime() !== publish_date.getTime() && (
+						<div class="last-updated-on">
+							Last updated on <FormattedDate date={created_date} />
+						</div>
+					)
+				}
 			</article>
 		</main>
 		<Footer />

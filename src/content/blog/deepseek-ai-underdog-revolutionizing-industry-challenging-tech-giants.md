@@ -1,13 +1,13 @@
----  
-title: 'DeepSeek: The AI Underdog That's Revolutionizing the Industry and Challenging Tech Giants'  
-author: 'Ravi Patel'  
-subtitle: 'How a Chinese AI startup is disrupting the tech industry with cost-effective innovation'  
-slug: 'deepseek-ai-underdog-revolutionizing-industry-challenging-tech-giants'  
-read_time: '8 mins'  
-publish_date: 'Jan 31, 2025'  
-created_date: 'Jan 31, 2025'  
-heroImage: '/path-to-image.jpg'  
----  
+---
+author: "Ravi Patel"
+title: "DeepSeek: The AI Underdog That's Revolutionizing the Industry and Challenging Tech Giants"
+subtitle: "How a Chinese AI startup is disrupting the tech industry with cost-effective innovation"
+slug: "deepseek-ai-underdog-revolutionizing-industry-challenging-tech-giants"
+read_time: "8 mins"
+publish_date: "2025-01-31"
+created_date: "2025-01-31"
+heroImage: "/path-to-image.jpg"
+---
 
 DeepSeek, a Chinese AI startup founded in 2023, is revolutionizing the artificial intelligence industry with its cost-effective and innovative approach to AI development. By creating world-class models at a fraction of the cost while maintaining an open-source philosophy, DeepSeek has emerged as a formidable challenger to established tech giants, demonstrating that the future of AI development may be more accessible and collaborative than previously thought.
 

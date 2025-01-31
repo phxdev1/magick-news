@@ -1,13 +1,12 @@
-
---- 
+---
 author: "Noah Collins"
 title: "Building Intelligent AI Agent Systems with LangGraph: A Comprehensive Guide for Modern Developers"
 subtitle: "Master AI Agent Development with LangGraph Framework"
 slug: "building-intelligent-ai-agent-systems-langgraph-guide"
 read_time: "12 mins"
-publish_date: "2024-01-30"
+publish_date: "2025-01-30"
 created_date: "2025-01-30"
-heroImage: "/blog-placeholder-1.jpg"
+heroImage: "/path-to-image.jpg"
 ---
 
 Explore the comprehensive guide to building AI agent systems using LangGraph, covering everything from basic setup to advanced implementations. Learn about key developments in 2024, essential components, and best practices for creating sophisticated AI applications.
