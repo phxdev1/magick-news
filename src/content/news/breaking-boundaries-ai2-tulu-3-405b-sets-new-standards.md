@@ -1,10 +1,12 @@
-Here's the content converted to markdown format based on the provided style guide:
-
 ---
-title: 'Breaking Boundaries: AI2's Tülu 3 405B Sets New Standards in Open-Source AI'
-description: 'AI2 unveils Tülu 3 405B, a revolutionary open-source language model featuring 405 billion parameters and innovative RLVR technology, setting new benchmarks in AI performance and accessibility.'
-pubDate: 'Jan 31 2025'
-heroImage: 'https://i.magick.ai/PIXE/1738357882576_magick_img.webp'
+title: Breaking Boundaries - AI2's Tülu 3 405B Sets New Standards in Open-Source AI
+subtitle: A revolutionary open-source language model featuring 405 billion parameters
+description: AI2 unveils Tülu 3 405B, a revolutionary open-source language model featuring 405 billion parameters and innovative RLVR technology, setting new benchmarks in AI performance and accessibility.
+author: Sarah Chen
+read_time: 5 min read
+publish_date: "2025-01-31"
+created_date: "2025-01-31"
+heroImage: https://i.magick.ai/PIXE/1738357882576_magick_img.webp
 ---
 
 In a groundbreaking development that marks a significant milestone in the artificial intelligence landscape, the Allen Institute for AI (AI2) has unveiled Tülu 3 405B, an revolutionary open-source language model that's reshaping our understanding of what's possible in AI technology. This remarkable release not only challenges but surpasses established benchmarks set by DeepSeek V3 and GPT-4o, setting new standards in the field of artificial intelligence.
