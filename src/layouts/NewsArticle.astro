@@ -15,111 +15,698 @@ const { title, subtitle, description, publish_date, created_date, heroImage, rea
 	<head>
 		<BaseHead title={title} description={description || subtitle || ''} />
 		<style>
-			main {
-				width: 960px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 3em 1em;
+			/* Screen styles */
+			@media screen {
+				main {
+					width: 100%;
+					margin: auto;
+				}
+				.article-header {
+					position: relative;
+					padding: 6rem 0;
+					margin-bottom: 4rem;
+					background: linear-gradient(to bottom, rgb(var(--dark-100)), transparent);
+					transition: transform 0.3s ease;
+				}
+				.article-header::before {
+					content: '';
+					position: absolute;
+					inset: 0;
+					background: radial-gradient(circle at top right, rgba(var(--primary-900), 0.15), transparent 60%),
+								radial-gradient(circle at bottom left, rgba(var(--blue-900), 0.15), transparent 60%);
+					pointer-events: none;
+					opacity: 0;
+					transition: opacity 0.6s ease;
+					animation: gradientPulse 8s ease-in-out infinite;
+				}
+				.article-header.visible::before {
+					opacity: 1;
+				}
+				@keyframes gradientPulse {
+					0%, 100% { opacity: 0.7; }
+					50% { opacity: 1; }
+				}
+				.hero-container {
+					width: 100%;
+					max-width: 1600px;
+					margin: 0 auto;
+					padding: 0 2rem;
+					perspective: 1000px;
+				}
+				.hero-image {
+					width: 100%;
+					margin: 0 auto 4rem;
+					border-radius: 1.5rem;
+					overflow: hidden;
+					background: rgb(var(--dark));
+					box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+					aspect-ratio: 21/9;
+					transform: translateY(20px);
+					opacity: 0;
+					transition: transform 0.6s ease, opacity 0.6s ease, box-shadow 0.3s ease;
+				}
+				.hero-image.visible {
+					transform: translateY(0);
+					opacity: 1;
+				}
+				.hero-image:hover {
+					box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+					transform: translateY(-2px);
+				}
+				.hero-image img {
+					display: block;
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+					transition: transform 0.3s ease;
+				}
+				.hero-image:hover img {
+					transform: scale(1.02);
+				}
+				.title {
+					max-width: 70rem;
+					margin: 0 auto 1.5rem;
+					padding: 0 2rem;
+					text-align: center;
+					line-height: 1.3;
+					font-size: 3.5rem;
+					font-weight: 700;
+					background: linear-gradient(to right, rgb(var(--primary-400)), rgb(var(--blue-400)));
+					-webkit-background-clip: text;
+					-webkit-text-fill-color: transparent;
+					opacity: 0;
+					transform: translateY(20px);
+					transition: transform 0.6s ease, opacity 0.6s ease;
+					animation: gradientFlow 8s linear infinite;
+				}
+				.title.visible {
+					opacity: 1;
+					transform: translateY(0);
+				}
+				@keyframes gradientFlow {
+					0% { background-position: 0% 50%; }
+					50% { background-position: 100% 50%; }
+					100% { background-position: 0% 50%; }
+				}
+				.subtitle {
+					max-width: 60rem;
+					margin: 0 auto 3rem;
+					padding: 0 2rem;
+					text-align: center;
+					font-size: 1.5rem;
+					color: rgb(var(--gray-400));
+					line-height: 1.6;
+					opacity: 0;
+					transform: translateY(20px);
+					transition: transform 0.6s ease 0.2s, opacity 0.6s ease 0.2s;
+				}
+				.subtitle.visible {
+					opacity: 1;
+					transform: translateY(0);
+				}
+				.metadata {
+					display: flex;
+					flex-wrap: wrap;
+					gap: 1.5rem;
+					justify-content: center;
+					align-items: center;
+					margin: 0 auto;
+					padding: 0 2rem;
+					max-width: 42rem;
+					color: rgb(var(--gray-400));
+					font-size: 1rem;
+					opacity: 0;
+					transform: translateY(20px);
+					transition: transform 0.6s ease 0.3s, opacity 0.6s ease 0.3s;
+				}
+				.metadata.visible {
+					opacity: 1;
+					transform: translateY(0);
+				}
+				.metadata span {
+					display: flex;
+					align-items: center;
+					gap: 0.5rem;
+					transition: color 0.2s ease;
+				}
+				.metadata span:hover {
+					color: rgb(var(--primary-400));
+				}
+				.metadata svg {
+					transition: transform 0.2s ease;
+				}
+				.metadata span:hover svg {
+					transform: scale(1.1);
+				}
+				.divider {
+					color: rgb(var(--gray-600));
+				}
+				.engagement-bar {
+					position: fixed;
+					left: max(2rem, calc((100vw - 1400px) / 2));
+					top: 50%;
+					transform: translateY(-50%);
+					display: flex;
+					flex-direction: column;
+					gap: 2rem;
+					opacity: 0;
+					transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+					background: rgba(var(--dark-100), 0.95);
+					backdrop-filter: blur(16px);
+					padding: 1.75rem 1.25rem;
+					border-radius: 1.25rem;
+					box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+								inset 0 0 0 1px rgba(var(--primary-400), 0.15),
+								0 0 0 1px rgba(var(--primary-400), 0.05);
+					z-index: 100;
+				}
+				.engagement-bar.visible {
+					opacity: 1;
+					animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+				}
+				@keyframes slideIn {
+					from {
+						opacity: 0;
+						transform: translate(-20px, -50%);
+					}
+					to {
+						opacity: 1;
+						transform: translate(0, -50%);
+					}
+				}
+				.engagement-item {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					gap: 0.75rem;
+					color: rgb(var(--gray-400));
+					font-size: 0.875rem;
+					transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+					cursor: pointer;
+					position: relative;
+				}
+				.engagement-item::before {
+					content: '';
+					position: absolute;
+					inset: -0.5rem;
+					background: radial-gradient(circle at center, rgba(var(--primary-400), 0.1), transparent);
+					border-radius: 0.5rem;
+					opacity: 0;
+					transition: opacity 0.3s ease;
+				}
+				.engagement-item:hover {
+					color: rgb(var(--primary-400));
+					transform: translateY(-3px) scale(1.05);
+				}
+				.engagement-item:hover::before {
+					opacity: 1;
+					animation: pulseGlow 2s ease-in-out infinite;
+				}
+				@keyframes pulseGlow {
+					0%, 100% { transform: scale(1); opacity: 0.7; }
+					50% { transform: scale(1.1); opacity: 1; }
+				}
+				.engagement-item svg {
+					transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+					filter: drop-shadow(0 0 0 rgba(var(--primary-400), 0));
+				}
+				.engagement-item:hover svg {
+					transform: scale(1.15) rotate(5deg);
+					filter: drop-shadow(0 0 8px rgba(var(--primary-400), 0.5));
+				}
+				.engagement-count {
+					font-weight: 600;
+					background: linear-gradient(to right, rgb(var(--primary-400)), rgb(var(--blue-400)));
+					-webkit-background-clip: text;
+					-webkit-text-fill-color: transparent;
+					transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+					position: relative;
+				}
+				.engagement-count::after {
+					content: '';
+					position: absolute;
+					inset: -0.5rem;
+					background: radial-gradient(circle at center, rgba(var(--primary-400), 0.2), transparent 70%);
+					opacity: 0;
+					transition: opacity 0.3s ease;
+				}
+				.engagement-item:hover .engagement-count {
+					transform: scale(1.1);
+					text-shadow: 0 0 20px rgba(var(--primary-400), 0.5);
+				}
+				.engagement-item:hover .engagement-count::after {
+					opacity: 1;
+				}
+				.article-content {
+					position: relative;
+					max-width: 42rem;
+					margin: 0 auto;
+					padding: 0 2rem 4rem;
+					opacity: 0;
+					transform: translateY(20px);
+					transition: transform 0.6s ease 0.4s, opacity 0.6s ease 0.4s;
+				}
+				.article-content.visible {
+					opacity: 1;
+					transform: translateY(0);
+				}
+				.progress-bar {
+					position: fixed;
+					top: 0;
+					left: 0;
+					width: 0%;
+					height: 4px;
+					background: linear-gradient(90deg, rgb(var(--primary-400)), rgb(var(--blue-400)), rgb(var(--primary-400)));
+					background-size: 200% 100%;
+					animation: gradientShift 8s linear infinite;
+					box-shadow: 0 0 10px rgba(var(--primary-400), 0.3);
+					transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+					z-index: 1000;
+				}
+				@keyframes gradientShift {
+					0% { background-position: 0% 50%; }
+					100% { background-position: 200% 50%; }
+				}
+				.last-updated-on {
+					font-style: italic;
+					text-align: center;
+					color: rgb(var(--gray-400));
+					margin-top: 4rem;
+					font-size: 0.875rem;
+					opacity: 0;
+					transition: opacity 0.6s ease;
+				}
+				.last-updated-on.visible {
+					opacity: 1;
+				}
+				/* Article content styles */
+				:global(.article-content p) {
+					margin-bottom: 1.5em;
+					line-height: 1.8;
+					color: rgb(var(--gray-200));
+					font-size: 1.125rem;
+					transition: color 0.2s ease;
+				}
+				:global(.article-content p:hover) {
+					color: rgb(var(--gray-100));
+				}
+				:global(.article-content h2) {
+					font-size: 2rem;
+					font-weight: 600;
+					margin: 3em 0 1em;
+					color: rgb(var(--gray-100));
+					line-height: 1.4;
+					transition: color 0.2s ease;
+				}
+				:global(.article-content h2:hover) {
+					color: rgb(var(--primary-400));
+				}
+				:global(.article-content h3) {
+					font-size: 1.75rem;
+					font-weight: 600;
+					margin: 2.5em 0 1em;
+					color: rgb(var(--gray-100));
+					line-height: 1.4;
+					transition: color 0.2s ease;
+				}
+				:global(.article-content h3:hover) {
+					color: rgb(var(--primary-400));
+				}
+				:global(.article-content a) {
+					color: rgb(var(--primary-400));
+					text-decoration: none;
+					transition: all 0.2s ease;
+					position: relative;
+				}
+				:global(.article-content a::after) {
+					content: '';
+					position: absolute;
+					bottom: -2px;
+					left: 0;
+					width: 100%;
+					height: 1px;
+					background: rgb(var(--primary-400));
+					transform: scaleX(0);
+					transform-origin: right;
+					transition: transform 0.3s ease;
+				}
+				:global(.article-content a:hover) {
+					color: rgb(var(--primary-300));
+				}
+				:global(.article-content a:hover::after) {
+					transform: scaleX(1);
+					transform-origin: left;
+				}
+				:global(.article-content blockquote) {
+					border-left: 4px solid rgb(var(--primary-400));
+					padding: 0.5em 0 0.5em 1.5em;
+					margin: 2em 0;
+					color: rgb(var(--gray-300));
+					font-style: italic;
+					font-size: 1.25rem;
+					transition: all 0.3s ease;
+				}
+				:global(.article-content blockquote:hover) {
+					border-left-width: 6px;
+					padding-left: 2em;
+					color: rgb(var(--gray-200));
+				}
+				@media (max-width: 1400px) {
+					.hero-container {
+						padding: 0 1.5rem;
+					}
+					.hero-image {
+						aspect-ratio: 16/9;
+						margin-bottom: 3rem;
+					}
+					.title {
+						font-size: 3rem;
+						padding: 0 1.5rem;
+					}
+					.subtitle {
+						font-size: 1.375rem;
+						padding: 0 1.5rem;
+					}
+					.engagement-bar {
+						display: none;
+					}
+				}
+				@media (max-width: 720px) {
+					.article-header {
+						padding: 3rem 0;
+						margin-bottom: 2rem;
+					}
+					.hero-container {
+						padding: 0;
+					}
+					.hero-image {
+						aspect-ratio: 4/3;
+						border-radius: 0;
+						margin-bottom: 2rem;
+					}
+					.title {
+						font-size: 2rem;
+						padding: 0 1rem;
+						margin-bottom: 1rem;
+					}
+					.subtitle {
+						font-size: 1.125rem;
+						padding: 0 1rem;
+						margin-bottom: 2rem;
+					}
+					.metadata {
+						padding: 0 1rem;
+						font-size: 0.875rem;
+						gap: 1rem;
+					}
+					.article-content {
+						padding: 0 1rem 3rem;
+					}
+					:global(.article-content p) {
+						font-size: 1rem;
+					}
+					:global(.article-content h2) {
+						font-size: 1.5rem;
+					}
+					:global(.article-content h3) {
+						font-size: 1.25rem;
+					}
+					:global(.article-content blockquote) {
+						font-size: 1.125rem;
+					}
+				}
 			}
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-				max-height: 400px;
-				object-fit: cover;
-			}
-			.title {
-				margin-bottom: 0.5em;
-				padding: 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.subtitle {
-				margin-bottom: 1em;
-				padding: 0;
-				text-align: center;
-				font-size: 1.15em;
-				color: rgb(var(--gray));
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.metadata {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 1rem;
-				justify-content: center;
-				align-items: center;
-				margin: 1rem 0 2rem;
-				color: rgb(var(--gray));
-				font-size: 0.875rem;
-			}
-			.metadata span {
-				display: flex;
-				align-items: center;
-				gap: 0.25rem;
-			}
-			.divider {
-				color: rgb(var(--gray-light));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-			article {
-				margin-top: 2em;
+
+			/* E-reader and print styles */
+			@media print, (monochrome) {
+				body {
+					background: white;
+					color: black;
+					font-family: Georgia, serif;
+					line-height: 1.5;
+					margin: 0;
+					padding: 2rem;
+				}
+				main {
+					max-width: 100%;
+					margin: 0;
+				}
+				.article-header {
+					padding: 0;
+					margin-bottom: 2rem;
+					background: none;
+				}
+				.article-header::before {
+					display: none;
+				}
+				.hero-container {
+					margin: 0 0 2rem;
+					padding: 0;
+				}
+				.hero-image {
+					margin: 0 0 2rem;
+					border: none;
+					box-shadow: none;
+					border-radius: 0;
+				}
+				.hero-image img {
+					max-height: 400px;
+					width: auto;
+					margin: 0 auto;
+				}
+				.title {
+					color: black;
+					background: none;
+					-webkit-text-fill-color: black;
+					font-size: 2.5rem;
+					margin: 0 0 1rem;
+					padding: 0;
+					text-align: left;
+					page-break-after: avoid;
+				}
+				.subtitle {
+					color: #333;
+					font-size: 1.25rem;
+					margin: 0 0 2rem;
+					padding: 0;
+					text-align: left;
+				}
+				.metadata {
+					color: #666;
+					justify-content: flex-start;
+					margin: 0 0 2rem;
+					padding: 0;
+					font-size: 0.875rem;
+				}
+				.metadata svg {
+					display: none;
+				}
+				.divider {
+					color: #666;
+				}
+				.article-content {
+					max-width: none;
+					padding: 0;
+					margin: 0;
+				}
+				.last-updated-on {
+					color: #666;
+					margin-top: 2rem;
+					text-align: left;
+				}
+				.engagement-bar {
+					display: none;
+				}
+				.progress-bar {
+					display: none;
+				}
+				/* Article content print styles */
+				:global(.article-content p) {
+					margin: 0 0 1em;
+					orphans: 3;
+					widows: 3;
+				}
+				:global(.article-content h2) {
+					color: black;
+					font-size: 1.75rem;
+					margin: 2em 0 0.5em;
+					page-break-after: avoid;
+				}
+				:global(.article-content h3) {
+					color: black;
+					font-size: 1.5rem;
+					margin: 1.5em 0 0.5em;
+					page-break-after: avoid;
+				}
+				:global(.article-content a) {
+					color: black;
+					text-decoration: underline;
+				}
+				:global(.article-content blockquote) {
+					border-left: 2px solid #666;
+					margin: 1em 0;
+					padding-left: 1em;
+					color: #333;
+				}
+				:global(.article-content code) {
+					background: none;
+					padding: 0;
+					font-family: monospace;
+				}
+				:global(.article-content pre) {
+					background: none;
+					border: 1px solid #ccc;
+					padding: 1em;
+					margin: 1em 0;
+					page-break-inside: avoid;
+				}
+				:global(.article-content ul), :global(.article-content ol) {
+					margin: 1em 0;
+					padding-left: 2em;
+				}
+				:global(.article-content li) {
+					margin: 0.5em 0;
+				}
+				/* Ensure proper page breaks */
+				h1, h2, h3, h4, h5, h6 {
+					page-break-after: avoid;
+				}
+				img {
+					page-break-inside: avoid;
+				}
 			}
 		</style>
+		<script>
+			// Intersection Observer for fade-in animations
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('visible');
+					}
+				});
+			}, { threshold: 0.1 });
+
+			// Observe elements
+			document.addEventListener('DOMContentLoaded', () => {
+				const elements = document.querySelectorAll('.article-header, .hero-image, .title, .subtitle, .metadata, .article-content, .engagement-bar, .last-updated-on');
+				elements.forEach(el => observer.observe(el));
+
+				// Reading progress
+				const progressBar = document.querySelector('.progress-bar');
+				const content = document.querySelector('.article-content');
+				
+				if (progressBar && content) {
+					window.addEventListener('scroll', () => {
+						const contentBox = content.getBoundingClientRect();
+						const contentStart = contentBox.top + window.scrollY;
+						const contentEnd = contentBox.bottom + window.scrollY;
+						const scrolled = window.scrollY - contentStart;
+						const contentHeight = contentEnd - contentStart;
+						const progress = Math.min(100, Math.max(0, (scrolled / contentHeight) * 100));
+						progressBar.style.width = `${progress}%`;
+					});
+				}
+
+				// Engagement counts animation
+				const counts = document.querySelectorAll('.engagement-count');
+				counts.forEach(count => {
+					const target = parseInt(count.textContent);
+					let current = 0;
+					const increment = Math.max(1, Math.floor(target / 30));
+					const animate = () => {
+						if (current < target) {
+							current = Math.min(current + increment, target);
+							count.textContent = current;
+							requestAnimationFrame(animate);
+						}
+					};
+					animate();
+				});
+			});
+		</script>
 	</head>
 
 	<body>
 		<Header />
+		<div class="progress-bar"></div>
 		<main>
 			<article>
-				<div class="hero-image">
-					{heroImage && <img width={1020} height={510} src={heroImage} alt="" />}
+				<header class="article-header">
+					<div class="hero-container">
+						<figure class="hero-image">
+							{heroImage && <img width={1600} height={686} src={heroImage} alt={`Hero image for article: ${title}`} loading="eager" />}
+						</figure>
+					</div>
+					<h1 class="title">{title}</h1>
+					{subtitle && <p class="subtitle" role="doc-subtitle">{subtitle}</p>}
+					<div class="metadata" role="contentinfo" aria-label="Article metadata">
+						<span aria-label="Publication date">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+								<line x1="16" y1="2" x2="16" y2="6"></line>
+								<line x1="8" y1="2" x2="8" y2="6"></line>
+								<line x1="3" y1="10" x2="21" y2="10"></line>
+							</svg>
+							<time datetime={publish_date.toISOString()}>
+								<FormattedDate date={publish_date} />
+							</time>
+						</span>
+						<span class="divider" aria-hidden="true">•</span>
+						<span aria-label="Estimated reading time">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<circle cx="12" cy="12" r="10"></circle>
+								<polyline points="12 6 12 12 16 14"></polyline>
+							</svg>
+							<span>{read_time}</span>
+						</span>
+						<span class="divider" aria-hidden="true">•</span>
+						<span aria-label="Article author">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+								<circle cx="12" cy="7" r="4"></circle>
+							</svg>
+							<span>{author}</span>
+						</span>
+					</div>
+				</header>
+
+				<aside class="engagement-bar" aria-label="Article engagement">
+					<button class="engagement-item" aria-label="Like article">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+						</svg>
+						<span class="engagement-count">124</span>
+					</button>
+					<button class="engagement-item" aria-label="Share article">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<circle cx="18" cy="5" r="3"></circle>
+							<circle cx="6" cy="12" r="3"></circle>
+							<circle cx="18" cy="19" r="3"></circle>
+							<line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+							<line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+						</svg>
+						<span class="engagement-count">89</span>
+					</button>
+					<button class="engagement-item" aria-label="Save article">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+						</svg>
+						<span class="engagement-count">56</span>
+					</button>
+				</aside>
+
+				<div class="article-content" role="article">
+					<slot />
+					{
+						created_date.valueOf() !== publish_date.valueOf() && (
+							<footer class="last-updated-on" role="contentinfo" aria-label="Last update information">
+								Last updated on <time datetime={created_date.toISOString()}>
+									<FormattedDate date={created_date} />
+								</time>
+							</footer>
+						)
+					}
 				</div>
-				<h1 class="title">{title}</h1>
-				{subtitle && <p class="subtitle">{subtitle}</p>}
-				<div class="metadata">
-					<span>
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-							<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-							<line x1="16" y1="2" x2="16" y2="6"></line>
-							<line x1="8" y1="2" x2="8" y2="6"></line>
-							<line x1="3" y1="10" x2="21" y2="10"></line>
-						</svg>
-						<FormattedDate date={publish_date} />
-					</span>
-					<span class="divider">•</span>
-					<span>
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-							<circle cx="12" cy="12" r="10"></circle>
-							<polyline points="12 6 12 12 16 14"></polyline>
-						</svg>
-						{read_time}
-					</span>
-					<span class="divider">•</span>
-					<span>
-						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-							<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-							<circle cx="12" cy="7" r="4"></circle>
-						</svg>
-						{author}
-					</span>
-				</div>
-				<slot />
-				{
-					created_date.valueOf() !== publish_date.valueOf() && (
-						<div class="last-updated-on">
-							Last updated on <FormattedDate date={created_date} />
-						</div>
-					)
-				}
 			</article>
 		</main>
 		<Footer />
