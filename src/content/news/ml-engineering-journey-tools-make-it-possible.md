@@ -1,17 +1,14 @@
 ---
-author: "David Jenkins"
+author: "John Anderson"
 created_date: 2025-02-01
 cta: |
-  Stay ahead of the ML engineering curve! Follow us on LinkedIn for daily insights on the latest tools, frameworks, and best practices that are shaping the future of machine learning.
+  Stay ahead of the curve! Follow us on LinkedIn for more insights about ml engineering journey tools make it possible and other cutting-edge developments in AI and technology.
 description: |
-  Explore the evolving landscape of machine learning engineering tools and their transformative impact on industry. From development frameworks to MLOps platforms, discover how these tools are shaping the future of technology and driving innovation across sectors.
-https: "//images.magick.ai/ml-engineering-tools-hero.jpg"
-publish_date: 2024-02-01
+  Comprehensive guide exploring ml engineering journey tools make it possible and its impact on modern technology.
+heroImage: "https://assets.magick.ai/ml-engineering-journey-tools-make-it-possible.png"
+publish_date: 2025-02-01
 read_time: "8 mins"
-subtitle: |
-  A deep dive into the evolving landscape of machine learning engineering tools and their impact
-title: |
-  The ML Engineering Journey: The Tools That Make It All Possible
+title: "Ml Engineering Journey Tools Make It Possible"
 ---
 
 In the rapidly evolving landscape of technology, machine learning engineering has emerged as a cornerstone of innovation, transforming how we approach problem-solving and application development. As we navigate through 2024, the tools and frameworks that power this revolution are becoming increasingly sophisticated, accessible, and crucial for organizations worldwide.

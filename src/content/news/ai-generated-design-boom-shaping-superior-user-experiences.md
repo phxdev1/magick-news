@@ -1,15 +1,15 @@
 ---
-author: "Raj Patel"
+author: "John Anderson"
 created_date: 2025-02-01
 cta: |
-  Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!
+  Stay ahead of the curve! Follow us on LinkedIn for more insights about ai generated design boom shaping superior user experiences and other cutting-edge developments in AI and technology.
 description: |
-  Explore how artificial intelligence is revolutionizing digital design and user experience. From market projections showing explosive growth to the emerging symbiosis between human designers and AI systems, discover how this technological shift is creating more intuitive, personalized, and engaging digital experiences.
-https: "//i.magick.ai/PIXE/1738419812754_magick_img.webp"
+  Comprehensive guide exploring ai generated design boom shaping superior user experiences and its impact on modern technology.
+heroImage: |
+  https://assets.magick.ai/ai-generated-design-boom-shaping-superior-user-experiences.png
 publish_date: 2025-02-01
 read_time: "8 mins"
-subtitle: "How AI is Revolutionizing Digital Design and User Experience"
-title: "The AI-Generated Design Boom Shaping Superior User Experiences"
+title: "Ai Generated Design Boom Shaping Superior User Experiences"
 ---
 
 In the ever-evolving landscape of digital design, a revolutionary force is reshaping how we create and interact with digital interfaces. Artificial intelligence has emerged as a transformative tool in the designer's arsenal, ushering in an era where creativity meets computational power to deliver unprecedented user experiences.

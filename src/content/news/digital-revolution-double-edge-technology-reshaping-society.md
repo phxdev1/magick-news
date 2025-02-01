@@ -2,16 +2,14 @@
 author: "John Anderson"
 created_date: 2025-02-01
 cta: |
-  Stay connected with the latest insights on technology's impact on society. Follow us on LinkedIn for regular updates on digital transformation and its implications for our future.
+  Stay ahead of the curve! Follow us on LinkedIn for more insights about digital revolution double edge technology reshaping society and other cutting-edge developments in AI and technology.
 description: |
-  In an era of unprecedented technological advancement, society faces both extraordinary opportunities and significant challenges. This analysis explores how AI, digital connectivity, and technological integration are fundamentally reshaping human society, from our daily routines to our most basic social interactions, while examining the implications for privacy, mental health, and human connection.
-https: "//i.magick.ai/PIXE/1738427752973_magick_img.webp"
+  Comprehensive guide exploring digital revolution double edge technology reshaping society and its impact on modern technology.
+heroImage: |
+  https://assets.magick.ai/digital-revolution-double-edge-technology-reshaping-society.png
 publish_date: 2025-02-01
 read_time: "8 mins"
-subtitle: |
-  A deep dive into the transformative power of technology and its profound implications for our collective future
-title: |
-  The Digital Revolution's Double Edge: How Technology is Reshaping Human Society
+title: "Digital Revolution Double Edge Technology Reshaping Society"
 ---
 
 In the soft glow of countless screens across the globe, a revolution quietly unfolds. Our world stands at an unprecedented crossroads where technology doesn't just augment human capability – it fundamentally reshapes the fabric of society itself. From the moment we wake to our smart device alarms until we drift off to sleep tracking our rest patterns, technology has become the invisible architect of our daily experiences.

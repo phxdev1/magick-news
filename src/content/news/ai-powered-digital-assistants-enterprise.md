@@ -1,15 +1,14 @@
 ---
-author: "Yuki Sato"
+author: "John Anderson"
 created_date: 2025-02-01
 cta: |
-  Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!
+  Stay ahead of the curve! Follow us on LinkedIn for more insights about ai powered digital assistants enterprise and other cutting-edge developments in AI and technology.
 description: |
-  Explore how AI-powered digital assistants are revolutionizing enterprise operations with capabilities beyond simple chatbots. Learn about their impact across business functions like customer service, HR, and IT support, and how they are transforming workplace productivity and efficiency.
-https: "//i.magick.ai/PIXE/1738419398156_magick_img.webp"
+  Comprehensive guide exploring ai powered digital assistants enterprise and its impact on modern technology.
+heroImage: "https://assets.magick.ai/ai-powered-digital-assistants-enterprise.png"
 publish_date: 2025-02-01
 read_time: "8 mins"
-subtitle: "How AI assistants are transforming business operations"
-title: "The Rise of AI-Powered Digital Assistants in Enterprise"
+title: "Ai Powered Digital Assistants Enterprise"
 ---
 
 Artificial intelligence is rapidly transforming how enterprises operate, with AI-powered digital assistants leading the charge in revolutionizing workplace productivity. These sophisticated AI systems are moving far beyond simple chatbots, evolving into comprehensive virtual teammates that can handle complex tasks across multiple business functions.

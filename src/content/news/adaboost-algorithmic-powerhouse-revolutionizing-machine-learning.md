@@ -1,15 +1,15 @@
 ---
-title: "AdaBoost: The Algorithmic Powerhouse Revolutionizing Machine Learning"
-description: |
-  Discover how AdaBoost, a revolutionary ensemble learning algorithm, continues to transform machine learning applications across healthcare, finance, and computer vision, while adapting to meet emerging technological challenges in AI and edge computing.
-author: "David Jenkins"
-read_time: "8 mins"
-publish_date: 2025-01-30
+author: "John Anderson"
 created_date: 2025-02-01
-heroImage: "https://assets.magick.ai/adaboost-algorithm-visualization.png"
 cta: |
-  Stay at the forefront of AI innovations! Follow us on LinkedIn for more insights into groundbreaking algorithms like AdaBoost and their real-world applications.
-subtitle: "How the 25-year-old ensemble learning method continues transforming AI applications"
+  Stay ahead of the curve! Follow us on LinkedIn for more insights about adaboost algorithmic powerhouse revolutionizing machine learning and other cutting-edge developments in AI and technology.
+description: |
+  Comprehensive guide exploring adaboost algorithmic powerhouse revolutionizing machine learning and its impact on modern technology.
+heroImage: |
+  https://assets.magick.ai/adaboost-algorithmic-powerhouse-revolutionizing-machine-learning.png
+publish_date: 2025-02-01
+read_time: "8 mins"
+title: "Adaboost Algorithmic Powerhouse Revolutionizing Machine Learning"
 ---
 
 The elegant simplicity of the Adaptive Boosting (AdaBoost) algorithm belies its transformative impact on modern machine learning applications. From enhancing medical diagnostics to revolutionizing computer vision, this sophisticated ensemble learning method continues to prove its worth in an era dominated by artificial intelligence innovations.

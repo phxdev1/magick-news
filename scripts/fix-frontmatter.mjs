@@ -51,14 +51,29 @@ function preprocessYaml(content) {
   let inBlockLiteral = false;
   let blockIndent = '';
   let isMultilineValue = false;
+  let inFrontmatter = false;
+  let foundFirstMarker = false;
 
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
+  // Process lines between --- markers
+  for (const line of lines) {
     const trimmedLine = line.trimEnd();
     
-    // Skip empty lines unless in block literal
-    if (!trimmedLine && !inBlockLiteral) continue;
+    // Handle frontmatter boundaries
+    if (trimmedLine === '---') {
+      if (!foundFirstMarker) {
+        foundFirstMarker = true;
+        continue;
+      }
+      if (!inFrontmatter) {
+        inFrontmatter = true;
+        continue;
+      } else {
+        break;
+      }
+    }
 
+    // Skip lines outside frontmatter or empty lines (unless in block literal)
+    if (!inFrontmatter || (!trimmedLine && !inBlockLiteral)) continue;
     // Check for new key
     const keyMatch = trimmedLine.match(/^(\s*)([\w-]+):\s*(.*)$/);
     if (keyMatch) {
@@ -89,6 +104,11 @@ function preprocessYaml(content) {
       
       // Check for block literal marker or empty value
       if (value.match(/^['"]?\|['"]?$/) || !value.trim()) {
+        inBlockLiteral = true;
+        currentValue = [];
+        isMultilineValue = true;
+      } else if (value.match(/^['"]?[|>][-+]?['"]?$/)) {
+        // Handle block literal with chomping indicators
         inBlockLiteral = true;
         currentValue = [];
         isMultilineValue = true;
@@ -134,18 +154,28 @@ function preprocessYaml(content) {
   }
 
   // Second pass: build properly formatted YAML
-  const processedLines = [];
-  for (const [key, value] of keyValues) {
+  const processedLines = ['---'];
+  
+  // Sort keys for consistent output
+  const sortedKeys = Array.from(keyValues.keys()).sort();
+  
+  for (const key of sortedKeys) {
+    const value = keyValues.get(key);
     // Determine if we should use block literal
     const useBlock = value.length > 80 ||
                     value.includes('\n') ||
                     /[:#\[\]{}|>*&!%@`]/.test(value);
     
     if (useBlock) {
+      // Use block literal style for multiline values
       processedLines.push(`${key}: |`);
-      // Split and properly indent each line
-      const lines = value.split('\n');
-      processedLines.push(...lines.map(line => `  ${line.trim()}`));
+      // Split into lines and preserve empty lines
+      const lines = value.split(/\r?\n/);
+      // Add each line with proper indentation
+      lines.forEach(line => {
+        // Preserve empty lines but indent non-empty ones
+        processedLines.push(line.length > 0 ? `  ${line}` : '');
+      });
     } else {
       // For simple values, use double quotes consistently
       const escapedValue = value
@@ -155,6 +185,7 @@ function preprocessYaml(content) {
     }
   }
 
+  processedLines.push('---');
   return processedLines.join('\n');
 }
 
@@ -260,11 +291,56 @@ async function backupFile(filePath) {
 }
 
 function validateFrontmatter(frontmatter) {
-  // Skip validation for now - just ensure we have at least a title
   const errors = [];
-  if (!frontmatter.title) {
-    errors.push('Missing required field: title');
+  const filename = frontmatter._filename || '';
+  const now = new Date();
+  const defaultAuthor = validAuthors[0];
+  
+  // Generate default values for required fields
+  if (filename) {
+    const baseName = filename
+      .split(/[\/\\]/)
+      .pop()
+      .replace(/\.md$/, '')
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+
+    // Set default values for missing fields
+    if (!frontmatter.title || !frontmatter.title.trim()) {
+      frontmatter.title = baseName;
+    }
+    if (!frontmatter.description || !frontmatter.description.trim()) {
+      frontmatter.description = `Comprehensive guide exploring ${baseName.toLowerCase()} and its impact on modern technology.`;
+    }
+    if (!frontmatter.author || !frontmatter.author.trim()) {
+      frontmatter.author = defaultAuthor;
+    }
+    if (!frontmatter.read_time || !frontmatter.read_time.trim()) {
+      frontmatter.read_time = "8 mins";
+    }
+    if (!frontmatter.publish_date) {
+      frontmatter.publish_date = now.toISOString().split('T')[0];
+    }
+    if (!frontmatter.created_date) {
+      frontmatter.created_date = now.toISOString().split('T')[0];
+    }
+    if (!frontmatter.heroImage || !frontmatter.heroImage.trim()) {
+      frontmatter.heroImage = `https://assets.magick.ai/${baseName.toLowerCase().replace(/\s+/g, '-')}.png`;
+    }
+    if (!frontmatter.cta || !frontmatter.cta.trim()) {
+      frontmatter.cta = `Stay ahead of the curve! Follow us on LinkedIn for more insights about ${baseName.toLowerCase()} and other cutting-edge developments in AI and technology.`;
+    }
   }
+
+  // Validate all required fields are present
+  for (const field of requiredFields) {
+    const value = frontmatter[field];
+    if (!value || (typeof value === 'string' && !value.trim())) {
+      errors.push(`Missing required field: ${field}`);
+    }
+  }
+
   return errors;
 }
 
@@ -294,8 +370,9 @@ async function processFile(filePath) {
   try {
     console.log(`\nProcessing file: ${filePath}`);
     const content = await readFile(filePath, 'utf8');
-    const frontmatterMatch = content.match(/^---([\s\S]*?)\n---/);
     
+    // Extract and validate frontmatter
+    const frontmatterMatch = content.match(/^---([\s\S]*?)---/);
     if (!frontmatterMatch) {
       console.error(`❌ No frontmatter found in ${filePath}`);
       return false;
@@ -304,19 +381,27 @@ async function processFile(filePath) {
     // Pre-process the frontmatter
     const processedYaml = preprocessYaml(frontmatterMatch[1]);
 
+    // Parse the processed YAML
     let frontmatter;
     try {
-      frontmatter = loadYaml(processedYaml);
+      // Parse the YAML content
+      frontmatter = loadYaml(processedYaml.split('\n').slice(1, -1).join('\n')) || {};
+      
+      // Add filename for validation
+      frontmatter._filename = filePath;
+
+      // Validate and auto-generate missing fields
+      const errors = validateFrontmatter(frontmatter);
+      if (errors.length > 0) {
+        console.error(`❌ Validation errors in ${filePath}:`);
+        errors.forEach(error => console.error(`   - ${error}`));
+        return false;
+      }
+
+      // Remove internal _filename field
+      delete frontmatter._filename;
     } catch (error) {
       console.error(`❌ Error parsing frontmatter in ${filePath}:`, error.message);
-      return false;
-    }
-
-    // Validate frontmatter
-    const errors = validateFrontmatter(frontmatter);
-    if (errors.length > 0) {
-      console.error(`❌ Validation errors in ${filePath}:`);
-      errors.forEach(error => console.error(`   - ${error}`));
       return false;
     }
 
@@ -343,7 +428,7 @@ async function processFile(filePath) {
 
     // Replace the old frontmatter with the new one
     const newContent = content.replace(
-      /^---([\s\S]*?)\n---/,
+      /^---([\s\S]*?)---/,
       `---\n${newFrontmatter}\n---`
     );
 

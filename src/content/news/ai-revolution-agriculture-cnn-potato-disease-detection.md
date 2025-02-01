@@ -1,16 +1,15 @@
 ---
-author: "David Jenkins"
+author: "John Anderson"
 created_date: 2025-02-01
 cta: |
-  Stay at the forefront of AI agricultural innovations! Follow us on LinkedIn for the latest updates on how technology is transforming farming practices and ensuring global food security.
+  Stay ahead of the curve! Follow us on LinkedIn for more insights about ai revolution agriculture cnn potato disease detection and other cutting-edge developments in AI and technology.
 description: |
-  Discover how Convolutional Neural Networks are revolutionizing potato farming with disease detection accuracy exceeding 97%. This AI technology is transforming agricultural practices, reducing chemical usage, and ensuring food security through early disease detection and prevention.
-https: "//i.magick.ai/PIXE/1738432915220_magick_img.webp"
+  Comprehensive guide exploring ai revolution agriculture cnn potato disease detection and its impact on modern technology.
+heroImage: |
+  https://assets.magick.ai/ai-revolution-agriculture-cnn-potato-disease-detection.png
 publish_date: 2025-02-01
 read_time: "8 mins"
-subtitle: "Deep learning brings superhuman accuracy to crop disease detection"
-title: |
-  AI Revolution in Agriculture: 'How CNN-Based Detection Is Transforming Potato Disease Management
+title: "Ai Revolution Agriculture Cnn Potato Disease Detection"
 ---
 
 The intersection of artificial intelligence and agriculture is yielding groundbreaking solutions to age-old farming challenges. Among these innovations, the application of Convolutional Neural Networks (CNNs) in potato leaf disease detection stands as a testament to how deep learning is revolutionizing crop management and food security. This technological advancement isn't just another incremental improvement – it's a paradigm shift in how we approach agricultural disease management.

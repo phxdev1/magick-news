@@ -1,16 +1,14 @@
 ---
-author: "David Jenkins"
+author: "John Anderson"
 created_date: 2025-02-01
 cta: |
-  Stay ahead of the latest developments in data science by following us on LinkedIn. Join our community of forward-thinking professionals shaping the future of data-driven decision making.
+  Stay ahead of the curve! Follow us on LinkedIn for more insights about evolution data science modern journey and other cutting-edge developments in AI and technology.
 description: |
-  Explore how the role of data scientists has evolved in 2024, from the impact of AutoML and generative AI to the growing importance of ethical considerations and cloud computing. Learn about salary trends, growth projections, and the essential skills needed for success in this dynamic field.
-https: "//i.magick.ai/PIXE/1738439735516_magick_img.webp"
-publish_date: 2024-02-01
+  Comprehensive guide exploring evolution data science modern journey and its impact on modern technology.
+heroImage: "https://assets.magick.ai/evolution-data-science-modern-journey.png"
+publish_date: 2025-02-01
 read_time: "8 mins"
-subtitle: "How the role of data scientists has transformed in 2024"
-title: |
-  The Evolution of Data Science: A Deep Dive into the Modern Data Scientist's Journey
+title: "Evolution Data Science Modern Journey"
 ---
 
 In an era where data drives every business decision, the role of a data scientist has transformed from a specialized position to a crucial cornerstone of organizational success. As we navigate through 2024, the landscape of data science continues to evolve at an unprecedented pace, bringing both exciting opportunities and complex challenges for professionals in the field.

@@ -1,16 +1,14 @@
 ---
-author: "Marie Bernard"
+author: "John Anderson"
 created_date: 2025-02-01
 cta: |
-  Want to stay on the cutting edge of AI innovations? Follow us on LinkedIn for the latest updates on how artificial intelligence is transforming creative industries!
+  Stay ahead of the curve! Follow us on LinkedIn for more insights about ai takes lead revolutionizing dance floor and other cutting-edge developments in AI and technology.
 description: |
-  AI is revolutionizing the dance world, transforming how we create, perform, and experience dance through motion capture, virtual reality, and innovative AI platforms. From educational tools to creative collaborations, discover how artificial intelligence is enhancing human creativity and making dance more accessible than ever.
-https: "//i.magick.ai/PIXE/1738427789985_magick_img.webp"
-publish_date: 2024-02-01
+  Comprehensive guide exploring ai takes lead revolutionizing dance floor and its impact on modern technology.
+heroImage: "https://assets.magick.ai/ai-takes-lead-revolutionizing-dance-floor.png"
+publish_date: 2025-02-01
 read_time: "8 mins"
-subtitle: "The fusion of AI and dance creates new possibilities for artistic expression"
-title: |
-  AI Takes the Lead: 'How Artificial Intelligence is Revolutionizing the Dance Floor
+title: "Ai Takes Lead Revolutionizing Dance Floor"
 ---
 
 The pulsating lights dim, and an ethereal glow bathes the stage. But tonight's performance is unlike any other – where human dancers once moved alone, they now share the spotlight with an invisible partner: artificial intelligence. Welcome to the dawn of a new era in dance, where technology and human expression merge in an unprecedented fusion of creativity and computation.

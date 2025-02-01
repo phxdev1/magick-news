@@ -2,16 +2,13 @@
 author: "John Anderson"
 created_date: 2025-02-01
 cta: |
-  Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!
+  Stay ahead of the curve! Follow us on LinkedIn for more insights about data scientists risk 2025 evolving landscape and other cutting-edge developments in AI and technology.
 description: |
-  In an era where AI is reshaping every industry, a pressing question looms: 'What does the future hold for data scientists? Discover how data science careers are changing with AI advancements and explore emerging opportunities.
-https: "//i.magick.ai/PIXE/1738425806552_magick_img.webp"
+  Comprehensive guide exploring data scientists risk 2025 evolving landscape and its impact on modern technology.
+heroImage: "https://assets.magick.ai/data-scientists-risk-2025-evolving-landscape.png"
 publish_date: 2025-02-01
 read_time: "8 mins"
-subtitle: |
-  Data Science Careers Evolve with AI: New Opportunities Emerge
-title: |
-  Are Data Scientists at Risk in 2025? The Evolving Landscape of Data Science Careers
+title: "Data Scientists Risk 2025 Evolving Landscape"
 ---
 
 ![Evolution of Data Scientist Roles in 2025](https://i.magick.ai/PIXE/1738425806555_magick_img.webp)

@@ -1,16 +1,14 @@
 ---
-author: "Emily Stevens"
+author: "John Anderson"
 created_date: 2025-02-01
 cta: |
-  Stay ahead of the latest developments in AI and financial security. Follow us on LinkedIn for expert insights and analysis on the evolving landscape of fraud detection technology.
+  Stay ahead of the curve! Follow us on LinkedIn for more insights about ai revolution credit card fraud detection and other cutting-edge developments in AI and technology.
 description: |
-  Explore how artificial intelligence is revolutionizing credit card fraud detection through innovative approaches to handling imbalanced datasets. Learn about cutting-edge techniques like SMOTE and ensemble learning that are helping financial institutions protect billions in potential losses while ensuring seamless legitimate transactions.
-https: "//i.magick.ai/PIXE/1738434869089_magick_img.webp"
-publish_date: 2024-02-01
+  Comprehensive guide exploring ai revolution credit card fraud detection and its impact on modern technology.
+heroImage: "https://assets.magick.ai/ai-revolution-credit-card-fraud-detection.png"
+publish_date: 2025-02-01
 read_time: "8 mins"
-subtitle: "How AI and Machine Learning are Transforming Financial Security"
-title: |
-  The AI Revolution in Credit Card Fraud Detection: Mastering Imbalanced Data Sets
+title: "Ai Revolution Credit Card Fraud Detection"
 ---
 
 In an era where digital transactions have become the backbone of global commerce, the fight against credit card fraud has evolved into a sophisticated battle of algorithms and data science. As we venture deeper into 2024, financial institutions face an unprecedented challenge: protecting over $43 billion in potential fraud losses by 2026, all while processing millions of legitimate transactions seamlessly.

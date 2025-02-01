@@ -1,16 +1,14 @@
 ---
-author: "Juan Garcia"
+author: "John Anderson"
 created_date: 2025-02-01
 cta: |
-  Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!
+  Stay ahead of the curve! Follow us on LinkedIn for more insights about content based filtering movie recommendations and other cutting-edge developments in AI and technology.
 description: |
-  Explore how content-based filtering is revolutionizing movie recommendations, transforming from simple algorithms to sophisticated AI systems that understand the DNA of films. Learn about the technical innovations, impact on streaming platforms, and future developments in personalized entertainment discovery.
-https: "//media.magick.ai/streaming-recommendations-hero.jpg"
+  Comprehensive guide exploring content based filtering movie recommendations and its impact on modern technology.
+heroImage: "https://assets.magick.ai/content-based-filtering-movie-recommendations.png"
 publish_date: 2025-02-01
 read_time: "8 mins"
-subtitle: "How AI-powered content filtering is transforming movie discovery"
-title: |
-  The Art and Science of Movie Recommendations: 'How Content-Based Filtering is Revolutionizing Your Streaming Experience
+title: "Content Based Filtering Movie Recommendations"
 ---
 
 In an era where the average person spends 3.5 hours per day streaming content, the technology behind what we watch next has become increasingly sophisticated. Content-based filtering, a cornerstone of modern movie recommendation systems, has evolved from a simple matching algorithm to an intricate AI-powered solution that understands the DNA of every film in your queue. Today, we're diving deep into how these systems work, why they matter, and what the future holds for personalized entertainment.
