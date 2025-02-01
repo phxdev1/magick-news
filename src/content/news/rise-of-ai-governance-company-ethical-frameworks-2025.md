@@ -1,14 +1,16 @@
 ---
-title: 'The Rise of AI Governance: How Companies Are Adopting Ethical AI Frameworks'
-description: 'Explore how leading tech companies are implementing comprehensive AI governance frameworks as a crucial step toward responsible AI deployment. Learn about the industry-wide movement addressing AI safety and the establishment of new standards for ethical AI development.'
-author: 'David Jenkins'
-read_time: '8 mins'
-publish_date: 2025-02-01
+author: "David Jenkins"
 created_date: 2025-02-01
-heroImage: 'https://i.magick.ai/PIXE/1738431254356_magick_img.webp'
-cta: 'Stay updated on the latest developments in AI governance and technology trends by following us on LinkedIn. Join our community of forward-thinking professionals shaping the future of responsible AI.'
-subtitle: 'Major tech firms implement AI safety protocols amid growing calls for regulation'
-
+cta: |
+  Stay updated on the latest developments in AI governance and technology trends by following us on LinkedIn. Join our community of forward-thinking professionals shaping the future of responsible AI.
+description: |
+  Explore how leading tech companies are implementing comprehensive AI governance frameworks as a crucial step toward responsible AI deployment. Learn about the industry-wide movement addressing AI safety and the establishment of new standards for ethical AI development.
+https: "//i.magick.ai/PIXE/1738431254356_magick_img.webp"
+publish_date: 2025-02-01
+read_time: "8 mins"
+subtitle: "Major tech firms implement AI safety protocols amid growing calls for regulation"
+title: |
+  The Rise of AI Governance: How Companies Are Adopting Ethical AI Frameworks
 ---
 
 In a landmark shift for artificial intelligence development, leading tech companies are rolling out comprehensive AI governance frameworks, marking a crucial step toward responsible AI deployment. This industry-wide movement comes as organizations grapple with the dual challenges of rapid AI advancement and mounting public concern over AI safety.

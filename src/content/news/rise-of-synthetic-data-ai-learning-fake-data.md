@@ -1,13 +1,16 @@
 ---
-title: 'The Rise of Synthetic Data: Is AI Learning from Fake Data Smarter Than Ever?'
-subtitle: 'How artificial data is revolutionizing AI development and privacy'
-description: 'Explore how synthetic data is changing the landscape of AI development, offering solutions to privacy concerns and potentially creating smarter AI systems. The technology is projected to transform industries such as healthcare and autonomous vehicles.'
-author: 'David Jenkins'
-read_time: '8 mins'
-publish_date: '2025-02-01'
-created_date: '2025-02-01'
-heroImage: 'https://i.magick.ai/PIXE/1738439694980_magick_img.webp'
-cta: 'Stay ahead of the AI revolution! Follow us on LinkedIn for daily insights into groundbreaking technologies like synthetic data and their impact on the future of artificial intelligence.'
+author: "David Jenkins"
+created_date: 2025-02-01
+cta: |
+  Stay ahead of the AI revolution! Follow us on LinkedIn for daily insights into groundbreaking technologies like synthetic data and their impact on the future of artificial intelligence.
+description: |
+  Explore how synthetic data is changing the landscape of AI development, offering solutions to privacy concerns and potentially creating smarter AI systems. The technology is projected to transform industries such as healthcare and autonomous vehicles.
+https: "//i.magick.ai/PIXE/1738439694980_magick_img.webp"
+publish_date: 2025-02-01
+read_time: "8 mins"
+subtitle: "How artificial data is revolutionizing AI development and privacy"
+title: |
+  The Rise of Synthetic Data: Is AI Learning from Fake Data Smarter Than Ever?
 ---
 
 In the ever-evolving landscape of artificial intelligence, a revolutionary approach is reshaping how we train and develop AI systems: synthetic data. This carefully crafted artificial information is not just a stopgap measure – it's becoming the cornerstone of next-generation AI development, promising to solve some of the most pressing challenges in machine learning while potentially revolutionizing how we approach data privacy and AI training.

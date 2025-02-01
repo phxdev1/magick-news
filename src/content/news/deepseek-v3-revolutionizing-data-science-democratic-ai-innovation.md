@@ -1,14 +1,16 @@
 ---
-title: 'DeepSeek V3: Revolutionizing Data Science with Democratic AI Innovation'
-description: 'In a groundbreaking development, DeepSeek V3 makes enterprise-grade AI accessible with its efficient MoE architecture and democratic AI innovation. Discover how this open-source breakthrough with 671 billion parameters is transforming data science and machine learning.'
-author: 'Priya Shah'
-read_time: '8 mins'
-publish_date: 2024-02-01
+author: "Priya Shah"
 created_date: 2025-02-01
-heroImage: 'https://i.magick.ai/PIXE/1738419103401_magick_img.webp'
-cta: 'Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!'
-subtitle: 'How DeepSeek V3 is Making Enterprise AI Accessible'
-
+cta: |
+  Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!
+description: |
+  In a groundbreaking development, DeepSeek V3 makes enterprise-grade AI accessible with its efficient MoE architecture and democratic AI innovation. Discover how this open-source breakthrough with 671 billion parameters is transforming data science and machine learning.
+https: "//i.magick.ai/PIXE/1738419103401_magick_img.webp"
+publish_date: 2024-02-01
+read_time: "8 mins"
+subtitle: "How DeepSeek V3 is Making Enterprise AI Accessible"
+title: |
+  DeepSeek V3: Revolutionizing Data Science with Democratic AI Innovation
 ---
 
 ![DeepSeek V3 AI](https://i.magick.ai/PIXE/1738419103405_magick_img.webp)

@@ -1,14 +1,15 @@
 ---
-title: 'Content Required - Unable to Generate AI Article'
-description: 'This is a placeholder response indicating that no valid source content or topic was provided for article generation. To create a high-quality article about artificial intelligence, please provide either a specific topic, trend, or development in AI to focus on, or an existing article or news piece to expand upon.'
-author: 'John Anderson'
-read_time: '1 min'
-publish_date: 2025-02-01
+author: "John Anderson"
 created_date: 2025-02-01
-heroImage: 'https://images.magick.ai/error-placeholder.jpg'
-cta: 'While we prepare more AI content, follow us on LinkedIn to stay updated on the latest developments in artificial intelligence and technology.'
-subtitle: 'Missing source content for AI article generation'
-
+cta: |
+  While we prepare more AI content, follow us on LinkedIn to stay updated on the latest developments in artificial intelligence and technology.
+description: |
+  This is a placeholder response indicating that no valid source content or topic was provided for article generation. To create a high-quality article about artificial intelligence, please provide either a specific topic, trend, or development in AI to focus on, or an existing article or news piece to expand upon.
+https: "//images.magick.ai/error-placeholder.jpg"
+publish_date: 2025-02-01
+read_time: "1 min"
+subtitle: "Missing source content for AI article generation"
+title: "Content Required - Unable to Generate AI Article"
 ---
 
 ## Preview

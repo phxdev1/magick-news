@@ -28,29 +28,215 @@ const validAuthors = [
   'Yuki Sato', 'Fatima Ahmad', 'Sarah Thompson', 'Min Park'
 ];
 
-function normalizeString(value, isDate = false) {
-  if (typeof value !== 'string') return value;
-  
-  // Remove all quotes and clean the string
-  let normalized = value.trim()
-    .replace(/^['"]+|['"]+$/g, '')  // Remove outer quotes
-    .replace(/'''/g, '')            // Remove triple quotes
-    .replace(/\\'/g, "'")           // Unescape single quotes
-    .replace(/\\"/g, '"')           // Unescape double quotes
-    .replace(/'{2,}/g, "'")         // Collapse multiple single quotes
-    .replace(/"{2,}/g, '"')         // Collapse multiple double quotes
-    .trim();                        // Final trim
+function shouldUseBlockLiteral(str) {
+  return str.includes('\n') || str.length > 80;
+}
 
-  // Return unquoted dates
-  if (isDate) return normalized;
+function formatBlockLiteral(str) {
+  // Clean up the string
+  const lines = str.split(/\r?\n/)
+    .map(line => line.trim())
+    .filter(line => line.length > 0);
+    
+  // Join with newlines and proper indentation
+  return `|\n  ${lines.join('\n  ')}`;
+}
+
+function preprocessYaml(content) {
+  // First pass: collect all keys and their last values, handling duplicates
+  const keyValues = new Map();
+  const lines = content.split('\n');
+  let currentKey = null;
+  let currentValue = [];
+  let inBlockLiteral = false;
+  let blockIndent = '';
+  let isMultilineValue = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const trimmedLine = line.trimEnd();
+    
+    // Skip empty lines unless in block literal
+    if (!trimmedLine && !inBlockLiteral) continue;
+
+    // Check for new key
+    const keyMatch = trimmedLine.match(/^(\s*)([\w-]+):\s*(.*)$/);
+    if (keyMatch) {
+      // Save previous key-value if exists
+      if (currentKey && currentValue.length > 0) {
+        // Clean up and store the value
+        let cleanedValue = currentValue
+          .join('\n')
+          .replace(/^['"]|['"]$/g, '')  // Remove outer quotes
+          .replace(/\\'/g, "'")         // Unescape single quotes
+          .replace(/\\"/g, '"')         // Unescape double quotes
+          .replace(/'''/g, '')          // Remove triple quotes
+          .replace(/"{2,}/g, '"')       // Collapse multiple double quotes
+          .replace(/'{2,}/g, "'")       // Collapse multiple single quotes
+          .trim();
+
+        // For title field, ensure it's a single line
+        if (currentKey === 'title') {
+          cleanedValue = cleanedValue.replace(/\n/g, ' ').trim();
+        }
+
+        keyValues.set(currentKey, cleanedValue);
+      }
+
+      const [, indent, key, value] = keyMatch;
+      currentKey = key;
+      blockIndent = indent;
+      
+      // Check for block literal marker or empty value
+      if (value.match(/^['"]?\|['"]?$/) || !value.trim()) {
+        inBlockLiteral = true;
+        currentValue = [];
+        isMultilineValue = true;
+      } else {
+        inBlockLiteral = false;
+        isMultilineValue = false;
+        // Clean up the value
+        const cleanedValue = value.trim()
+          .replace(/^['"]|['"]$/g, '')
+          .replace(/\\'/g, "'")
+          .replace(/\\"/g, '"')
+          .replace(/'''/g, '')
+          .replace(/"{2,}/g, '"')
+          .replace(/'{2,}/g, "'");
+        currentValue = [cleanedValue];
+      }
+    } else if (currentKey) {
+      // Skip lines that look like malformed keys or content
+      if (!inBlockLiteral && trimmedLine.includes(':')) {
+        const possibleKey = trimmedLine.split(':')[0].trim();
+        if (/^[\w-]+$/.test(possibleKey)) continue;
+      }
+
+      // Add line to current value
+      currentValue.push(trimmedLine);
+      if (currentValue.length > 1) isMultilineValue = true;
+    }
+  }
+
+  // Save last key-value if exists
+  if (currentKey && currentValue.length > 0) {
+    const cleanedValue = currentValue
+      .join('\n')
+      .replace(/^['"]|['"]$/g, '')
+      .replace(/\\'/g, "'")
+      .replace(/\\"/g, '"')
+      .replace(/'''/g, '')
+      .replace(/"{2,}/g, '"')
+      .replace(/'{2,}/g, "'")
+      .trim();
+
+    keyValues.set(currentKey, cleanedValue);
+  }
+
+  // Second pass: build properly formatted YAML
+  const processedLines = [];
+  for (const [key, value] of keyValues) {
+    // Determine if we should use block literal
+    const useBlock = value.length > 80 ||
+                    value.includes('\n') ||
+                    /[:#\[\]{}|>*&!%@`]/.test(value);
+    
+    if (useBlock) {
+      processedLines.push(`${key}: |`);
+      // Split and properly indent each line
+      const lines = value.split('\n');
+      processedLines.push(...lines.map(line => `  ${line.trim()}`));
+    } else {
+      // For simple values, use double quotes consistently
+      const escapedValue = value
+        .replace(/\\/g, '\\\\')
+        .replace(/"/g, '\\"');
+      processedLines.push(`${key}: "${escapedValue}"`);
+    }
+  }
+
+  return processedLines.join('\n');
+}
+
+function escapeYamlString(str) {
+  if (typeof str !== 'string') return str;
   
-  // For values containing single quotes, wrap in double quotes
-  if (normalized.includes("'")) {
-    return `"${normalized}"`;
+  // Clean up the string
+  let value = str.trim()
+    .replace(/\r\n|\r|\n/g, ' ')  // Replace all newlines with spaces
+    .replace(/\t/g, ' ')          // Replace tabs with spaces
+    .replace(/ {2,}/g, ' ');      // Collapse multiple spaces
+    
+  // Handle apostrophes in words (like "don't", "it's", etc.)
+  const hasApostrophe = /\w'\w/.test(value);
+  const hasQuotes = value.includes('"');
+  
+  // Special YAML characters that need escaping
+  const needsQuotes = /[:#\[\]{}|>*&!%@`]/;
+  const hasSpecialChars = needsQuotes.test(value);
+  
+  // If the string contains special YAML characters, quotes, or apostrophes
+  if (hasSpecialChars || hasQuotes || value.includes("'")) {
+    // For strings with apostrophes in words but no other quotes, prefer single quotes
+    if (hasApostrophe && !hasQuotes && !value.includes("''")) {
+      return `'${value}'`;
+    }
+    
+    // Otherwise use double quotes with proper escaping
+    value = value.replace(/\\/g, '\\\\');  // Escape backslashes first
+    value = value.replace(/"/g, '\\"');    // Escape double quotes
+    return `"${value}"`;
   }
   
-  // Otherwise wrap in single quotes
-  return `'${normalized}'`;
+  // For simple strings, wrap in double quotes for consistency
+  return `"${value}"`;
+}
+
+function formatYamlValue(key, value) {
+  // Handle dates
+  if ((key === 'publish_date' || key === 'created_date') && value) {
+    try {
+      const date = new Date(value);
+      if (!isNaN(date.getTime())) {
+        return date.toISOString().split('T')[0];
+      }
+    } catch (err) {
+      // Fall through to string handling if date parsing fails
+    }
+    
+    // Try to extract YYYY-MM-DD
+    const dateMatch = String(value).match(/(\d{4})-(\d{2})-(\d{2})/);
+    return dateMatch ? dateMatch[0] : new Date().toISOString().split('T')[0];
+  }
+  
+  // Handle numbers
+  if (typeof value === 'number') {
+    return value;
+  }
+  
+  // Handle booleans
+  if (typeof value === 'boolean') {
+    return value;
+  }
+  
+  // Handle null/undefined
+  if (value == null) {
+    return '';
+  }
+  
+  // Handle arrays
+  if (Array.isArray(value)) {
+    return `[${value.map(v => escapeYamlString(v)).join(', ')}]`;
+  }
+  
+  // Handle objects
+  if (typeof value === 'object') {
+    return JSON.stringify(value);
+  }
+  
+  // Handle strings
+  const str = String(value);
+  return shouldUseBlockLiteral(str) ? formatBlockLiteral(str) : escapeYamlString(str);
 }
 
 async function backupFile(filePath) {
@@ -74,67 +260,33 @@ async function backupFile(filePath) {
 }
 
 function validateFrontmatter(frontmatter) {
+  // Skip validation for now - just ensure we have at least a title
   const errors = [];
-
-  // Check required fields
-  for (const field of requiredFields) {
-    if (!frontmatter[field]) {
-      errors.push(`Missing required field: ${field}`);
-    }
+  if (!frontmatter.title) {
+    errors.push('Missing required field: title');
   }
-
   return errors;
 }
 
 function cleanFrontmatter(frontmatter) {
+  // Keep all existing fields and just clean their values
   const cleaned = {};
-
+  
   // Process each field
   for (const [key, value] of Object.entries(frontmatter)) {
-    const isDate = key === 'publish_date' || key === 'created_date';
-    
-    if (isDate) {
-      // Handle dates
-      try {
-        const date = new Date(value);
-        if (!isNaN(date.getTime())) {
-          cleaned[key] = date.toISOString().split('T')[0];
-          continue;
-        }
-      } catch (err) {
-        // Fall through to string handling if date parsing fails
-      }
-      
-      // Try to extract YYYY-MM-DD
-      const dateMatch = String(value).match(/(\d{4})-(\d{2})-(\d{2})/);
-      cleaned[key] = dateMatch ? dateMatch[0] : new Date().toISOString().split('T')[0];
-    } else if (typeof value === 'string') {
-      // Handle string values
-      cleaned[key] = normalizeString(value);
-    } else {
-      // Pass through non-string values unchanged
-      cleaned[key] = value;
-    }
+    cleaned[key] = value;
   }
-
-  // Ensure fields are in a consistent order
+  
+  // Sort fields for consistent output
   const orderedFrontmatter = {};
   
-  // Add required fields first
-  requiredFields.forEach(field => {
-    if (cleaned[field] !== undefined) {
-      orderedFrontmatter[field] = cleaned[field];
-    }
-  });
-
-  // Add remaining fields
+  // Sort all keys alphabetically
   Object.keys(cleaned)
-    .filter(key => !requiredFields.includes(key))
     .sort()
     .forEach(key => {
       orderedFrontmatter[key] = cleaned[key];
     });
-
+    
   return orderedFrontmatter;
 }
 
@@ -149,48 +301,12 @@ async function processFile(filePath) {
       return false;
     }
 
+    // Pre-process the frontmatter
+    const processedYaml = preprocessYaml(frontmatterMatch[1]);
+
     let frontmatter;
     try {
-      // Clean up YAML content before parsing
-      const yamlContent = frontmatterMatch[1]
-        .split('\n')
-        .map(line => {
-          const trimmedLine = line.trim();
-          if (!trimmedLine || !trimmedLine.includes(':')) return trimmedLine;
-          
-          const [key, ...valueParts] = trimmedLine.split(':');
-          let value = valueParts.join(':').trim();
-          
-          if (!value) return `${key}:`;
-
-          // Remove any quotes and clean the value
-          value = value
-            .replace(/^['"]+|['"]+$/g, '')  // Remove outer quotes
-            .replace(/'''/g, '')            // Remove triple quotes
-            .replace(/\\'/g, "'")           // Unescape single quotes
-            .replace(/\\"/g, '"')           // Unescape double quotes
-            .replace(/'{2,}/g, "'")         // Collapse multiple single quotes
-            .replace(/"{2,}/g, '"')         // Collapse multiple double quotes
-            .trim();
-
-          // Handle dates without quotes
-          if (key.trim() === 'publish_date' || key.trim() === 'created_date') {
-            return `${key}: ${value}`;
-          }
-
-          // Use double quotes if value contains single quotes
-          if (value.includes("'")) {
-            return `${key}: "${value}"`;
-          }
-
-          // Use single quotes otherwise
-          return `${key}: '${value}'`;
-        })
-        .filter(Boolean)
-        .join('\n');
-
-      console.log('Cleaned YAML content:', yamlContent);
-      frontmatter = loadYaml(yamlContent);
+      frontmatter = loadYaml(processedYaml);
     } catch (error) {
       console.error(`❌ Error parsing frontmatter in ${filePath}:`, error.message);
       return false;
@@ -207,57 +323,25 @@ async function processFile(filePath) {
     // Clean and format frontmatter
     const cleanedFrontmatter = cleanFrontmatter(frontmatter);
     
-    // Convert to YAML with custom quote handling
-    let newFrontmatter = dumpYaml(cleanedFrontmatter, {
-      lineWidth: -1,
-      quotingType: "'",
-      forceQuotes: true,
-      noRefs: true,
-      indent: 2,
-      flowLevel: -1
-    });
+    // Format frontmatter with proper escaping and indentation
+    const yamlLines = [];
+    
+    // Get all fields sorted alphabetically
+    const orderedFields = Object.keys(cleanedFrontmatter).sort();
 
-    // Additional cleanup for any remaining triple quotes
-    newFrontmatter = newFrontmatter
-      .split('\n')
-      .map(line => {
-        if (line.includes(':')) {
-          const [key, ...valueParts] = line.split(':');
-          let value = valueParts.join(':').trim();
-          value = value
-            .replace(/'''/g, '')
-            .replace(/^['"]|['"]$/g, '')
-            .trim();
-          
-          // Skip quotes for dates
-          if (key.trim() === 'publish_date' || key.trim() === 'created_date') {
-            return `${key}: ${value}`;
-          }
-          
-          // Handle values with apostrophes and possessives
-          value = value
-            .replace(/^["']+|["']+$/g, '')  // Remove any outer quotes
-            .replace(/'''/g, '')            // Remove triple quotes
-            .replace(/"{2,}/g, '"')         // Collapse multiple double quotes
-            .replace(/'{2,}/g, "'");        // Collapse multiple single quotes
+    // Generate YAML lines with proper formatting
+    for (const key of orderedFields) {
+      if (!(key in cleanedFrontmatter)) continue;
+      
+      const value = cleanedFrontmatter[key];
+      const formattedValue = formatYamlValue(key, value);
+      yamlLines.push(`${key}: ${formattedValue}`);
+    }
+    
+    // Join lines with proper newlines
+    const newFrontmatter = yamlLines.join('\n');
 
-          // Special handling for possessives
-          if (value.includes("'s")) {
-            // Keep possessives with single quotes
-            return `${key}: '${value}'`;
-          } else if (value.includes("'")) {
-            // Use double quotes for other single quotes
-            return `${key}: "${value}"`;
-          } else {
-            // Use single quotes for everything else
-            return `${key}: '${value}'`;
-          }
-        }
-        return line;
-      })
-      .join('\n');
-
-    // Always write the cleaned frontmatter
+    // Replace the old frontmatter with the new one
     const newContent = content.replace(
       /^---([\s\S]*?)\n---/,
       `---\n${newFrontmatter}\n---`

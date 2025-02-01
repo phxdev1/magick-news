@@ -1,14 +1,16 @@
 ---
-title: 'Understanding Probability: From Dice Rolls to Real-World Situations'
-description: 'Explore the fascinating evolution of probability theory from its humble beginnings in games of chance to its crucial role in modern technology and decision-making. Learn how probability shapes AI, machine learning, and everyday life while glimpsing into its future applications.'
-author: 'Yuki Sato'
-read_time: '8 mins'
-publish_date: 2025-02-01
+author: "Yuki Sato"
 created_date: 2025-02-01
-heroImage: 'https://i.magick.ai/PIXE/1738423831274_magick_img.webp'
-cta: 'Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!'
-subtitle: 'How probability theory shapes modern technology and decision-making'
-
+cta: |
+  Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!
+description: |
+  Explore the fascinating evolution of probability theory from its humble beginnings in games of chance to its crucial role in modern technology and decision-making. Learn how probability shapes AI, machine learning, and everyday life while glimpsing into its future applications.
+https: "//i.magick.ai/PIXE/1738423831274_magick_img.webp"
+publish_date: 2025-02-01
+read_time: "8 mins"
+subtitle: "How probability theory shapes modern technology and decision-making"
+title: |
+  Understanding Probability: From Dice Rolls to Real-World Situations
 ---
 
 In a world increasingly driven by data and uncertainty, understanding probability isn't just an academic exercise—it's a crucial skill that shapes how we make decisions, advance technology, and comprehend the world around us. From the simple roll of a die to the complex algorithms powering artificial intelligence, probability theory serves as the mathematical framework that helps us navigate uncertainty with precision and confidence.

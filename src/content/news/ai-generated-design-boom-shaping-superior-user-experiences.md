@@ -1,14 +1,15 @@
 ---
-title: 'The AI-Generated Design Boom Shaping Superior User Experiences'
-description: 'Explore how artificial intelligence is revolutionizing digital design and user experience. From market projections showing explosive growth to the emerging symbiosis between human designers and AI systems, discover how this technological shift is creating more intuitive, personalized, and engaging digital experiences.'
-author: 'Raj Patel'
-read_time: '8 mins'
-publish_date: 2025-02-01
+author: "Raj Patel"
 created_date: 2025-02-01
-heroImage: 'https://i.magick.ai/PIXE/1738419812754_magick_img.webp'
-cta: 'Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!'
-subtitle: 'How AI is Revolutionizing Digital Design and User Experience'
-
+cta: |
+  Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!
+description: |
+  Explore how artificial intelligence is revolutionizing digital design and user experience. From market projections showing explosive growth to the emerging symbiosis between human designers and AI systems, discover how this technological shift is creating more intuitive, personalized, and engaging digital experiences.
+https: "//i.magick.ai/PIXE/1738419812754_magick_img.webp"
+publish_date: 2025-02-01
+read_time: "8 mins"
+subtitle: "How AI is Revolutionizing Digital Design and User Experience"
+title: "The AI-Generated Design Boom Shaping Superior User Experiences"
 ---
 
 In the ever-evolving landscape of digital design, a revolutionary force is reshaping how we create and interact with digital interfaces. Artificial intelligence has emerged as a transformative tool in the designer's arsenal, ushering in an era where creativity meets computational power to deliver unprecedented user experiences.

@@ -1,14 +1,17 @@
 ---
-title: 'Are Data Scientists at Risk in 2025? The Evolving Landscape of Data Science Careers'
-description: 'In an era where AI is reshaping every industry, a pressing question looms: What does the future hold for data scientists? Discover how data science careers are changing with AI advancements and explore emerging opportunities.'
-author: 'John Anderson'
-read_time: '8 mins'
-publish_date: 2025-02-01
+author: "John Anderson"
 created_date: 2025-02-01
-heroImage: 'https://i.magick.ai/PIXE/1738425806552_magick_img.webp'
-cta: 'Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!'
-subtitle: 'Data Science Careers Evolve with AI: New Opportunities Emerge'
-
+cta: |
+  Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!
+description: |
+  In an era where AI is reshaping every industry, a pressing question looms: 'What does the future hold for data scientists? Discover how data science careers are changing with AI advancements and explore emerging opportunities.
+https: "//i.magick.ai/PIXE/1738425806552_magick_img.webp"
+publish_date: 2025-02-01
+read_time: "8 mins"
+subtitle: |
+  Data Science Careers Evolve with AI: New Opportunities Emerge
+title: |
+  Are Data Scientists at Risk in 2025? The Evolving Landscape of Data Science Careers
 ---
 
 ![Evolution of Data Scientist Roles in 2025](https://i.magick.ai/PIXE/1738425806555_magick_img.webp)

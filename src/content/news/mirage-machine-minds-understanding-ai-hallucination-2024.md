@@ -1,14 +1,17 @@
 ---
-title: 'The Mirage of Machine Minds: Understanding AI Hallucination in 2024'
-description: 'Explore the causes, implications, and potential solutions to AI hallucination, including developments in Retrieval-Augmented Generation and the importance of AI literacy.'
-author: 'James Wilson'
-read_time: '8 mins'
-publish_date: 2024-02-01
+author: "James Wilson"
 created_date: 2025-02-01
-heroImage: 'https://i.magick.ai/PIXE/1738421445830_magick_img.webp'
-cta: 'Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!'
-subtitle: 'A deep dive into AI's tendency to generate false information and how researchers are addressing it'
-
+cta: |
+  Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!
+description: |
+  Explore the causes, implications, and potential solutions to AI hallucination, including developments in Retrieval-Augmented Generation and the importance of AI literacy.
+https: "//i.magick.ai/PIXE/1738421445830_magick_img.webp"
+publish_date: 2024-02-01
+read_time: "8 mins"
+subtitle: |
+  A deep dive into AI's tendency to generate false information and how researchers are addressing it
+title: |
+  The Mirage of Machine Minds: Understanding AI Hallucination in 2024
 ---
 
 ![AI creating new protein structures](https://i.magick.ai/PIXE/1738421445834_magick_img.webp)

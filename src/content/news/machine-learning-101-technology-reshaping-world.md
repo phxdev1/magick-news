@@ -1,13 +1,15 @@
 ---
-title: 'Machine Learning 101: The Technology Reshaping Our World'
-subtitle: 'A comprehensive guide to understanding machine learning\'s transformative impact'
-description: 'Machine learning has emerged as a cornerstone of the AI revolution, transforming industries and reshaping our world. This comprehensive guide explores the fundamentals of machine learning, its market impact valued at $158.78 billion, and its applications across healthcare, finance, and customer experience. With projected growth to $528.1 billion by 2030, machine learning continues to drive innovation and create unprecedented opportunities for businesses worldwide.'
-author: 'David Jenkins'
-read_time: '8 mins'
-publish_date: '2025-02-01'
-created_date: '2025-02-01'
-heroImage: 'https://i.magick.ai/PIXE/1738438531367_magick_img.webp'
-cta: 'Ready to stay ahead of the machine learning revolution? Follow us on LinkedIn for the latest insights, trends, and breakthrough developments in AI and machine learning. Join our community of forward-thinking professionals shaping the future of technology.'
+title: "Machine Learning 101: The Technology Reshaping Our World"
+description: |
+  Machine learning has emerged as a cornerstone of the AI revolution, transforming industries and reshaping our world. This comprehensive guide explores the fundamentals of machine learning, its market impact valued at $158.78 billion, and its applications across healthcare, finance, and customer experience. With projected growth to $528.1 billion by 2030, machine learning continues to drive innovation and create unprecedented opportunities for businesses worldwide.
+author: "David Jenkins"
+read_time: "8 mins"
+publish_date: 2025-02-01
+created_date: 2025-02-01
+heroImage: "https://i.magick.ai/PIXE/1738438531367_magick_img.webp"
+cta: |
+  Ready to stay ahead of the machine learning revolution? Follow us on LinkedIn for the latest insights, trends, and breakthrough developments in AI and machine learning. Join our community of forward-thinking professionals shaping the future of technology.
+subtitle: "A comprehensive guide to understanding machine learning's transformative impact"
 ---
 
 In an era where technology evolves at breakneck speed, machine learning stands as a cornerstone of the artificial intelligence revolution, fundamentally transforming how we live, work, and interact with the world around us. This comprehensive guide delves into the essence of machine learning, its impact across industries, and what the future holds for this groundbreaking technology.

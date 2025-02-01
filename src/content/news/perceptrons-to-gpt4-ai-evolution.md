@@ -1,14 +1,17 @@
 ---
-title: 'From Perceptrons to GPT-4: The 70-Year Journey to Teach Machines How to Think'
-description: 'The journey of artificial intelligence from its origins with simple neural networks to sophisticated models like GPT-4 reflects decades of innovation and discovery.'
-author: 'David Jenkins'
-read_time: '8 mins'
-publish_date: 2025-02-01
+author: "David Jenkins"
 created_date: 2025-02-01
-heroImage: 'https://i.magick.ai/PIXE/1738437051916_magick_img.webp'
-cta: 'Want to stay updated on the latest developments in AI? Follow us on LinkedIn for in-depth analysis and breaking news in artificial intelligence innovation.'
-subtitle: 'How AI evolved from simple neural networks to today's sophisticated language models'
-
+cta: |
+  Want to stay updated on the latest developments in AI? Follow us on LinkedIn for in-depth analysis and breaking news in artificial intelligence innovation.
+description: |
+  The journey of artificial intelligence from its origins with simple neural networks to sophisticated models like GPT-4 reflects decades of innovation and discovery.
+https: "//i.magick.ai/PIXE/1738437051916_magick_img.webp"
+publish_date: 2025-02-01
+read_time: "8 mins"
+subtitle: |
+  How AI evolved from simple neural networks to today's sophisticated language models
+title: |
+  From Perceptrons to GPT-4: The 70-Year Journey to Teach Machines How to Think
 ---
 
 The story of artificial intelligence is a testament to human perseverance – a narrative that spans seven decades of breakthroughs, setbacks, and relentless innovation. From the humble beginnings of simple neural networks to today's sophisticated language models, this journey reflects our unwavering quest to create machines that can think, learn, and understand the world as we do.

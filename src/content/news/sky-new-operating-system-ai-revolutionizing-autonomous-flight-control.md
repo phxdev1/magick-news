@@ -1,14 +1,16 @@
 ---
-title: 'The Sky's New Operating System: How AI is Revolutionizing Autonomous Flight Control'
-description: 'Discover how AI is reshaping autonomous flight control as advanced sensor fusion and machine learning enable aircraft to think, learn, and adapt. Explore the breakthrough innovations in aviation that promise a future of safer and more efficient air travel.'
-author: 'Sarah Thompson'
-read_time: '8 mins'
-publish_date: 2024-02-01
+author: "Sarah Thompson"
 created_date: 2025-02-01
-heroImage: 'https://i.magick.ai/PIXE/1738421022412_magick_img.webp'
-cta: 'Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!'
-subtitle: 'AI and Sensors Transform Aviation with Next-Gen Autonomous Systems'
-
+cta: |
+  Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!
+description: |
+  Discover how AI is reshaping autonomous flight control as advanced sensor fusion and machine learning enable aircraft to think, learn, and adapt. Explore the breakthrough innovations in aviation that promise a future of safer and more efficient air travel.
+https: "//i.magick.ai/PIXE/1738421022412_magick_img.webp"
+publish_date: 2024-02-01
+read_time: "8 mins"
+subtitle: "AI and Sensors Transform Aviation with Next-Gen Autonomous Systems"
+title: |
+  The Sky's New Operating System: 'How AI is Revolutionizing Autonomous Flight Control
 ---
 
 In the crisp dawn of 2024, aviation stands at a transformative threshold. The convergence of artificial intelligence, advanced sensor fusion, and autonomous systems is reshaping our relationship with flight in ways that even the Wright brothers couldn't have imagined. This technological symphony isn't just changing how aircraft fly – it's redefining the very essence of aerial mobility.

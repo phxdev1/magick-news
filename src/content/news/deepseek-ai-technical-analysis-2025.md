@@ -1,14 +1,15 @@
 ---
-title: "Of Course, You've Heard of DeepSeek — But Do You Know What Makes It Tick?"
-description: 'DeepSeek, the Chinese AI powerhouse, is revolutionizing the artificial intelligence landscape with its groundbreaking technical achievements and cost-efficient approach. From the impressive DeepSeek-R1 series to the innovative Janus-Pro-7B model, discover how this company is challenging conventional AI development while navigating complex global dynamics.'
-author: 'David Jenkins'
-read_time: '8 mins'
-publish_date: 2025-02-01
+author: "David Jenkins"
 created_date: 2025-02-01
-heroImage: 'https://i.magick.ai/PIXE/1738437128256_magick_img.webp'
-cta: 'Want to stay ahead of the AI curve? Follow us on LinkedIn for daily insights into groundbreaking developments like DeepSeek and other AI innovations shaping our future.'
-subtitle: 'Inside the Technical Marvel Revolutionizing AI Development'
-
+cta: |
+  Want to stay ahead of the AI curve? Follow us on LinkedIn for daily insights into groundbreaking developments like DeepSeek and other AI innovations shaping our future.
+description: |
+  DeepSeek, the Chinese AI powerhouse, is revolutionizing the artificial intelligence landscape with its groundbreaking technical achievements and cost-efficient approach. From the impressive DeepSeek-R1 series to the innovative Janus-Pro-7B model, discover how this company is challenging conventional AI development while navigating complex global dynamics.
+https: "//i.magick.ai/PIXE/1738437128256_magick_img.webp"
+publish_date: 2025-02-01
+read_time: "8 mins"
+subtitle: "Inside the Technical Marvel Revolutionizing AI Development"
+title: 'Of Course, You've Heard of DeepSeek — But Do You Know What Makes It Tick?'
 ---
 
 In the ever-evolving landscape of artificial intelligence, DeepSeek has emerged as a fascinating paradox: a name that commands instant recognition yet remains shrouded in mystery for many. This Chinese AI powerhouse has been making waves in the industry, not just for its technical achievements, but for fundamentally challenging our assumptions about what's possible in AI development.
