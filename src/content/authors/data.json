@@ -1,0 +1,78 @@
+{
+  "male": [
+    {
+      "name": "Alexander Hunt",
+      "gender": "male",
+      "ethnicity": "caucasian",
+      "appearance": {
+        "age": 35,
+        "face": "Square-jawed with defined cheekbones, light stubble, and a strong brow. Clear blue eyes with a focused, analytical gaze.",
+        "hair": "Short sandy brown hair, neatly styled with a slight side part",
+        "expression": "Confident but approachable smile, with slight laugh lines around the eyes",
+        "distinguishing": "Wire-rimmed glasses that complement his academic appearance"
+      },
+      "role": "AI Research Scientist",
+      "expertise": [
+        "Machine Learning",
+        "Neural Networks",
+        "Computer Vision"
+      ],
+      "location": "Cambridge, MA",
+      "languages": [
+        "English",
+        "Python",
+        "Julia"
+      ],
+      "education": [
+        {
+          "degree": "Ph.D.",
+          "field": "Computer Science",
+          "institution": "MIT",
+          "year": 2020
+        }
+      ],
+      "social": {
+        "twitter": "https://twitter.com/alexhunt_ai",
+        "github": "https://github.com/alexhunt",
+        "linkedin": "https://linkedin.com/in/alexhunt"
+      },
+      "slug": "alexander-hunt"
+    }
+  ],
+  "female": [
+    {
+      "name": "Sophia Martín",
+      "gender": "female",
+      "ethnicity": "hispanic",
+      "appearance": {
+        "age": 33,
+        "face": "Striking features with warm brown eyes and high cheekbones. Natural elegance with a Mediterranean glow.",
+        "hair": "Long dark brown hair with subtle waves, often worn professionally styled",
+        "expression": "Confident, engaging smile that lights up her whole face",
+        "distinguishing": "Beauty mark above left side of lip"
+      },
+      "role": "AI Research Lead",
+      "expertise": [
+        "Reinforcement Learning",
+        "Game Theory",
+        "Multi-agent Systems"
+      ],
+      "location": "Madrid, Spain",
+      "languages": [
+        "Spanish",
+        "English",
+        "Python",
+        "JAX"
+      ],
+      "education": [
+        {
+          "degree": "Ph.D.",
+          "field": "Artificial Intelligence",
+          "institution": "Technical University of Madrid",
+          "year": 2019
+        }
+      ],
+      "slug": "sophia-martín"
+    }
+  ]
+}

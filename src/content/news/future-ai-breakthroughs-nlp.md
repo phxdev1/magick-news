@@ -2,7 +2,7 @@
 title: 'The Future of AI: Breakthroughs in Natural Language Processing'
 subtitle: 'Latest NLP innovations reshape human-AI interaction'
 description: 'Breakthrough developments in natural language processing are transforming AI capabilities, enabling more natural human-AI interaction and opening new possibilities across industries. These advances represent a fundamental shift in how AI systems process and generate language.'
-author: 'Marc Stoker'
+author: 'Sophia Martín'
 read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'

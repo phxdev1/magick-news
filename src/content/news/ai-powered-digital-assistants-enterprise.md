@@ -2,7 +2,7 @@
 title: 'The Rise of AI-Powered Digital Assistants in Enterprise'
 subtitle: 'How AI assistants are transforming business operations'
 description: 'Explore how AI-powered digital assistants are revolutionizing enterprise operations with capabilities beyond simple chatbots. Learn about their impact across business functions like customer service, HR, and IT support, and how they are transforming workplace productivity and efficiency.'
-author: 'Marc Stoker'
+author: 'Alexander Hunt'
 read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'

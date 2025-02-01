@@ -2,7 +2,7 @@
 title: 'Understanding Probability: A Beginner's Guide to the Mathematics of Uncertainty'
 subtitle: 'How probability shapes AI, technology and modern decision-making'
 description: 'Explore the fascinating world of probability theory and its crucial role in modern technology, from AI to quantum computing. Learn how this mathematical framework shapes our understanding of uncertainty and drives innovation.'
-author: 'Rick Master'
+author: 'Alexander Hunt'
 read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'

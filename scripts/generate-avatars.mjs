@@ -1,7 +1,7 @@
 import { writeFile, mkdir } from 'fs/promises';
 import { resolve, join } from 'path';
 import { existsSync } from 'fs';
-import { authors } from './authors.mjs';
+import { loadAuthors } from './authors.mjs';
 import sharp from 'sharp';
 
 if (!process.env.REPLICATE_API_TOKEN) {
@@ -177,31 +177,19 @@ async function generateAvatar(author) {
 async function main() {
   console.log('🚀 Generating author avatars...\n');
   
+  const authors = await loadAuthors();
+  if (!authors) {
+    console.error('❌ Failed to load authors data');
+    process.exit(1);
+  }
+
   let success = 0;
   let failed = 0;
   const errors = [];
 
-  // Process male authors
-  for (const author of authors.male) {
-    try {
-      const result = await generateAvatar(author);
-      if (result) {
-        success++;
-        // Add delay between generations
-        await new Promise(resolve => setTimeout(resolve, 2000));
-      } else {
-        failed++;
-        errors.push(`Failed to generate avatar for ${author.name}`);
-      }
-    } catch (err) {
-      console.error(`❌ Failed to process ${author.name}:`, err);
-      failed++;
-      errors.push(`Error processing ${author.name}: ${err.message}`);
-    }
-  }
-
-  // Process female authors
-  for (const author of authors.female) {
+  // Process all authors
+  const allAuthors = [...authors.male, ...authors.female];
+  for (const author of allAuthors) {
     try {
       const result = await generateAvatar(author);
       if (result) {

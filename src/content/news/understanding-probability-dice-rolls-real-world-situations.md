@@ -2,7 +2,7 @@
 title: 'Understanding Probability: From Dice Rolls to Real-World Situations'
 subtitle: 'How probability theory shapes modern technology and decision-making'
 description: 'Explore the fascinating evolution of probability theory from its humble beginnings in games of chance to its crucial role in modern technology and decision-making. Learn how probability shapes AI, machine learning, and everyday life while glimpsing into its future applications.'
-author: 'Alexander Hunt'
+author: 'Sophia Martín'
 read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'

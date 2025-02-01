@@ -2,7 +2,7 @@
 title: 'Revolutionizing Data Analysis: How Copilot and Plotly Are Transforming Rapid Data Visualization'
 subtitle: 'AI and visualization tools combine to streamline data analysis workflows'
 description: 'Explore how GitHub Copilot and Plotly are reshaping data visualization by merging AI-powered assistance with advanced visualization capabilities. Learn how these innovations are revolutionizing the way developers and data scientists analyze, interpret, and present data.'
-author: 'David Jenkins'
+author: 'Sophia Martín'
 read_time: '8 mins'
 publish_date: '2024-02-01'
 created_date: '2025-02-01'

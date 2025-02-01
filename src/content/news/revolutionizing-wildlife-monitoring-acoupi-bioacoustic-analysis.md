@@ -2,7 +2,7 @@
 title: 'Revolutionizing Wildlife Monitoring: Acoupi Brings Open-Source Innovation to Bioacoustic Analysis'
 subtitle: 'Edge Computing and AI Power Next-Gen Wildlife Monitoring'
 description: 'Explore how the open-source Python framework Acoupi is reshaping bioacoustic analysis with real-time processing and AI models. Discover its transformative impact on wildlife monitoring and conservation efforts.'
-author: 'David Jenkins'
+author: 'Alexander Hunt'
 read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'

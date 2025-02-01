@@ -2,7 +2,7 @@
 title: "The Sky's New Operating System: How AI is Revolutionizing Autonomous Flight Control"
 subtitle: "AI and Sensors Transform Aviation with Next-Gen Autonomous Systems"
 description: "Discover how AI is reshaping autonomous flight control as advanced sensor fusion and machine learning enable aircraft to think, learn, and adapt. Explore the breakthrough innovations in aviation that promise a future of safer and more efficient air travel."
-author: "Eric Storm"
+author: 'Alexander Hunt'
 read_time: "8 mins"
 publish_date: "2024-02-01"
 created_date: "2025-02-01"

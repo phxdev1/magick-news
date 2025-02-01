@@ -2,7 +2,7 @@
 title: 'The Revolution in the Cockpit: How Machine Learning is Transforming Aviation Autopilot Systems'
 subtitle: 'ML-enhanced autopilots are reshaping aviation safety and efficiency'
 description: 'Machine learning is revolutionizing aviation autopilot systems, creating a new era of predictive piloting that enhances safety, efficiency, and environmental sustainability. These AI-enhanced systems process millions of data points per second while maintaining the crucial role of human pilots in decision-making.'
-author: 'Rick Master'
+author: 'Sophia Martín'
 read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'

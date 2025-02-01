@@ -2,7 +2,7 @@
 title: 'The AI-Generated Design Boom Shaping Superior User Experiences'
 subtitle: 'How AI is Revolutionizing Digital Design and User Experience'
 description: 'Explore how artificial intelligence is revolutionizing digital design and user experience. From market projections showing explosive growth to the emerging symbiosis between human designers and AI systems, discover how this technological shift is creating more intuitive, personalized, and engaging digital experiences.'
-author: 'Rick Master'
+author: 'Alexander Hunt'
 read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'

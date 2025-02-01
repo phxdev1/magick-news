@@ -2,7 +2,7 @@
 title: 'Flight Control Beyond Boundaries: An In-Depth Technical Analysis of Autonomous Flight Systems'
 subtitle: 'The evolution of autonomous flight systems reshapes aviation''s future'
 description: 'Explore the cutting-edge world of autonomous flight systems as we delve into the technical innovations, military applications, and safety improvements reshaping modern aviation. From breakthrough achievements in civilian aircraft to revolutionary military programs, discover how AI-driven flight control is transforming the future of air travel.'
-author: 'Eric Storm'
+author: 'Sophia Martín'
 read_time: '40 mins'
 publish_date: '2024-02-01'
 created_date: '2025-02-01'

@@ -2,7 +2,7 @@
 title: 'The Art and Science of Movie Recommendations: How Content-Based Filtering is Revolutionizing Your Streaming Experience'
 subtitle: 'How AI-powered content filtering is transforming movie discovery'
 description: 'Explore how content-based filtering is revolutionizing movie recommendations, transforming from simple algorithms to sophisticated AI systems that understand the DNA of films. Learn about the technical innovations, impact on streaming platforms, and future developments in personalized entertainment discovery.'
-author: 'David Jenkins'
+author: 'Sophia Martín'
 read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'

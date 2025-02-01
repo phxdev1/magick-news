@@ -2,7 +2,7 @@
 title: 'Sparking Young Minds: A Complete Guide to Introducing Robotics to 7-8 Year Olds'
 subtitle: 'Essential strategies for engaging children in robotics and STEM learning'
 description: 'Discover how to effectively introduce robotics to 7-8 year olds through age-appropriate activities, structured learning, and creative exploration. Learn about the cognitive benefits, social skills development, and future opportunities that early robotics education can provide for young minds.'
-author: 'Scott Marker'
+author: 'Alexander Hunt'
 read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'

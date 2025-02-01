@@ -2,7 +2,7 @@
 title: 'DeepSeek V3: Revolutionizing Data Science with Democratic AI Innovation'
 subtitle: 'How DeepSeek V3 is Making Enterprise AI Accessible'
 description: 'In a groundbreaking development, DeepSeek V3 makes enterprise-grade AI accessible with its efficient MoE architecture and democratic AI innovation. Discover how this open-source breakthrough with 671 billion parameters is transforming data science and machine learning.'  
-author: 'Marc Stoker'
+author: 'Sophia Martín'
 read_time: '8 mins'
 publish_date: '2024-02-01'
 created_date: '2025-02-01'

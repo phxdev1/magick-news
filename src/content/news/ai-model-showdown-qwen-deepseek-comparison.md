@@ -2,7 +2,7 @@
 title: 'The AI Model Showdown: Qwen 2.5 vs DeepSeek - A Deep Dive into Next-Generation Language Models'
 subtitle: 'Comparing Two Leading AI Models: Qwen 2.5 and DeepSeek''s Technical Capabilities'
 description: 'Explore the capabilities and differences between two leading AI models - Qwen 2.5 and DeepSeek. This comprehensive comparison examines their strengths, specialized features, and implications for the future of AI technology.'
-author: 'Marc Stoker'
+author: 'Alexander Hunt'
 read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'

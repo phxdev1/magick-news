@@ -2,7 +2,7 @@
 title: 'AI Breakthrough: New Language Models Show Human-Like Understanding'
 subtitle: 'Latest AI models demonstrate unprecedented natural language capabilities'
 description: 'Explore the groundbreaking new generation of AI language models demonstrating levels of natural language understanding and generation that closely resemble human cognition. With advancements in comprehension of context and semantic meaning, these models are set to revolutionize industries from healthcare to customer service.'
-author: 'Rick Master'
+author: 'Alexander Hunt'
 read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'

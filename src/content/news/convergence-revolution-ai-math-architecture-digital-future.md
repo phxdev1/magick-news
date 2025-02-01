@@ -2,7 +2,7 @@
 title: 'The Convergence Revolution: How AI, Mathematical Modeling, and Technical Architecture Are Reshaping Our Digital Future'
 subtitle: 'AI, Math & Architecture Unite to Transform Tech'
 description: 'Explore how the revolutionary convergence of AI, mathematical modeling, and technical architecture is fundamentally transforming our digital landscape. From breakthrough AI systems solving complex mathematical problems to sophisticated technical architectures enabling new possibilities, discover how this fusion is reshaping industries and opening new frontiers in technological innovation.'
-author: 'Marc Stoker'
+author: 'Alexander Hunt'
 read_time: '8 mins'
 publish_date: '2024-02-01'
 created_date: '2025-02-01'

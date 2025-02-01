@@ -2,7 +2,7 @@
 title: 'The Future of Cybersecurity: How AI is Revolutionizing Network Anomaly Detection'
 subtitle: 'AI-powered systems transform network security with 16.4% market growth'
 description: 'Explore how AI is reshaping network anomaly detection and transforming cybersecurity. Learn about the machine learning algorithms that process millions of data points, making it easier to identify security breaches. Understand how AI systems are essential for fighting sophisticated cyber threats in today''s digital landscape.'
-author: 'Tom Racket'
+author: 'Sophia Martín'
 read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'

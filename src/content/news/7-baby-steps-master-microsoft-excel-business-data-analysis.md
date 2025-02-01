@@ -2,7 +2,7 @@
 title: '7 Baby Steps to Master Microsoft Excel for Business and Data Analysis'
 subtitle: 'A comprehensive guide to Excel mastery for modern business professionals'
 description: 'Discover the essential steps to master Microsoft Excel for business and data analysis. From basic foundations to advanced techniques, this guide provides a clear pathway to Excel expertise, helping professionals enhance their data analysis capabilities and career prospects.'
-author: 'David Jenkins'
+author: 'Alexander Hunt'
 read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'

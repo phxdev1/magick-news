@@ -1,5 +1,5 @@
 import { getCollection } from 'astro:content';
-import { buildVectorDB } from '../src/utils/vectorSearch.js';
+import { buildVectorDB } from '../src/utils/vectorSearch.ts';
 
 async function main() {
   try {

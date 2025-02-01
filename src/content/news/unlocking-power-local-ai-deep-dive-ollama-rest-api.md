@@ -2,7 +2,7 @@
 title: 'Unlocking the Power of Local AI: A Deep Dive into Ollama''s REST API Endpoints'
 subtitle: 'How Ollama is Revolutionizing Local AI Development with its Robust API Infrastructure'
 description: 'Explore Ollama''s powerful REST API endpoints and their impact on local AI development. From model management to generation capabilities, discover how this robust API infrastructure is revolutionizing the way developers integrate AI into their applications, while maintaining security and performance standards.'
-author: 'Rick Master'
+author: 'Sophia Martín'
 read_time: '8 mins'
 publish_date: '2024-02-01'
 created_date: '2025-02-01'

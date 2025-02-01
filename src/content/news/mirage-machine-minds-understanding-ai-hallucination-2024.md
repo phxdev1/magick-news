@@ -2,7 +2,7 @@
 title: 'The Mirage of Machine Minds: Understanding AI Hallucination in 2024'
 subtitle: 'A deep dive into AI's tendency to generate false information and how researchers are addressing it'
 description: 'Explore the causes, implications, and potential solutions to AI hallucination, including developments in Retrieval-Augmented Generation and the importance of AI literacy.'
-author: 'Marc Stoker'
+author: 'Alexander Hunt'
 read_time: '8 mins'
 publish_date: '2024-02-01'
 created_date: '2025-02-01'

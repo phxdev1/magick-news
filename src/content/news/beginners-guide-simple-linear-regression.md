@@ -2,7 +2,7 @@
 title: 'Straight to the Point: A Beginner''s Guide To Simple Linear Regression'
 subtitle: 'Understanding the foundational tool of data science and predictive analytics'
 description: 'Explore the fundamentals of Simple Linear Regression, a powerful statistical tool that forms the backbone of modern data science and predictive analytics. Learn how this straightforward technique helps businesses, scientists, and analysts uncover relationships in data and make informed decisions across industries.'
-author: 'Rick Master'
+author: 'Alexander Hunt'
 read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'
