@@ -1,6 +1,3 @@
-Here is the markdown conversion of the input:
-
-
 ---
 title: "EvalPlanner: Revolutionizing How We Judge AI Through Strategic Thinking"
 subtitle: "New AI evaluation system achieves 93.9 score on RewardBench"
