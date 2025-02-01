@@ -1,13 +1,14 @@
 ---
-title: 'The Digital Age Dilemma: When Evidence Isn''t Proof - Navigating Truth in an AI-Driven World'
-subtitle: 'Exploring how AI is reshaping our understanding of evidence and proof'
+title: "The Digital Age Dilemma: When Evidence Isn't Proof - Navigating Truth in an AI-Driven World"
 description: 'Explore how artificial intelligence is fundamentally changing our understanding of evidence and proof in the digital age. This analysis delves into the challenges and opportunities of navigating truth in an AI-driven world, examining the complex relationship between data, evidence, and definitive proof.'
 author: 'David Jenkins'
 read_time: '8 mins'
-publish_date: '2025-02-01'
-created_date: '2025-02-01'
+publish_date: 2025-02-01
+created_date: 2025-02-01
 heroImage: 'https://i.magick.ai/PIXE/1738436251924_magick_img.webp'
 cta: 'Ready to stay at the forefront of AI innovation and its impact on evidence-based decision-making? Follow us on LinkedIn at MagickAI for cutting-edge insights and discussions about the future of truth in our digital world.'
+subtitle: 'Exploring how AI is reshaping our understanding of evidence and proof'
+
 ---
 
 In an era where artificial intelligence increasingly shapes our understanding of reality, the relationship between evidence and proof has never been more complex or consequential. This deep dive explores how the digital revolution is transforming our traditional notions of verification and truth, and what it means for our future.

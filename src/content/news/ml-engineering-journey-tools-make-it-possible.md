@@ -1,13 +1,14 @@
 ---
 title: 'The ML Engineering Journey: The Tools That Make It All Possible'
-subtitle: 'A deep dive into the evolving landscape of machine learning engineering tools and their impact'
 description: 'Explore the evolving landscape of machine learning engineering tools and their transformative impact on industry. From development frameworks to MLOps platforms, discover how these tools are shaping the future of technology and driving innovation across sectors.'
 author: 'David Jenkins'
 read_time: '8 mins'
-publish_date: '2024-02-01'
-created_date: '2025-02-01'
+publish_date: 2024-02-01
+created_date: 2025-02-01
 heroImage: 'https://images.magick.ai/ml-engineering-tools-hero.jpg'
 cta: 'Stay ahead of the ML engineering curve! Follow us on LinkedIn for daily insights on the latest tools, frameworks, and best practices that are shaping the future of machine learning.'
+subtitle: 'A deep dive into the evolving landscape of machine learning engineering tools and their impact'
+
 ---
 
 In the rapidly evolving landscape of technology, machine learning engineering has emerged as a cornerstone of innovation, transforming how we approach problem-solving and application development. As we navigate through 2024, the tools and frameworks that power this revolution are becoming increasingly sophisticated, accessible, and crucial for organizations worldwide.

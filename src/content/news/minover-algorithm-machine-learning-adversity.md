@@ -1,13 +1,14 @@
 ---
 title: 'The MinOver Algorithm: Pioneering Efficient Machine Learning Through Adversity'
-subtitle: 'How focusing on the hardest problems first revolutionizes machine learning'
 description: 'The MinOver algorithm revolutionizes machine learning by focusing on the hardest examples first, combining elegant simplicity with powerful efficiency. This innovative approach to classification problems demonstrates how targeting the most challenging cases can lead to better overall performance in artificial intelligence applications.'
 author: 'Alexander Hunt'
 read_time: '8 mins'
-publish_date: '2024-02-01'
-created_date: '2025-02-01'
+publish_date: 2024-02-01
+created_date: 2025-02-01
 heroImage: 'https://images.magick.ai/minover-algorithm-visualization.jpg'
 cta: 'Stay at the forefront of AI innovation! Follow us on LinkedIn for more in-depth analyses of groundbreaking algorithms like MinOver and join a community of forward-thinking tech enthusiasts.'
+subtitle: 'How focusing on the hardest problems first revolutionizes machine learning'
+
 ---
 
 In the ever-evolving landscape of artificial intelligence, some algorithms stand out not for their complexity, but for their elegant simplicity and effectiveness. The MinOver algorithm, a remarkable innovation in machine learning, exemplifies this principle by tackling one of AI's fundamental challenges: learning from the hardest examples first.
