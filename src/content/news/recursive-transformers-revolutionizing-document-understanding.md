@@ -1,6 +1,6 @@
 ---
 title: 'Recursive Transformers: Revolutionizing Document Understanding Through Advanced AI Architecture'
-subtitle: 'How AI\'s Latest Innovation is Transforming Document Processing'
+subtitle: 'How AI''s Latest Innovation is Transforming Document Processing'
 description: 'Explore how recursive transformers are revolutionizing document understanding with advanced AI architecture. Learn about their innovative approach to processing complex documents, technical advantages, and real-world applications across industries.'
 author: 'Scott Marker'
 read_time: '10 mins'
