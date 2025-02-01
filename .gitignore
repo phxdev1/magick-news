@@ -29,3 +29,6 @@ pnpm-debug.log*
 
 # Vector database files
 public/vector-db/
+
+# Backup files
+backup-news-articles/

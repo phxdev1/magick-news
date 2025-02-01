@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run build:vectors && astro build",
+    "build": "node scripts/build-with-cleanup.mjs",
     "preview": "astro build && wrangler pages dev",
     "astro": "astro",
     "deploy": "npm run build:vectors && astro build && wrangler pages deploy",
