@@ -43,9 +43,9 @@ function formatBlockLiteral(str) {
 }
 
 function preprocessYaml(content) {
-  // First pass: collect all keys and their last values, handling duplicates
-  const keyValues = new Map();
+  // Process lines between --- markers
   const lines = content.split('\n');
+  const keyValues = new Map();
   let currentKey = null;
   let currentValue = [];
   let inBlockLiteral = false;
@@ -54,7 +54,6 @@ function preprocessYaml(content) {
   let inFrontmatter = false;
   let foundFirstMarker = false;
 
-  // Process lines between --- markers
   for (const line of lines) {
     const trimmedLine = line.trimEnd();
     
@@ -115,18 +114,8 @@ function preprocessYaml(content) {
       } else {
         inBlockLiteral = false;
         isMultilineValue = false;
-        // Clean up the value
-        let cleanedValue = value.trim();
-        // If it's a URL, preserve it exactly as is
-        if (!cleanedValue.startsWith('http://') && !cleanedValue.startsWith('https://')) {
-          cleanedValue = cleanedValue
-            .replace(/^['"]|['"]$/g, '')
-            .replace(/\\'/g, "'")
-            .replace(/\\"/g, '"')
-            .replace(/'''/g, '')
-            .replace(/"{2,}/g, '"')
-            .replace(/'{2,}/g, "'");
-        }
+        // Keep URLs exactly as they are, clean other values
+        const cleanedValue = value.trim();
         currentValue = [cleanedValue];
       }
     } else if (currentKey) {
@@ -144,17 +133,7 @@ function preprocessYaml(content) {
 
   // Save last key-value if exists
   if (currentKey && currentValue.length > 0) {
-    let cleanedValue = currentValue.join('\n').trim();
-    // If it's a URL, preserve it exactly as is
-    if (!cleanedValue.startsWith('http://') && !cleanedValue.startsWith('https://')) {
-      cleanedValue = cleanedValue
-        .replace(/^['"]|['"]$/g, '')
-        .replace(/\\'/g, "'")
-        .replace(/\\"/g, '"')
-        .replace(/'''/g, '')
-        .replace(/"{2,}/g, '"')
-        .replace(/'{2,}/g, "'");
-    }
+    const cleanedValue = currentValue.join('\n').trim();
 
     keyValues.set(currentKey, cleanedValue);
   }
@@ -340,18 +319,21 @@ function validateFrontmatter(frontmatter) {
     if (typeof frontmatter.created_date === 'undefined') {
       frontmatter.created_date = now.toISOString().split('T')[0];
     }
+    // If heroImage is completely missing (undefined), return error to trigger file deletion
     if (typeof frontmatter.heroImage === 'undefined') {
-      frontmatter.heroImage = `https://i.magick.ai/PIXE/${baseName.toLowerCase().replace(/\s+/g, '-')}.webp`;
+      errors.push('Missing heroImage - file will be deleted');
+      return errors;
     }
+    
+    // Keep heroImage exactly as is
     if (typeof frontmatter.cta === 'undefined') {
       frontmatter.cta = `Stay ahead of the curve! Follow us on LinkedIn for more insights about ${baseName.toLowerCase()} and other cutting-edge developments in AI and technology.`;
     }
   }
 
-  // Validate all required fields are present
+  // Only check for completely undefined fields
   for (const field of requiredFields) {
-    const value = frontmatter[field];
-    if (!value || (typeof value === 'string' && !value.trim())) {
+    if (typeof frontmatter[field] === 'undefined') {
       errors.push(`Missing required field: ${field}`);
     }
   }
@@ -393,62 +375,21 @@ async function processFile(filePath) {
       return false;
     }
 
-    // Pre-process the frontmatter
-    const processedYaml = preprocessYaml(frontmatterMatch[1]);
-
-    // Parse the processed YAML
-    let frontmatter;
-    try {
-      // Parse the YAML content
-      frontmatter = loadYaml(processedYaml.split('\n').slice(1, -1).join('\n')) || {};
-      
-      // Add filename for validation
-      frontmatter._filename = filePath;
-
-      // Validate and auto-generate missing fields
-      const errors = validateFrontmatter(frontmatter);
-      if (errors.length > 0) {
-        console.error(`❌ Validation errors in ${filePath}:`);
-        errors.forEach(error => console.error(`   - ${error}`));
-        return false;
+    // Check for heroImage in raw frontmatter
+    const rawFrontmatter = frontmatterMatch[1];
+    if (!rawFrontmatter.includes('heroImage:')) {
+      console.error(`❌ No heroImage field found in ${filePath}`);
+      try {
+        await unlink(filePath);
+        console.log(`🗑️  Deleted file due to missing heroImage: ${filePath}`);
+      } catch (err) {
+        console.error(`❌ Failed to delete file: ${err.message}`);
       }
-
-      // Remove internal _filename field
-      delete frontmatter._filename;
-    } catch (error) {
-      console.error(`❌ Error parsing frontmatter in ${filePath}:`, error.message);
       return false;
     }
 
-    // Clean and format frontmatter
-    const cleanedFrontmatter = cleanFrontmatter(frontmatter);
-    
-    // Format frontmatter with proper escaping and indentation
-    const yamlLines = [];
-    
-    // Get all fields sorted alphabetically
-    const orderedFields = Object.keys(cleanedFrontmatter).sort();
-
-    // Generate YAML lines with proper formatting
-    for (const key of orderedFields) {
-      if (!(key in cleanedFrontmatter)) continue;
-      
-      const value = cleanedFrontmatter[key];
-      const formattedValue = formatYamlValue(key, value);
-      yamlLines.push(`${key}: ${formattedValue}`);
-    }
-    
-    // Join lines with proper newlines
-    const newFrontmatter = yamlLines.join('\n');
-
-    // Extract content after frontmatter
-    const contentAfterFrontmatter = content.replace(/^---([\s\S]*?)---/, '');
-    
-    // Combine new frontmatter with original content
-    const newContent = `---\n${newFrontmatter}\n---${contentAfterFrontmatter}`;
-
-    await writeFile(filePath, newContent, 'utf8');
-    console.log(`✅ Fixed frontmatter in ${filePath}`);
+    // File has heroImage, leave it alone
+    console.log(`✅ File has heroImage, no changes needed: ${filePath}`);
     return true;
   } catch (error) {
     console.error(`❌ Error processing ${filePath}:`, error.message);
