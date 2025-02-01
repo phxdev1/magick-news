@@ -1,7 +1,7 @@
 ---
 title: 'Breaking the Language Barrier: The Evolution of Bangla Sentiment Analysis in the AI Era'
 subtitle: 'How AI is decoding emotional nuances in one of South Asia''s most prominent languages'
-description: 'Explore how AI is revolutionizing Bangla sentiment analysis, enabling machines to understand the emotional nuances of one of South Asia's most prominent languages. With over 230 million speakers worldwide, this technological advancement represents a crucial step in the democratization of AI language understanding, combining traditional linguistic heritage with cutting-edge technology.'
+description: 'Explore how AI is revolutionizing Bangla sentiment analysis, enabling machines to understand the emotional nuances of one of South Asia''s most prominent languages. With over 230 million speakers worldwide, this technological advancement represents a crucial step in the democratization of AI language understanding, combining traditional linguistic heritage with cutting-edge technology.'
 author: 'Vikram Singh'
 read_time: '8 mins'
 publish_date: '2025-02-01'
