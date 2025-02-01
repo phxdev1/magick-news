@@ -22,7 +22,7 @@ interface Article {
   subtitle?: string;
   url: string;
   type: 'blog' | 'news';
-  date: Date;
+  date: string | Date;
 }
 
 // Ensure vector DB directory exists
@@ -95,16 +95,46 @@ interface SearchResult extends Article {
   score: number;
 }
 
+// Calculate time-based weight (0 to 1)
+function getTimeWeight(date: string | Date): number {
+  const now = new Date();
+  const articleDate = typeof date === 'string' ? new Date(date) : date;
+  const ageInDays = (now.getTime() - articleDate.getTime()) / (1000 * 60 * 60 * 24);
+  // Exponential decay: weight = e^(-ageInDays/365)
+  // This gives articles:
+  // - 1 day old: 0.997 weight
+  // - 1 month old: 0.92 weight
+  // - 6 months old: 0.64 weight
+  // - 1 year old: 0.37 weight
+  return Math.exp(-ageInDays/365);
+}
+
 // Search vector database
 export async function searchVectorDB(query: string, k: number = 5): Promise<SearchResult[]> {
   const { index, metadata } = loadVectorDB();
   const queryEmbedding = await getEmbedding(query);
   
-  const results = index.searchKnn(Array.from(queryEmbedding), k);
-  return results.neighbors.map((idx: number, i: number) => ({
-    ...metadata[idx],
-    score: results.distances[i] // Inner product scores are already similarity scores
-  }));
+  // Get more results than needed to allow for reranking
+  const results = index.searchKnn(Array.from(queryEmbedding), k * 2);
+  
+  // Combine similarity scores with time weights
+  const weightedResults = results.neighbors.map((idx: number, i: number) => {
+    const article = metadata[idx];
+    const similarityScore = results.distances[i];
+    const timeWeight = getTimeWeight(article.date);
+    // Combined score: 70% similarity, 30% recency
+    const combinedScore = (similarityScore * 0.7) + (timeWeight * 0.3);
+    
+    return {
+      ...article,
+      score: combinedScore
+    };
+  });
+
+  // Sort by combined score and take top k
+  return weightedResults
+    .sort((a, b) => b.score - a.score)
+    .slice(0, k);
 }
 
 // Get typeahead suggestions

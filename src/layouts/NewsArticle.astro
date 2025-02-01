@@ -261,7 +261,6 @@ const { title, subtitle, description, publish_date, created_date, heroImage, rea
 				}
 				.article-content {
 					position: relative;
-					max-width: min(85ch, 60rem);
 					margin: 0 auto;
 					padding: 0 2rem 4rem;
 					opacity: 0;
@@ -271,6 +270,20 @@ const { title, subtitle, description, publish_date, created_date, heroImage, rea
 				.article-content.visible {
 					opacity: 1;
 					transform: translateY(0);
+				}
+				.related-articles-gutter {
+					opacity: 0;
+					transform: translateX(20px);
+					transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+				}
+				.related-articles-gutter.visible {
+					opacity: 1;
+					transform: translateX(0);
+				}
+				@media (max-width: 1279px) {
+					.article-content {
+						padding: 0 1rem 2rem;
+					}
 				}
 				.progress-bar {
 					position: fixed;
@@ -460,8 +473,16 @@ const { title, subtitle, description, publish_date, created_date, heroImage, rea
 						font-size: 0.875rem;
 						gap: 1rem;
 					}
+					.article-content-wrapper {
+						padding: 0 1rem 2rem;
+						flex-direction: column;
+					}
 					.article-content {
-						padding: 0 1rem 3rem;
+						padding: 0;
+					}
+					/* Add spacing between content and sidebar on mobile */
+					.xl\:w-80 {
+						margin-top: 2rem;
 					}
 					:global(.article-content p) {
 						font-size: 1rem;
@@ -673,8 +694,19 @@ const { title, subtitle, description, publish_date, created_date, heroImage, rea
 			}, { threshold: 0.05 });
 
 			document.addEventListener('DOMContentLoaded', () => {
-				const elements = document.querySelectorAll('.article-header, .hero-image, .title-container, .metadata, .article-content, .engagement-bar, .last-updated-on');
+				const elements = document.querySelectorAll('.article-header, .hero-image, .title-container, .metadata, .article-content, .engagement-bar, .last-updated-on, .related-articles-gutter');
 				elements.forEach(el => observer.observe(el));
+
+				// Move inline article after second paragraph
+				const articleContent = document.querySelector('.prose');
+				const inlineArticle = document.getElementById('inline-article');
+				const paragraphs = articleContent?.querySelectorAll('p');
+				
+				if (articleContent && inlineArticle && paragraphs && paragraphs.length >= 2) {
+					const secondParagraph = paragraphs[1];
+					inlineArticle.classList.remove('hidden');
+					secondParagraph.after(inlineArticle);
+				}
 
 				// Analyze hero image and adjust text color
 				const heroImage = document.querySelector('.hero-image img');
@@ -693,11 +725,11 @@ const { title, subtitle, description, publish_date, created_date, heroImage, rea
 
 				// Reading progress
 				const progressBar = document.querySelector('.progress-bar');
-				const content = document.querySelector('.article-content');
+				const mainContent = document.querySelector('.article-content');
 				
-				if (progressBar && content) {
+				if (progressBar && mainContent) {
 					window.addEventListener('scroll', () => {
-						const contentBox = content.getBoundingClientRect();
+						const contentBox = mainContent.getBoundingClientRect();
 						const contentStart = contentBox.top + window.scrollY;
 						const contentEnd = contentBox.bottom + window.scrollY;
 						const scrolled = window.scrollY - contentStart;
@@ -797,22 +829,27 @@ const { title, subtitle, description, publish_date, created_date, heroImage, rea
 					</button>
 				</aside>
 
-				<div class="max-w-[90rem] mx-auto px-4 xl:grid xl:grid-cols-[1fr_20rem] xl:gap-8">
-					<div class="article-content relative" role="article">
-						<div class="prose prose-lg dark:prose-invert max-w-none">
-							<slot />
-						</div>
-						{
-							created_date.valueOf() !== publish_date.valueOf() && (
-								<footer class="last-updated-on mt-16" role="contentinfo" aria-label="Last update information">
-									Last updated on <time datetime={created_date.toISOString()}>
-										<FormattedDate date={created_date} />
-									</time>
-								</footer>
-							)
-						}
+				<div class="article-content relative max-w-[85ch] mx-auto" role="article">
+					<div class="prose prose-lg dark:prose-invert relative">
+						<slot />
 					</div>
-					<RelatedArticles currentArticle={{title, description: description || subtitle || '', url: Astro.url.pathname}} />
+					<div class="related-articles-gutter absolute -right-96 w-64 2xl:block hidden text-sm">
+						<div class="sticky top-32 pt-8">
+							<RelatedArticles currentArticle={{title, description: description || subtitle || '', url: Astro.url.pathname}} mode="sidebar" />
+						</div>
+					</div>
+					<div id="inline-article" class="hidden mx-8 my-12">
+						<RelatedArticles currentArticle={{title, description: description || subtitle || '', url: Astro.url.pathname}} mode="inline" />
+					</div>
+					{
+						created_date.valueOf() !== publish_date.valueOf() && (
+							<footer class="last-updated-on mt-16" role="contentinfo" aria-label="Last update information">
+								Last updated on <time datetime={created_date.toISOString()}>
+									<FormattedDate date={created_date} />
+								</time>
+							</footer>
+						)
+					}
 				</div>
 			</article>
 		</main>
