@@ -325,7 +325,8 @@ function validateFrontmatter(frontmatter) {
     if (!frontmatter.created_date) {
       frontmatter.created_date = now.toISOString().split('T')[0];
     }
-    if (!frontmatter.heroImage || !frontmatter.heroImage.trim()) {
+    // Only set heroImage if it's completely missing
+    if (!frontmatter.heroImage) {
       frontmatter.heroImage = `https://assets.magick.ai/${baseName.toLowerCase().replace(/\s+/g, '-')}.png`;
     }
     if (!frontmatter.cta || !frontmatter.cta.trim()) {
@@ -426,11 +427,11 @@ async function processFile(filePath) {
     // Join lines with proper newlines
     const newFrontmatter = yamlLines.join('\n');
 
-    // Replace the old frontmatter with the new one
-    const newContent = content.replace(
-      /^---([\s\S]*?)---/,
-      `---\n${newFrontmatter}\n---`
-    );
+    // Extract content after frontmatter
+    const contentAfterFrontmatter = content.replace(/^---([\s\S]*?)---/, '');
+    
+    // Combine new frontmatter with original content
+    const newContent = `---\n${newFrontmatter}\n---${contentAfterFrontmatter}`;
 
     await writeFile(filePath, newContent, 'utf8');
     console.log(`✅ Fixed frontmatter in ${filePath}`);
