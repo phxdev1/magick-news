@@ -1,6 +1,7 @@
 ---
 import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
+import Search from './Search.astro';
 ---
 
 <header class="sticky top-0 z-50 w-full bg-dark/80 backdrop-blur-xl border-b border-dark-200/50">
@@ -22,18 +23,8 @@ import { SITE_TITLE } from '../consts';
 			<!-- Right section -->
 			<div class="flex items-center gap-2">
 				<!-- Search -->
-				<div class="hidden md:flex items-center relative w-64 xl:w-72">
-					<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-						<svg class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-						</svg>
-					</div>
-					<input 
-						type="search" 
-						placeholder="Search articles..." 
-						class="w-full bg-dark-100/50 border-dark-200/50 rounded-lg pl-9 pr-4 py-1.5 text-sm text-white placeholder-gray-400 focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500/40 transition-all duration-300"
-					/>
-					<kbd class="absolute right-2 top-1/2 -translate-y-1/2 hidden sm:inline-flex items-center rounded border border-dark-300/50 px-1.5 font-mono text-[10px] text-gray-500">⌘K</kbd>
+				<div class="hidden md:block w-64 xl:w-72">
+					<Search />
 				</div>
 
 				<!-- Social Links -->
@@ -102,18 +93,7 @@ import { SITE_TITLE } from '../consts';
 		<div class="lg:hidden hidden mobile-menu">
 			<div class="px-2 pt-2 pb-3 space-y-1">
 				<div class="p-2 mb-3">
-					<div class="relative">
-						<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-							<svg class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-							</svg>
-						</div>
-						<input 
-							type="search" 
-							placeholder="Search articles..." 
-							class="w-full bg-dark-100/50 border-dark-200/50 rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-gray-400 focus:ring-2 focus:ring-primary-500/40 focus:border-primary-500/40"
-						/>
-					</div>
+					<Search />
 				</div>
 				<HeaderLink href="/" class="block px-3 py-2 text-base font-medium rounded-lg hover:bg-dark-100">Home</HeaderLink>
 				<HeaderLink href="/about" class="block px-3 py-2 text-base font-medium rounded-lg hover:bg-dark-100">About</HeaderLink>
@@ -146,11 +126,29 @@ import { SITE_TITLE } from '../consts';
 
 <script>
 	const mobileMenuButton = document.querySelector('.mobile-menu-button');
+	const mobileSearchButton = document.querySelector('button[aria-label="Search"]');
 	const mobileMenu = document.querySelector('.mobile-menu');
 
+	// Toggle mobile menu
 	mobileMenuButton?.addEventListener('click', () => {
 		mobileMenu?.classList.toggle('hidden');
 		const expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
 		mobileMenuButton.setAttribute('aria-expanded', (!expanded).toString());
+	});
+
+	// Toggle mobile search
+	mobileSearchButton?.addEventListener('click', () => {
+		mobileMenu?.classList.remove('hidden');
+		const searchInput = mobileMenu?.querySelector('input[type="search"]');
+		searchInput?.focus();
+	});
+
+	// Close mobile menu when clicking outside
+	document.addEventListener('click', (e) => {
+		const target = e.target as HTMLElement;
+		if (!target.closest('.mobile-menu') && !target.closest('.mobile-menu-button') && !target.closest('button[aria-label="Search"]')) {
+			mobileMenu?.classList.add('hidden');
+			mobileMenuButton?.setAttribute('aria-expanded', 'false');
+		}
 	});
 </script>

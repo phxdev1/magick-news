@@ -1,0 +1,228 @@
+---
+---
+
+<div class="relative">
+  <div class="relative">
+    <input
+      type="search"
+      id="search-input"
+      placeholder="Search articles..."
+      class="w-full"
+      autocomplete="off"
+    />
+    <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">
+      <svg class="w-4 h-4 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+      </svg>
+    </div>
+  </div>
+
+  <!-- Typeahead suggestions -->
+  <div id="typeahead-results" class="absolute left-0 right-0 z-20 mt-1 bg-dark-50/90 backdrop-blur-xl rounded-lg shadow-lg border border-dark-200/50 overflow-hidden transition-all max-h-0 opacity-0">
+    <ul class="py-2"></ul>
+  </div>
+
+  <!-- Search results -->
+  <div id="search-results" class="absolute left-0 right-0 z-10 mt-2 bg-dark-50/90 backdrop-blur-xl rounded-lg shadow-lg border border-dark-200/50 overflow-hidden transition-all max-h-0 opacity-0">
+    <div class="p-4">
+      <div id="no-results" class="hidden text-gray-400 text-center py-2">No results found</div>
+      <ul id="results-list" class="space-y-2"></ul>
+    </div>
+  </div>
+</div>
+
+<script>
+const searchInput = document.getElementById('search-input') as HTMLInputElement;
+const searchResults = document.getElementById('search-results');
+const typeaheadResults = document.getElementById('typeahead-results');
+const resultsList = document.getElementById('results-list');
+const noResults = document.getElementById('no-results');
+const typeaheadList = typeaheadResults?.querySelector('ul');
+
+let searchTimeout: number | undefined;
+let typeaheadTimeout: number | undefined;
+
+// Debounced search function
+async function search(query: string) {
+  if (!query) {
+    hideResults();
+    return;
+  }
+
+  try {
+    const response = await fetch(`/api/search.json?q=${encodeURIComponent(query)}`);
+    const results = await response.json();
+    displayResults(results);
+  } catch (error) {
+    console.error('Search error:', error);
+  }
+}
+
+// Debounced typeahead function
+async function getTypeaheadSuggestions(query: string) {
+  if (!query || query.length < 2) {
+    hideTypeahead();
+    return;
+  }
+
+  try {
+    const response = await fetch(`/api/search.json?q=${encodeURIComponent(query)}&typeahead=true`);
+    const suggestions = await response.json();
+    displayTypeahead(suggestions, query);
+  } catch (error) {
+    console.error('Typeahead error:', error);
+  }
+}
+
+// Display typeahead suggestions
+function displayTypeahead(suggestions: string[], query: string) {
+  if (!typeaheadList || !typeaheadResults || suggestions.length === 0) {
+    hideTypeahead();
+    return;
+  }
+
+  typeaheadList.innerHTML = suggestions
+    .map(suggestion => {
+      const index = suggestion.toLowerCase().indexOf(query.toLowerCase());
+      const before = suggestion.slice(0, index);
+      const match = suggestion.slice(index, index + query.length);
+      const after = suggestion.slice(index + query.length);
+      return `
+        <li>
+          <button class="w-full px-4 py-2 text-left hover:bg-dark-100/50 text-gray-300 hover:text-white transition-colors">
+            ${before}<span class="text-primary-400 font-medium">${match}</span>${after}
+          </button>
+        </li>
+      `;
+    })
+    .join('');
+
+  // Show typeahead results
+  typeaheadResults.classList.add('max-h-[200px]', 'opacity-100');
+
+  // Add click handlers
+  typeaheadList.querySelectorAll('button').forEach((button, i) => {
+    button.addEventListener('click', () => {
+      if (searchInput) {
+        searchInput.value = suggestions[i];
+        search(suggestions[i]);
+      }
+      hideTypeahead();
+    });
+  });
+}
+
+// Hide typeahead suggestions
+function hideTypeahead() {
+  if (!typeaheadResults) return;
+  typeaheadResults.classList.remove('max-h-[200px]', 'opacity-100');
+}
+
+// Display search results
+function displayResults(results: any[]) {
+  if (!resultsList || !noResults || !searchResults) return;
+
+  resultsList.innerHTML = '';
+  
+  if (results.length === 0) {
+    noResults.classList.remove('hidden');
+    resultsList.classList.add('hidden');
+  } else {
+    noResults.classList.add('hidden');
+    resultsList.classList.remove('hidden');
+
+    results.forEach(result => {
+      const li = document.createElement('li');
+      li.className = 'group';
+      li.innerHTML = `
+        <a href="${result.url}" class="block p-3 rounded-lg hover:bg-dark-100/50 transition-colors">
+          <div class="flex items-center justify-between">
+            <h3 class="text-white group-hover:text-primary-400 font-medium transition-colors">${result.title}</h3>
+            <span class="text-xs text-gray-500 ml-2">${Math.round(result.score * 100)}% match</span>
+          </div>
+          <p class="text-sm text-gray-400 mt-1 line-clamp-2">${result.description || result.subtitle || ''}</p>
+        </a>
+      `;
+      resultsList.appendChild(li);
+    });
+  }
+
+  // Show results container
+  searchResults.classList.add('max-h-[60vh]', 'opacity-100');
+}
+
+// Hide results
+function hideResults() {
+  if (!searchResults) return;
+  searchResults.classList.remove('max-h-[60vh]', 'opacity-100');
+}
+
+// Event listeners
+searchInput?.addEventListener('input', (e) => {
+  const query = (e.target as HTMLInputElement).value;
+  
+  // Clear previous timeouts
+  clearTimeout(searchTimeout);
+  clearTimeout(typeaheadTimeout);
+
+  // Set new timeouts
+  typeaheadTimeout = setTimeout(() => getTypeaheadSuggestions(query), 150);
+  searchTimeout = setTimeout(() => search(query), 300);
+});
+
+// Handle keyboard navigation
+searchInput?.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowDown' && typeaheadList?.firstElementChild) {
+    (typeaheadList.firstElementChild.querySelector('button') as HTMLButtonElement)?.focus();
+    e.preventDefault();
+  }
+});
+
+typeaheadResults?.addEventListener('keydown', (e) => {
+  const current = document.activeElement as HTMLButtonElement;
+  const buttons = Array.from(typeaheadList?.querySelectorAll('button') || []);
+  const currentIndex = buttons.indexOf(current);
+
+  switch (e.key) {
+    case 'ArrowDown':
+      if (currentIndex < buttons.length - 1) {
+        buttons[currentIndex + 1].focus();
+      }
+      e.preventDefault();
+      break;
+    case 'ArrowUp':
+      if (currentIndex === 0) {
+        searchInput?.focus();
+      } else if (currentIndex > 0) {
+        buttons[currentIndex - 1].focus();
+      }
+      e.preventDefault();
+      break;
+    case 'Enter':
+      current.click();
+      break;
+    case 'Escape':
+      hideTypeahead();
+      hideResults();
+      searchInput?.focus();
+      break;
+  }
+});
+
+// Close results when clicking outside
+document.addEventListener('click', (e) => {
+  const target = e.target as HTMLElement;
+  if (!target.closest('#search-input') && !target.closest('#search-results') && !target.closest('#typeahead-results')) {
+    hideResults();
+    hideTypeahead();
+  }
+});
+
+// Keyboard shortcut
+document.addEventListener('keydown', (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    e.preventDefault();
+    searchInput?.focus();
+  }
+});
+</script>
