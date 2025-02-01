@@ -1,7 +1,7 @@
 ---
 title: '3 Major AI Developments You Missed While Everyone Was Talking About DeepSeek'
 subtitle: 'Beyond DeepSeek: The Hidden AI Breakthroughs Reshaping Tech'
-description: 'While DeepSeek has dominated recent AI headlines, three major developments have gone largely unnoticed: revolutionary changes in AI infrastructure, evolution of governance frameworks, and breakthroughs in cross-modal AI systems. These advances could prove more transformative than DeepSeek's cost innovations.'
+description: 'While DeepSeek has dominated recent AI headlines, three major developments have gone largely unnoticed: revolutionary changes in AI infrastructure, evolution of governance frameworks, and breakthroughs in cross-modal AI systems. These advances could prove more transformative than DeepSeek''s cost innovations.'
 author: 'Marc Stoker'
 read_time: '8 mins'
 publish_date: '2024-01-31'
