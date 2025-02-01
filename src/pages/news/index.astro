@@ -7,6 +7,17 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import { getAllPosts } from '../../utils/news';
 
 const posts = await getAllPosts();
+const POSTS_PER_PAGE = 8;
+
+// Helper function to format dates consistently
+function formatDate(date: Date | string) {
+	const d = date instanceof Date ? date : new Date(date);
+	return d.toLocaleDateString('en-us', {
+		year: 'numeric',
+		month: 'short',
+		day: 'numeric',
+	});
+}
 ---
 
 <!doctype html>
@@ -47,6 +58,7 @@ const posts = await getAllPosts();
 				width: 100%;
 				height: 200px;
 				overflow: hidden;
+				background-color: rgb(var(--gray-light));
 			}
 			.hero-image img {
 				width: 100%;
@@ -68,6 +80,7 @@ const posts = await getAllPosts();
 				margin: 0;
 				color: rgb(var(--black));
 				line-height: 1.2;
+				font-size: 1.5rem;
 			}
 			.subtitle {
 				margin: 0.5rem 0;
@@ -92,13 +105,33 @@ const posts = await getAllPosts();
 			.divider {
 				color: rgb(var(--gray-light));
 			}
-			.title {
-				font-size: 1.5rem;
-			}
 			ul li a:hover {
 				border-color: rgb(var(--accent));
 				background: rgba(var(--accent), 0.05);
 				transform: translateY(-2px);
+			}
+			.load-more-container {
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				margin-top: 3rem;
+			}
+			.load-more-button {
+				background-color: rgb(var(--accent));
+				color: white;
+				border: none;
+				padding: 0.75rem 2rem;
+				border-radius: 8px;
+				font-size: 1rem;
+				cursor: pointer;
+				transition: 0.2s ease;
+			}
+			.load-more-button:hover {
+				background-color: rgba(var(--accent), 0.8);
+			}
+			.load-more-button:disabled {
+				background-color: rgb(var(--gray-light));
+				cursor: not-allowed;
 			}
 			@media (max-width: 720px) {
 				ul {
@@ -117,48 +150,223 @@ const posts = await getAllPosts();
 		<Header />
 		<main>
 			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/news/${post.slug}/`} class="post-card">
+				<ul id="posts-container">
+					{posts.slice(0, POSTS_PER_PAGE).map((post) => (
+						<li>
+							<a href={`/news/${post.slug}/`} class="post-card">
+								<div class="hero-image">
 									{post.data.heroImage && (
-										<div class="hero-image">
-											<img src={post.data.heroImage} alt="" />
-										</div>
+										<img src={post.data.heroImage} alt="" loading="lazy" />
 									)}
-									<div class="post-content">
-										<h2 class="title">{post.data.title}</h2>
-										{post.data.subtitle && 
-											<p class="subtitle">{post.data.subtitle}</p>
-										}
-										<div class="metadata">
-											<span>
-												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-													<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-													<line x1="16" y1="2" x2="16" y2="6"></line>
-													<line x1="8" y1="2" x2="8" y2="6"></line>
-													<line x1="3" y1="10" x2="21" y2="10"></line>
-												</svg>
-												<FormattedDate date={post.data.publish_date} />
-											</span>
-											<span class="divider">•</span>
-											<span>
-												<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-													<circle cx="12" cy="12" r="10"></circle>
-													<polyline points="12 6 12 12 16 14"></polyline>
-												</svg>
-												{post.data.read_time}
-											</span>
-										</div>
+								</div>
+								<div class="post-content">
+									<h2 class="title">{post.data.title}</h2>
+									{post.data.subtitle && 
+										<p class="subtitle">{post.data.subtitle}</p>
+									}
+									<div class="metadata">
+										<span>
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+												<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+												<line x1="16" y1="2" x2="16" y2="6"></line>
+												<line x1="8" y1="2" x2="8" y2="6"></line>
+												<line x1="3" y1="10" x2="21" y2="10"></line>
+											</svg>
+											<span>{formatDate(post.data.publish_date)}</span>
+										</span>
+										<span class="divider">•</span>
+										<span>
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+												<circle cx="12" cy="12" r="10"></circle>
+												<polyline points="12 6 12 12 16 14"></polyline>
+											</svg>
+											{post.data.read_time}
+										</span>
 									</div>
-								</a>
-							</li>
-						))
-					}
+								</div>
+							</a>
+						</li>
+					))}
 				</ul>
+				{posts.length > POSTS_PER_PAGE && (
+					<div class="load-more-container">
+						<button id="load-more-button" class="load-more-button">Show all posts</button>
+					</div>
+				)}
 			</section>
 		</main>
 		<Footer />
+
+		<script client:load define:vars={{ posts, POSTS_PER_PAGE }}>
+			let currentPage = 1;
+			let isLoading = false;
+			const container = document.getElementById('posts-container');
+			const loadMoreButton = document.getElementById('load-more-button');
+
+			function formatDate(date) {
+				const d = new Date(date);
+				return d.toLocaleDateString('en-us', {
+					year: 'numeric',
+					month: 'short',
+					day: 'numeric',
+				});
+			}
+
+			function createPostElement(post) {
+				const li = document.createElement('li');
+				li.style.cssText = `
+					width: calc(50% - 1rem);
+					list-style-type: none;
+				`;
+				
+				// Add hover effect handler
+				const handleHover = (e) => {
+					const link = e.currentTarget;
+					if (e.type === 'mouseenter') {
+						link.style.borderColor = 'rgb(var(--accent))';
+						link.style.background = 'rgba(var(--accent), 0.05)';
+						link.style.transform = 'translateY(-2px)';
+					} else {
+						link.style.borderColor = 'rgb(var(--gray-light))';
+						link.style.background = 'none';
+						link.style.transform = 'none';
+					}
+				};
+				const postHtml = `
+					<a href="/news/${post.slug}/" class="post-card" style="
+						display: flex;
+						flex-direction: column;
+						padding: 0;
+						border-radius: 8px;
+						border: 1px solid rgb(var(--gray-light));
+						height: 100%;
+						overflow: hidden;
+						text-decoration: none;
+						transition: 0.2s ease;
+					">
+						<div class="hero-image" style="
+							width: 100%;
+							height: 200px;
+							overflow: hidden;
+							background-color: rgb(var(--gray-light));
+						">
+							${post.data.heroImage ? `
+								<img src="${post.data.heroImage}" alt="" loading="lazy" style="
+									width: 100%;
+									height: 100%;
+									object-fit: cover;
+								"/>
+							` : ''}
+						</div>
+						<div class="post-content" style="
+							flex-grow: 1;
+							display: flex;
+							flex-direction: column;
+							padding: 1.5rem;
+						">
+							<h2 class="title" style="
+								margin: 0;
+								color: rgb(var(--black));
+								line-height: 1.2;
+								font-size: 1.5rem;
+							">${post.data.title}</h2>
+							${post.data.subtitle ? `
+								<p class="subtitle" style="
+									margin: 0.5rem 0;
+									color: rgb(var(--gray));
+									font-size: 1rem;
+									line-height: 1.4;
+								">${post.data.subtitle}</p>
+							` : ''}
+							<div class="metadata" style="
+								display: flex;
+								align-items: center;
+								gap: 1rem;
+								margin-top: auto;
+								padding-top: 1rem;
+								font-size: 0.875rem;
+								color: rgb(var(--gray));
+							">
+								<span style="display: flex; align-items: center; gap: 0.25rem;">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+										<rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+										<line x1="16" y1="2" x2="16" y2="6"></line>
+										<line x1="8" y1="2" x2="8" y2="6"></line>
+										<line x1="3" y1="10" x2="21" y2="10"></line>
+									</svg>
+									<span>${formatDate(post.data.publish_date)}</span>
+								</span>
+								<span style="color: rgb(var(--gray-light));">•</span>
+								<span style="display: flex; align-items: center; gap: 0.25rem;">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+										<circle cx="12" cy="12" r="10"></circle>
+										<polyline points="12 6 12 12 16 14"></polyline>
+									</svg>
+									${post.data.read_time}
+								</span>
+							</div>
+						</div>
+					</a>
+				`;
+				li.innerHTML = postHtml;
+				
+				// Add hover event listeners
+				const link = li.querySelector('a');
+				link.addEventListener('mouseenter', handleHover);
+				link.addEventListener('mouseleave', handleHover);
+				
+				return li;
+			}
+
+			function updatePostWidths() {
+				const allPosts = document.querySelectorAll('#posts-container li');
+				const isMobile = window.matchMedia('(max-width: 720px)').matches;
+				allPosts.forEach(post => {
+					post.style.width = isMobile ? '100%' : 'calc(50% - 1rem)';
+				});
+			}
+
+			// Add resize listener
+			window.addEventListener('resize', updatePostWidths);
+
+			async function loadMorePosts() {
+				if (isLoading || currentPage * POSTS_PER_PAGE >= posts.length) {
+					return;
+				}
+
+				isLoading = true;
+				loadMoreButton.disabled = true;
+				loadMoreButton.textContent = 'Loading...';
+				
+				// Add a small delay to show loading state
+				await new Promise(resolve => setTimeout(resolve, 500));
+				
+				// Load all remaining posts
+				const start = currentPage * POSTS_PER_PAGE;
+				const remainingPosts = posts.slice(start);
+				
+				remainingPosts.forEach(post => {
+					const postElement = createPostElement(post);
+					container.appendChild(postElement);
+				});
+
+				currentPage++;
+				isLoading = false;
+				
+				// Update post widths after adding new content
+				updatePostWidths();
+
+				if (currentPage * POSTS_PER_PAGE >= posts.length) {
+					loadMoreButton.style.display = 'none';
+				} else {
+					loadMoreButton.disabled = false;
+					loadMoreButton.textContent = 'Load more posts';
+				}
+			}
+
+			if (loadMoreButton) {
+				loadMoreButton.addEventListener('click', loadMorePosts);
+			}
+		</script>
 	</body>
 </html>
