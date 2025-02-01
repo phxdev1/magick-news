@@ -6,7 +6,7 @@ author: 'Cam Strike'
 read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'
-heroImage: 'https://assets.magick.ai/governance-framework-header.jpg'
+heroImage: 'https://i.magick.ai/PIXE/1738406791880_magick_img.webp'
 ---
 
 In the rapidly evolving landscape of artificial intelligence, organizations are grappling with a critical challenge: how to harness the transformative power of generative AI while maintaining robust governance and risk management frameworks. As we navigate through 2025, the implementation of effective GenAI governance has become not just a regulatory requirement, but a fundamental business imperative.
