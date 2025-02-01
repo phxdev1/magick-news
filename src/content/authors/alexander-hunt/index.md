@@ -23,7 +23,6 @@ education:
     institution: "MIT"
     year: 2020
 featured: true
-slug: "alexander-hunt"
 ---
 
 Dr. Alexander Hunt is at the forefront of artificial intelligence research, focusing on developing more efficient and interpretable machine learning models. His work spans both theoretical foundations and practical applications of AI technology.

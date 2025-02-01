@@ -23,7 +23,6 @@ education:
     institution: "Technical University of Madrid"
     year: 2019
 featured: true
-slug: "sophia-martin"
 ---
 
 Dr. Sophia Martín leads cutting-edge research in reinforcement learning and multi-agent systems, with a particular focus on developing AI systems that can effectively collaborate and make decisions in complex environments.
