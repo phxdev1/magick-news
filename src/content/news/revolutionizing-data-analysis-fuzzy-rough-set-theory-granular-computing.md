@@ -1,7 +1,7 @@
 ---
-title: 'Revolutionizing Data Analysis: How Fuzzy Rough Set Theory and Granular Computing are Reshaping AI\'s Future'
+title: 'Revolutionizing Data Analysis: How Fuzzy Rough Set Theory and Granular Computing are Reshaping AI''s Future'
 subtitle: 'New AI Framework Combines Fuzzy Sets with Granular Computing'
-description: 'Discover how the integration of fuzzy rough set theory with granular computing is transforming AI\'s approach to complex data analysis, offering enhanced efficiency and robustness in feature selection while opening new possibilities for machine learning applications.'
+description: 'Discover how the integration of fuzzy rough set theory with granular computing is transforming AI''s approach to complex data analysis, offering enhanced efficiency and robustness in feature selection while opening new possibilities for machine learning applications.'
 author: 'Tim Croaker'
 read_time: '8 mins'
 publish_date: '2025-01-31'
