@@ -4,8 +4,8 @@ subtitle: 'How sparse attention is revolutionizing AI efficiency and scalability
 description: 'Explore how sparse attention mechanisms are revolutionizing AI efficiency and scalability. Learn about the latest breakthroughs in making large language models more accessible and environmentally sustainable while maintaining powerful performance.'
 author: 'Rick Master'
 read_time: '8 mins'
-publish_date: '2024-01-31'
-created_date: '2025-01-31'
+publish_date: '2025-01-25'
+created_date: '2025-01-25'
 heroImage: 'https://i.magick.ai/PIXE/1738372984940_magick_img.webp'
 ---
 

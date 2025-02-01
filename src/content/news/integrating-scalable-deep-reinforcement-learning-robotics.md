@@ -4,8 +4,8 @@ subtitle: 'How AI is transforming robotic learning and adaptation'
 description: 'Deep Reinforcement Learning is revolutionizing robotics by enabling machines to learn and adapt through experience. This sophisticated integration allows robots to master complex tasks in continuous control environments, transforming industries from manufacturing to autonomous vehicles. The technology promises a future of enhanced human-robot collaboration and unprecedented automation capabilities.'
 author: 'Tom Racket'
 read_time: '8 mins'
-publish_date: '2025-01-31'
-created_date: '2025-01-31'
+publish_date: '2025-01-29'
+created_date: '2025-01-29'
 heroImage: 'https://i.magick.ai/PIXE/1738371950874_magick_img.webp'
 ---
 

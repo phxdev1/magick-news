@@ -4,8 +4,8 @@ subtitle: "Groundbreaking AI model achieves high-level reasoning for under $450"
 description: "The Sky-T1-32B-Preview model has achieved high-level AI capabilities with a training budget of less than $450, challenging industry assumptions about development costs. This breakthrough demonstrates how innovative approaches and efficient resource utilization can democratize advanced AI technology, making it accessible to smaller organizations and researchers."
 author: "Marc Stoker"
 read_time: "8 mins"
-publish_date: "2024-01-31"
-created_date: "2025-01-31"
+publish_date: "2025-01-04"
+created_date: "2025-01-04"
 heroImage: "https://i.magick.ai/PIXE/1738367156097_magick_img.webp"
 ---
 

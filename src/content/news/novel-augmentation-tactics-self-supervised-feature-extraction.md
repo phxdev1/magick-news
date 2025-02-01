@@ -4,8 +4,8 @@ subtitle: 'Exploring cutting-edge developments in self-supervised learning and c
 description: 'Explore the revolutionary transformation in computer vision through innovative self-supervised learning approaches and feature extraction techniques. This comprehensive analysis examines cutting-edge developments in augmentation tactics, masked image modeling, and multi-modal integration that are reshaping how machines understand visual information.'
 author: 'Eric Storm'
 read_time: '15 mins'
-publish_date: '2024-01-31'
-created_date: '2025-01-31'
+publish_date: '2025-01-21'
+created_date: '2025-01-21'
 heroImage: 'https://i.magick.ai/PIXE/1738372890664_magick_img.webp'
 ---
 

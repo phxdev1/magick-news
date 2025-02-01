@@ -4,8 +4,8 @@ subtitle: 'Understanding the breakthrough in AI transparency through plug-and-pl
 description: 'Discover how Plug-and-Play Explainable AI is revolutionizing machine learning transparency through innovative graphical interpretability frameworks. Learn about the technical foundations, real-world applications, and future directions of this transformative technology that's making AI decisions more transparent and trustworthy.'
 author: 'Rick Master'
 read_time: '8 mins'
-publish_date: '2025-01-31'
-created_date: '2025-01-31'
+publish_date: '2025-01-07'
+created_date: '2025-01-07'
 heroImage: 'https://i.magick.ai/PIXE/1738371752129_magick_img.webp'
 ---
 

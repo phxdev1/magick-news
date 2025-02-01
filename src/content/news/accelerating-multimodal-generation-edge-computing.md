@@ -4,8 +4,8 @@ subtitle: 'How Edge Computing is Transforming AI Processing and Generation'
 description: 'Explore how edge computing and distributed architectures are revolutionizing multimodal AI generation, enabling real-time processing and enhanced privacy while opening new possibilities for innovation across industries.'
 author: 'Marc Stoker'
 read_time: '12 mins'
-publish_date: '2025-01-31'
-created_date: '2025-01-31'
+publish_date: '2025-01-12'
+created_date: '2025-01-12'
 heroImage: 'https://i.magick.ai/PIXE/1738371857476_magick_img.webp'
 ---
 

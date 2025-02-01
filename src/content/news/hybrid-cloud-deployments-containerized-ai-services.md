@@ -4,8 +4,8 @@ subtitle: 'A guide to architecting and scaling AI systems in hybrid cloud enviro
 description: 'Explore how organizations are leveraging hybrid cloud architectures to deploy containerized AI services for real-time inference, combining the security of on-premises systems with cloud scalability. Learn about key considerations in architectural design, performance optimization, and emerging trends shaping the future of enterprise AI infrastructure.'
 author: 'Eric Storm'
 read_time: '10 mins'
-publish_date: '2025-01-31'
-created_date: '2025-01-31'
+publish_date: '2025-01-30'
+created_date: '2025-01-30'
 heroImage: 'https://i.magick.ai/PIXE/1738372584853_magick_img.webp'
 ---
 

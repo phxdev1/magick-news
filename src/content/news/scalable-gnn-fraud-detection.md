@@ -4,8 +4,8 @@ subtitle: 'How GNNs are revolutionizing fraud detection through advanced network
 description: 'Graph Neural Networks (GNNs) have emerged as a groundbreaking approach in the fight against financial fraud, offering unprecedented capabilities in analyzing complex transaction networks and identifying suspicious patterns. This article explores the latest developments in scalable GNN implementations and their transformative impact on fraud detection systems.'
 author: 'Marc Stoker'
 read_time: '8 mins'
-publish_date: '2025-01-31'
-created_date: '2025-01-31'
+publish_date: '2025-01-17'
+created_date: '2025-01-17'
 heroImage: 'https://i.magick.ai/PIXE/1738373304642_magick_img.webp'
 ---
 

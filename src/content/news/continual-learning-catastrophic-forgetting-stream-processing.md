@@ -4,8 +4,8 @@ subtitle: 'How Modern AI Systems Are Evolving to Handle Continuous Data Streams'
 description: 'Explore how modern AI systems are evolving to overcome catastrophic forgetting in stream processing, enabling continuous learning while maintaining crucial historical knowledge. This comprehensive analysis delves into the latest innovations in continual learning architectures and their practical applications in financial markets, healthcare, and beyond.'
 author: 'Marc Stoker'
 read_time: '8 mins'
-publish_date: '2025-01-31'
-created_date: '2025-01-31'
+publish_date: '2025-01-19'
+created_date: '2025-01-19'
 heroImage: 'https://i.magick.ai/PIXE/1738373139573_magick_img.webp'
 ---
 

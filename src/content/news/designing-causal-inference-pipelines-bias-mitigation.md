@@ -1,11 +1,11 @@
 ---
 title: 'Designing Causal Inference Pipelines for Bias Mitigation in Real-World Datasets'
-subtitle: 'Building Fair AI Systems Through Causal Inference'
+subtitle: 'Understanding the breakthrough in AI fairness through advanced causal inference frameworks'
 description: 'Explore how causal inference pipelines are revolutionizing bias mitigation in AI systems. This comprehensive guide examines the evolution, implementation, and future of causal frameworks in creating fair and ethical artificial intelligence solutions.'
 author: 'Marc Stoker'
 read_time: '10 mins'
-publish_date: '2025-01-31'
-created_date: '2025-01-31'
+publish_date: '2025-01-26'
+created_date: '2025-01-26'
 heroImage: 'https://i.magick.ai/PIXE/1738372750730_magick_img.webp'
 ---
 

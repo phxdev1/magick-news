@@ -4,8 +4,8 @@ subtitle: 'Beyond DeepSeek: The Hidden AI Breakthroughs Reshaping Tech'
 description: 'While DeepSeek has dominated recent AI headlines, three major developments have gone largely unnoticed: revolutionary changes in AI infrastructure, evolution of governance frameworks, and breakthroughs in cross-modal AI systems. These advances could prove more transformative than DeepSeek''s cost innovations.'
 author: 'Marc Stoker'
 read_time: '8 mins'
-publish_date: '2024-01-31'
-created_date: '2025-01-31'
+publish_date: '2025-01-03'
+created_date: '2025-01-03'
 heroImage: 'https://i.magick.ai/PIXE/1738368741622_magick_img.webp'
 ---
 

@@ -4,7 +4,7 @@ subtitle: 'How differential privacy and federated learning enable secure data co
 description: 'Explore how the combination of differential privacy and federated learning is revolutionizing secure data collaboration across industries while maintaining privacy standards.'
 author: 'Tom Racket'
 read_time: '8 mins'
-publish_date: '2024-01-31'
+publish_date: '2025-01-31'
 created_date: '2025-01-31'
 heroImage: 'https://i.magick.ai/PIXE/1738372089274_magick_img.webp'
 ---
