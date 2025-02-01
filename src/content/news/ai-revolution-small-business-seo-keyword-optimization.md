@@ -1,13 +1,16 @@
 ---
-title: 'AI Revolution in Small Business SEO: Transforming Keyword Optimization for Maximum Impact'
+title: |
+  AI Revolution in Small Business SEO: Transforming Keyword Optimization for Maximum Impact
 subtitle: 'How AI is reshaping SEO strategies for small businesses'
-description: 'Discover how artificial intelligence is revolutionizing SEO strategies for small businesses, making sophisticated optimization techniques accessible and effective. Learn about the latest AI-powered tools transforming keyword research and content optimization, and why staying ahead of this technological curve is crucial for digital success.'
+description: |
+  Discover how artificial intelligence is revolutionizing SEO strategies for small businesses, making sophisticated optimization techniques accessible and effective. Learn about the latest AI-powered tools transforming keyword research and content optimization, and why staying ahead of this technological curve is crucial for digital success.
 author: 'David Jenkins'
 read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'
-heroImage: 'https://image.magick.ai/ai-seo-optimization-hero.jpg'
-cta: 'Ready to stay ahead of the AI revolution in SEO? Follow us on LinkedIn for daily insights on how artificial intelligence is transforming digital marketing for small businesses.'
+heroImage: https://image.magick.ai/ai-seo-optimization-hero.jpg
+cta: |
+  Ready to stay ahead of the AI revolution in SEO? Follow us on LinkedIn for daily insights on how artificial intelligence is transforming digital marketing for small businesses.
 ---
 
 The digital landscape is undergoing a seismic shift as artificial intelligence revolutionizes how small businesses approach search engine optimization (SEO). Gone are the days of manual keyword research and guesswork; AI-powered tools are now reshaping how entrepreneurs and marketers optimize their online presence, making sophisticated SEO strategies accessible to businesses of all sizes.

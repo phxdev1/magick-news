@@ -1,13 +1,16 @@
 ---
-title: 'The AI Revolution in Visual Search: Transforming How We Optimize Images and Videos for the Digital Age'
+title: |
+  The AI Revolution in Visual Search: Transforming How We Optimize Images and Videos for the Digital Age
 subtitle: 'How AI is Reshaping Visual Search and SEO in 2024'
-description: 'Explore how AI is revolutionizing visual search and SEO in 2024, with the global image recognition market projected to reach $139.97 billion by 2033. Learn how businesses are adapting to AI-powered visual search capabilities and what this means for the future of digital content optimization.'
+description: |
+  Explore how AI is revolutionizing visual search and SEO in 2024, with the global image recognition market projected to reach $139.97 billion by 2033. Learn how businesses are adapting to AI-powered visual search capabilities and what this means for the future of digital content optimization.
 author: 'David Jenkins'
 read_time: '8 mins'
 publish_date: '2024-02-01'
 created_date: '2025-02-01'
-heroImage: 'https://i.magick.ai/PIXE/1738446087660_magick_img.webp'
-cta: 'Ready to stay ahead of the AI revolution in visual search? Follow us on LinkedIn at MagickAI for cutting-edge insights and updates on the latest developments in AI and visual search technology.'
+heroImage: https://i.magick.ai/PIXE/1738446087660_magick_img.webp
+cta: |
+  Ready to stay ahead of the AI revolution in visual search? Follow us on LinkedIn at MagickAI for cutting-edge insights and updates on the latest developments in AI and visual search technology.
 ---
 
 In an era where visual content dominates the digital landscape, artificial intelligence is revolutionizing how we approach image and video SEO. This technological transformation isn't just changing the rules of the game—it's creating an entirely new playing field. As we navigate through 2024, the intersection of AI and visual search is reshaping how businesses connect with their audiences through digital content.

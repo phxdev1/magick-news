@@ -2,7 +2,7 @@
 import { readFile, writeFile, unlink, mkdir } from 'fs/promises';
 import { resolve, join } from 'path';
 import { existsSync } from 'fs';
-import { load as loadYaml, dump as dumpYaml } from 'js-yaml';
+import { parse as parseYaml } from 'yaml';
 import { glob } from 'glob';
 
 const BACKUP_DIR = resolve(process.cwd(), 'backup-news-articles');
@@ -375,8 +375,10 @@ async function processFile(filePath) {
       return false;
     }
 
-    // Check for heroImage in raw frontmatter
+    // Just validate YAML and check for heroImage
     const rawFrontmatter = frontmatterMatch[1];
+    
+    // Check for heroImage
     if (!rawFrontmatter.includes('heroImage:')) {
       console.error(`❌ No heroImage field found in ${filePath}`);
       try {
@@ -388,8 +390,21 @@ async function processFile(filePath) {
       return false;
     }
 
+    // Just check for heroImage field
+    const hasHeroImage = rawFrontmatter.includes('heroImage:');
+    if (!hasHeroImage) {
+      console.error(`❌ No heroImage field found in ${filePath}`);
+      try {
+        await unlink(filePath);
+        console.log(`🗑️  Deleted file due to missing heroImage: ${filePath}`);
+      } catch (err) {
+        console.error(`❌ Failed to delete file: ${err.message}`);
+      }
+      return false;
+    }
+
     // File has heroImage, leave it alone
-    console.log(`✅ File has heroImage, no changes needed: ${filePath}`);
+    console.log(`✅ File has heroImage: ${filePath}`);
     return true;
   } catch (error) {
     console.error(`❌ Error processing ${filePath}:`, error.message);

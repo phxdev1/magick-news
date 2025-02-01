@@ -1,13 +1,16 @@
 ---
-title: 'Revolution in SEO: How arAI''s Intelligent Automation is Reshaping Digital Visibility'
+title: |
+  Revolution in SEO: How arAI's Intelligent Automation is Reshaping Digital Visibility
 subtitle: 'AI-powered platform transforms meta tag optimization and SEO automation'
-description: 'Discover how arAI is revolutionizing SEO through intelligent automation of meta tags and heading optimization. This groundbreaking AI platform is transforming digital visibility with advanced machine learning algorithms, setting new standards for SEO efficiency and effectiveness while delivering measurable improvements in search rankings and organic traffic.'
+description: |
+  Discover how arAI is revolutionizing SEO through intelligent automation of meta tags and heading optimization. This groundbreaking AI platform is transforming digital visibility with advanced machine learning algorithms, setting new standards for SEO efficiency and effectiveness while delivering measurable improvements in search rankings and organic traffic.
 author: 'David Jenkins'
 read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'
-heroImage: 'https://i.magick.ai/PIXE/1738445246065_magick_img.webp'
-cta: 'Ready to revolutionize your SEO strategy? Follow us on LinkedIn to stay updated on the latest AI-powered SEO innovations and discover how arAI can transform your digital presence.'
+heroImage: https://i.magick.ai/PIXE/1738445246065_magick_img.webp
+cta: |
+  Ready to revolutionize your SEO strategy? Follow us on LinkedIn to stay updated on the latest AI-powered SEO innovations and discover how arAI can transform your digital presence.
 ---
 
 The digital marketing landscape is witnessing a seismic shift as artificial intelligence continues to revolutionize how websites optimize their content for search engines. At the forefront of this transformation is arAI, an innovative platform that's fundamentally changing how businesses approach meta tags and heading optimization. This groundbreaking technology, developed under the vision of Daniel Reitberg, is setting new standards for SEO automation and efficiency.
