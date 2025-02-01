@@ -116,13 +116,17 @@ function preprocessYaml(content) {
         inBlockLiteral = false;
         isMultilineValue = false;
         // Clean up the value
-        const cleanedValue = value.trim()
-          .replace(/^['"]|['"]$/g, '')
-          .replace(/\\'/g, "'")
-          .replace(/\\"/g, '"')
-          .replace(/'''/g, '')
-          .replace(/"{2,}/g, '"')
-          .replace(/'{2,}/g, "'");
+        let cleanedValue = value.trim();
+        // If it's a URL, preserve it exactly as is
+        if (!cleanedValue.startsWith('http://') && !cleanedValue.startsWith('https://')) {
+          cleanedValue = cleanedValue
+            .replace(/^['"]|['"]$/g, '')
+            .replace(/\\'/g, "'")
+            .replace(/\\"/g, '"')
+            .replace(/'''/g, '')
+            .replace(/"{2,}/g, '"')
+            .replace(/'{2,}/g, "'");
+        }
         currentValue = [cleanedValue];
       }
     } else if (currentKey) {
@@ -140,15 +144,17 @@ function preprocessYaml(content) {
 
   // Save last key-value if exists
   if (currentKey && currentValue.length > 0) {
-    const cleanedValue = currentValue
-      .join('\n')
-      .replace(/^['"]|['"]$/g, '')
-      .replace(/\\'/g, "'")
-      .replace(/\\"/g, '"')
-      .replace(/'''/g, '')
-      .replace(/"{2,}/g, '"')
-      .replace(/'{2,}/g, "'")
-      .trim();
+    let cleanedValue = currentValue.join('\n').trim();
+    // If it's a URL, preserve it exactly as is
+    if (!cleanedValue.startsWith('http://') && !cleanedValue.startsWith('https://')) {
+      cleanedValue = cleanedValue
+        .replace(/^['"]|['"]$/g, '')
+        .replace(/\\'/g, "'")
+        .replace(/\\"/g, '"')
+        .replace(/'''/g, '')
+        .replace(/"{2,}/g, '"')
+        .replace(/'{2,}/g, "'");
+    }
 
     keyValues.set(currentKey, cleanedValue);
   }
@@ -177,11 +183,16 @@ function preprocessYaml(content) {
         processedLines.push(line.length > 0 ? `  ${line}` : '');
       });
     } else {
-      // For simple values, use double quotes consistently
-      const escapedValue = value
-        .replace(/\\/g, '\\\\')
-        .replace(/"/g, '\\"');
-      processedLines.push(`${key}: "${escapedValue}"`);
+      // For URLs, preserve them exactly as is
+      if (typeof value === 'string' && (value.startsWith('http://') || value.startsWith('https://'))) {
+        processedLines.push(`${key}: ${value}`);
+      } else {
+        // For other values, use double quotes consistently
+        const escapedValue = value
+          .replace(/\\/g, '\\\\')
+          .replace(/"/g, '\\"');
+        processedLines.push(`${key}: "${escapedValue}"`);
+      }
     }
   }
 
@@ -267,6 +278,10 @@ function formatYamlValue(key, value) {
   
   // Handle strings
   const str = String(value);
+  // Don't escape URLs
+  if (str.startsWith('http://') || str.startsWith('https://')) {
+    return str;
+  }
   return shouldUseBlockLiteral(str) ? formatBlockLiteral(str) : escapeYamlString(str);
 }
 
