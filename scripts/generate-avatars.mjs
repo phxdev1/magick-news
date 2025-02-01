@@ -1,18 +1,13 @@
-import Replicate from 'replicate';
-import sharp from 'sharp';
 import { writeFile, mkdir } from 'fs/promises';
 import { resolve, join } from 'path';
 import { existsSync } from 'fs';
 import { authors } from './authors.mjs';
+import sharp from 'sharp';
 
 if (!process.env.REPLICATE_API_TOKEN) {
   console.error('❌ REPLICATE_API_TOKEN environment variable is required');
   process.exit(1);
 }
-
-const replicate = new Replicate({
-  auth: process.env.REPLICATE_API_TOKEN,
-});
 
 const AVATAR_DIR = resolve(process.cwd(), 'public/images/authors');
 
@@ -27,26 +22,56 @@ function generatePrompt(author) {
 
   // Base prompt structure
   const prompt = [
-    `Professional headshot of a ${age}-year-old ${ethnicity} ${gender},`,
+    `Professional headshot portrait of a ${age}-year-old ${ethnicity} ${gender}.`,
     face,
     hair,
     expression,
     distinguishing,
-    'High-end professional photography, natural lighting, studio setting, 4k, highly detailed, photorealistic.',
-    'Professional attire, clean background.'
+    'The photo is taken in a professional studio setting with soft, natural lighting.',
+    'High-end DSLR photography, 4k, highly detailed, photorealistic.',
+    'Professional business attire, clean neutral background.',
+    'Looking directly at camera with a confident, approachable expression.'
   ].join(' ');
 
-  // Negative prompt to avoid common issues
-  const negativePrompt = [
-    'cartoon, anime, illustration, painting, drawing, artwork',
-    'deformed, distorted, disfigured, poorly drawn, bad anatomy, wrong anatomy, extra limb, missing limb, floating limbs, disconnected limbs, mutation, mutated',
-    'watermark, text, error, signature, timestamp',
-    'out of frame, bad framing, cropped',
-    'multiple people, multiple faces',
-    'blurry, noisy, low quality, pixelated'
-  ].join(', ');
+  return prompt;
+}
 
-  return { prompt, negativePrompt };
+async function makeReplicateRequest(prompt) {
+  const response = await fetch('https://api.replicate.com/v1/predictions', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${process.env.REPLICATE_API_TOKEN}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'wait'
+    },
+    body: JSON.stringify({
+      version: "39b3434f194f87a900d1bc2b6d4b983e90f0dde1d5022c27b52c143d670758fa",
+      input: {
+        prompt,
+        guidance: 7.5,
+        num_outputs: 1,
+        aspect_ratio: "1:1",
+        lora_strength: 0.8,
+        output_format: "webp",
+        output_quality: 100,
+        num_inference_steps: 50
+      }
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error(`Replicate API error: ${response.status} ${response.statusText}`);
+  }
+
+  const prediction = await response.json();
+  
+  // Wait for the prediction to complete
+  const outputUrl = prediction.output?.[0];
+  if (!outputUrl) {
+    throw new Error('No output URL in prediction response');
+  }
+
+  return outputUrl;
 }
 
 async function generateAvatar(author) {
@@ -54,29 +79,19 @@ async function generateAvatar(author) {
   console.log(`🎨 Generating avatar for ${name}...`);
   
   try {
-    const { prompt, negativePrompt } = generatePrompt(author);
+    const prompt = generatePrompt(author);
     console.log('\nPrompt:', prompt);
     
-    const output = await replicate.run(
-      "xlabs-ai/flux-dev-realism:0.1.0",
-      {
-        input: {
-          prompt,
-          negative_prompt: negativePrompt,
-          width: 768,
-          height: 768,
-          num_outputs: 1,
-          scheduler: "K_EULER",
-          num_inference_steps: 50,
-          guidance_scale: 7.5,
-          seed: Math.floor(Math.random() * 1000000), // Random seed for variety
-        }
-      }
-    );
+    const imageUrl = await makeReplicateRequest(prompt);
+    console.log('\nImage URL:', imageUrl);
 
-    // Download and process the image
-    const response = await fetch(output[0]);
-    const imageBuffer = await response.arrayBuffer();
+    // Download the image
+    const imageResponse = await fetch(imageUrl);
+    if (!imageResponse.ok) {
+      throw new Error(`Failed to download image: ${imageResponse.status} ${imageResponse.statusText}`);
+    }
+    
+    const imageBuffer = await imageResponse.arrayBuffer();
     
     // Process with sharp
     const processedImage = await sharp(Buffer.from(imageBuffer))
@@ -84,17 +99,17 @@ async function generateAvatar(author) {
         fit: 'cover',
         position: 'face'
       })
-      .jpeg({ 
+      .webp({ 
         quality: 90,
-        progressive: true
+        effort: 6
       })
       .toBuffer();
 
-    const avatarPath = join(AVATAR_DIR, `${name.toLowerCase().replace(/\s+/g, '-')}.jpg`);
+    const avatarPath = join(AVATAR_DIR, `${name.toLowerCase().replace(/\s+/g, '-')}.webp`);
     await writeFile(avatarPath, processedImage);
     
     console.log(`✅ Generated avatar for ${name}`);
-    return `/images/authors/${name.toLowerCase().replace(/\s+/g, '-')}.jpg`;
+    return `/images/authors/${name.toLowerCase().replace(/\s+/g, '-')}.webp`;
   } catch (err) {
     console.error(`❌ Failed to generate avatar for ${name}:`, err);
     return null;
