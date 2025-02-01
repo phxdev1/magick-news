@@ -195,4 +195,8 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
+  .article-content a {
+    @apply text-primary-400 hover:text-primary-300 transition-colors underline decoration-primary-500/30 hover:decoration-primary-400/50;
+  }
 }
