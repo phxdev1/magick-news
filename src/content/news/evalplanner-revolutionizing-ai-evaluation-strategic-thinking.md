@@ -6,7 +6,7 @@ author: "Marc Stoker"
 read_time: "8 mins"
 publish_date: "2025-01-31"
 created_date: "2025-01-31"
-heroImage: "https://assets.magick.ai/evalplanner-hero.jpg"
+heroImage: "https://i.magick.ai/PIXE/1738378682719_magick_img.webp"
 ---
 
 The evolution of artificial intelligence has brought us to a fascinating crossroads where machines aren't just learning to think – they're learning to evaluate their own thinking process. At the forefront of this revolution stands EvalPlanner, a groundbreaking approach that's transforming how we assess artificial intelligence systems.
