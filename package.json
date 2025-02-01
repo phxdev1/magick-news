@@ -3,14 +3,15 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "build": "node scripts/build-with-cleanup.mjs",
-    "preview": "astro build && wrangler pages dev",
-    "astro": "astro",
-    "deploy": "npm run build:vectors && astro build && wrangler pages deploy",
-    "cf-typegen": "wrangler types",
+    "dev": "node scripts/cli.mjs dev",
+    "build": "node scripts/cli.mjs build",
+    "preview": "node scripts/cli.mjs preview",
+    "deploy": "node scripts/cli.mjs deploy",
+    "help": "node scripts/cli.mjs --help",
     "build:vectors": "tsc scripts/buildVectorDB.ts src/utils/vectorSearch.ts --outDir dist --module NodeNext --moduleResolution NodeNext --esModuleInterop true --skipLibCheck true && node dist/scripts/buildVectorDB.js",
-    "test:search": "tsc scripts/testSearch.ts src/utils/vectorSearch.ts --outDir dist --module NodeNext --moduleResolution NodeNext --esModuleInterop true --skipLibCheck true && node dist/scripts/testSearch.js"
+    "validate-authors": "node scripts/validate-authors.mjs",
+    "generate-avatars": "node scripts/generate-avatars.mjs",
+    "generate-authors": "node scripts/generate-authors.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.2.1",
@@ -21,7 +22,10 @@
     "astro": "^5.2.3",
     "gray-matter": "^4.0.3",
     "hnswlib-node": "^2.1.0",
+    "js-yaml": "^4.1.0",
     "marked": "^15.0.6",
+    "replicate": "^1.0.1",
+    "sharp": "^0.33.5",
     "zod": "^3.24.1"
   },
   "devDependencies": {

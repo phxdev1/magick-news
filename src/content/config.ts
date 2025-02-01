@@ -1,4 +1,6 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { authorSchema } from './authors/schema';
+import { z } from 'astro:content';
 
 const baseSchema = z.object({
   title: z.string(),
@@ -12,14 +14,23 @@ const baseSchema = z.object({
   cta: z.string().optional()
 });
 
+const authors = defineCollection({
+  type: 'content',
+  schema: authorSchema
+});
+
 const news = defineCollection({
   type: 'content',
-  schema: baseSchema,
+  schema: baseSchema
 });
 
 const blog = defineCollection({
   type: 'content',
-  schema: baseSchema,
+  schema: baseSchema
 });
 
-export const collections = { news, blog };
+export const collections = {
+  authors,
+  news,
+  blog
+};

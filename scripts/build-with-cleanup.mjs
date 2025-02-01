@@ -87,23 +87,6 @@ async function backupFile(filePath) {
 
 async function buildWithCleanup() {
   try {
-    // First run vectors build
-    console.log('\n🔄 Building vector database...');
-    const vectors = spawn('npm', ['run', 'build:vectors'], {
-      stdio: 'inherit',
-      shell: true
-    });
-    
-    await new Promise((resolve, reject) => {
-      vectors.on('close', (code) => {
-        if (code === 0) {
-          resolve();
-        } else {
-          reject(new Error('Vector build failed'));
-        }
-      });
-    });
-
     while (deletionCount < MAX_DELETIONS) {
       const problematicFile = await runBuild();
       

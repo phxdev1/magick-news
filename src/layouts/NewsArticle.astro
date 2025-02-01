@@ -5,11 +5,17 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import RelatedArticles from '../components/RelatedArticles.astro';
+import AuthorCard from '../components/AuthorCard.astro';
+import { getCollection } from 'astro:content';
 
 type Props = CollectionEntry<'news'>['data'];
 
 const { title, subtitle, description, publish_date, created_date, heroImage, read_time, author, cta } = Astro.props;
 const defaultCta = "Get exclusive insights and updates on the latest developments in AI, delivered straight to your inbox.";
+
+// Get author data
+const authors = await getCollection('authors');
+const authorData = authors.find(a => a.data.name === author)?.data;
 ---
 
 <!doctype html>
@@ -810,6 +816,11 @@ const defaultCta = "Get exclusive insights and updates on the latest development
 							<span>{author}</span>
 						</span>
 					</div>
+					{authorData && (
+						<div class="mt-8 max-w-2xl mx-auto px-4">
+							<AuthorCard author={authorData} size="lg" showSocial={true} showBio={true} />
+						</div>
+					)}
 				</header>
 
 				<aside class="engagement-bar" aria-label="Article engagement">

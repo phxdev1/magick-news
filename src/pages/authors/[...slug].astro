@@ -1,0 +1,16 @@
+---
+import { getCollection } from 'astro:content';
+import AuthorProfile from '../../layouts/AuthorProfile.astro';
+
+export async function getStaticPaths() {
+  const authors = await getCollection('authors');
+  return authors.map(author => ({
+    params: { slug: author.slug },
+    props: { author: author.data },
+  }));
+}
+
+const { author } = Astro.props;
+---
+
+<AuthorProfile author={author} />
