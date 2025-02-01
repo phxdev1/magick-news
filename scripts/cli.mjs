@@ -173,6 +173,10 @@ const commands = {
     description: 'Build for production',
     steps: [
       {
+        command: 'npm run fix-frontmatter',
+        description: 'Fixing frontmatter'
+      },
+      {
         command: 'npm run validate-authors',
         description: 'Validating author data'
       },

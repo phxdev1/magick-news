@@ -1,13 +1,13 @@
 ---
-title: 'The Silent Killer of AI Models: Understanding and Preventing Data Leakage in Machine Learning'
-subtitle: 'How data leakage undermines AI model performance and what you can do about it'
-description: 'In the rapidly evolving landscape of artificial intelligence, there\'s a subtle yet devastating phenomenon that continues to undermine even the most sophisticated machine learning models. Data leakage, often dubbed the "silent killer" of AI models, represents one of the most insidious challenges facing data scientists and machine learning engineers today. While the AI community celebrates breakthrough after breakthrough, this fundamental issue threatens to compromise the integrity of our models in ways that aren\'t immediately apparent.'
-author: 'David Jenkins'
-read_time: '8 mins'
-publish_date: '2025-02-01'
-created_date: '2025-02-01'
-heroImage: 'https://i.magick.ai/PIXE/1738432231969_magick_img.webp'
-cta: 'Follow us on LinkedIn at MagickAI for expert insights on data leakage prevention and other essential topics in machine learning.'
+title: '"''''The Silent Killer of AI Models: Understanding and Preventing Data Leakage in Machine Learning''''"'
+description: '"\"In the rapidly evolving landscape of artificial intelligence, there\''''s a subtle yet devastating phenomenon that continues to undermine even the most sophisticated machine learning models. Data leakage, often dubbed the \\"silent killer\\" of AI models, represents one of the most insidious challenges facing data scientists and machine learning engineers today. While the AI community celebrates breakthrough after breakthrough, this fundamental issue threatens to compromise the integrity of our models in ways that aren\''''t immediately apparent.\""'
+author: '"''''David Jenkins''''"'
+read_time: '"''''8 mins''''"'
+publish_date: 2025-02-01T00:00:00.000Z
+created_date: 2025-02-01T00:00:00.000Z
+heroImage: '"''''https://i.magick.ai/PIXE/1738432231969_magick_img.webp''''"'
+cta: '"''''Follow us on LinkedIn at MagickAI for expert insights on data leakage prevention and other essential topics in machine learning.''''"'
+subtitle: '"''''How data leakage undermines AI model performance and what you can do about it''''"'
 ---
 
 In the rapidly evolving landscape of artificial intelligence, there's a subtle yet devastating phenomenon that continues to undermine even the most sophisticated machine learning models. Data leakage, often dubbed the "silent killer" of AI models, represents one of the most insidious challenges facing data scientists and machine learning engineers today. While the AI community celebrates breakthrough after breakthrough, this fundamental issue threatens to compromise the integrity of our models in ways that aren't immediately apparent.

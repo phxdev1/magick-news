@@ -1,13 +1,13 @@
 ---
-title: 'AI for Gender Equality: Transforming Society Through Inclusive Innovation'
-subtitle: 'How AI is reshaping gender dynamics in technology and society'
-description: 'Explore how artificial intelligence is becoming a powerful force for gender equality, from revolutionizing workplace dynamics to democratizing education. Despite women comprising only 22% of the global AI talent pool, innovative initiatives and AI-powered solutions are helping to break down traditional barriers and create more inclusive opportunities across industries.'
-author: 'Emily Stevens'
-read_time: '8 mins'
-publish_date: '2025-02-01'
-created_date: '2025-02-01'
-heroImage: 'https://images.magick.ai/tech/ai-gender-equality-hero.jpg'
-cta: 'Ready to be part of the AI-driven revolution in gender equality? Follow us on LinkedIn for the latest insights and developments in inclusive AI innovation.'
+title: '"''''AI for Gender Equality: Transforming Society Through Inclusive Innovation''''"'
+description: '"''''Explore how artificial intelligence is becoming a powerful force for gender equality, from revolutionizing workplace dynamics to democratizing education. Despite women comprising only 22% of the global AI talent pool, innovative initiatives and AI-powered solutions are helping to break down traditional barriers and create more inclusive opportunities across industries.''''"'
+author: '"''''Emily Stevens''''"'
+read_time: '"''''8 mins''''"'
+publish_date: 2025-02-01T00:00:00.000Z
+created_date: 2025-02-01T00:00:00.000Z
+heroImage: '"''''https://images.magick.ai/tech/ai-gender-equality-hero.jpg''''"'
+cta: '"''''Ready to be part of the AI-driven revolution in gender equality? Follow us on LinkedIn for the latest insights and developments in inclusive AI innovation.''''"'
+subtitle: '"''''How AI is reshaping gender dynamics in technology and society''''"'
 ---
 
 The intersection of artificial intelligence and gender equality represents one of the most promising yet complex frontiers in our technological landscape. As we navigate an era of unprecedented digital transformation, AI emerges not just as a technological tool, but as a potential catalyst for dismantling long-standing gender barriers. However, this potential comes with its own set of challenges and responsibilities that demand our immediate attention and action.

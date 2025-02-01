@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "node scripts/cli.mjs dev",
     "fix-frontmatter": "node scripts/fix-frontmatter.mjs",
-    "build": "npm run fix-frontmatter && node scripts/cli.mjs build",
+    "build": "node scripts/cli.mjs build",
     "preview": "node scripts/cli.mjs preview",
     "deploy": "node scripts/cli.mjs deploy",
     "help": "node scripts/cli.mjs --help",
