@@ -8,7 +8,8 @@ import RelatedArticles from '../components/RelatedArticles.astro';
 
 type Props = CollectionEntry<'news'>['data'];
 
-const { title, subtitle, description, publish_date, created_date, heroImage, read_time, author } = Astro.props;
+const { title, subtitle, description, publish_date, created_date, heroImage, read_time, author, cta } = Astro.props;
+const defaultCta = "Get exclusive insights and updates on the latest developments in AI, delivered straight to your inbox.";
 ---
 
 <!doctype html>
@@ -855,7 +856,7 @@ const { title, subtitle, description, publish_date, created_date, heroImage, rea
 								<span class="gradient-text">Stay Ahead in AI</span>
 							</h2>
 							<p class="text-lg sm:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
-								Get exclusive insights and updates on the latest developments in AI, delivered straight to your inbox.
+								{cta || defaultCta}
 							</p>
 							<form class="flex flex-col sm:flex-row gap-4 justify-center max-w-xl mx-auto">
 								<input

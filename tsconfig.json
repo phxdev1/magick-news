@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "ESNext",
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "jsx": "preserve",
@@ -14,7 +14,8 @@
     "isolatedModules": true,
     "noImplicitAny": false,
     "paths": {
-      "astro:content": ["./node_modules/astro/content/runtime.js"]
+      "astro:content": ["./node_modules/astro/content/runtime.js"],
+      "astro:content/schema": ["./node_modules/astro/content/schema.js"]
     }
   },
   "ts-node": {

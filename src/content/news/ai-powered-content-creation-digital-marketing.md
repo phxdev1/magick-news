@@ -7,7 +7,7 @@ read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'
 heroImage: 'https://assets.magick.ai/blog/ai-content-creation.jpg'
-call_to_action: 'Stay updated on the latest developments in AI-powered marketing solutions by following us on LinkedIn at [Magick AI](https://www.linkedin.com/company/magick-ai). Join our community of forward-thinking professionals!'
+cta: 'Stay updated on the latest developments in AI-powered marketing solutions by following us on LinkedIn at [Magick AI](https://www.linkedin.com/company/magick-ai). Join our community of forward-thinking professionals!'
 ---
 
 The landscape of digital marketing is undergoing a revolutionary transformation, driven by advances in artificial intelligence and machine learning technologies. Content creation, long considered a purely human domain, is now being augmented and enhanced by sophisticated AI tools that can generate, optimize, and distribute content at unprecedented scales.
