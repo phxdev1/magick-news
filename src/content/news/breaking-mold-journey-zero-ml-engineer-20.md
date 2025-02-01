@@ -1,13 +1,13 @@
 ---
-title: 'Breaking the Mold: My Journey from Zero to Machine Learning Engineer at 20'
-subtitle: 'How I Became a Machine Learning Engineer Before 21'
-description: 'At just 20 years old, I achieved what many consider improbable: becoming a full-fledged machine learning engineer. This is my story of determination, strategic learning, and breaking traditional career paradigms in the fast-evolving field of artificial intelligence.'
-author: 'Alexander Hunt'
-read_time: '8 mins'
-publish_date: '2025-02-01'
-created_date: '2025-02-01'
-heroImage: 'https://magick.ai/images/ml-engineer-desk.jpg'
-cta: "Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!"
+title: '"\"\\"\\\"\\\\"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''Breaking the Mold: My Journey from Zero to Machine Learning Engineer at 20''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\\\\"\\\"\\"\""'
+description: '"\"\\"\\\"\\\\"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''At just 20 years old, I achieved what many consider improbable: becoming a full-fledged machine learning engineer. This is my story of determination, strategic learning, and breaking traditional career paradigms in the fast-evolving field of artificial intelligence.''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\\\\"\\\"\\"\""'
+author: '"\"\\"\\\"\\\\"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''Min Park''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\\\\"\\\"\\"\""'
+read_time: '"\"\\"\\\"\\\\"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''8 mins''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\\\\"\\\"\\"\""'
+publish_date: '''2025-02-01'''
+created_date: '''2025-02-01'''
+heroImage: '"\"\\"\\\"\\\\"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''https://magick.ai/images/ml-engineer-desk.jpg''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\\\\"\\\"\\"\""'
+cta: '"\"\\"\\\"\\\\"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\\\\"\\\"\\"\""'
+subtitle: '"\"\\"\\\"\\\\"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''How I Became a Machine Learning Engineer Before 21''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\\\\"\\\"\\"\""'
 ---
 
 The soft glow of my monitor illuminates my workspace as neural networks train in the background—a scene that would have seemed like science fiction to me just three years ago. At 20, I've achieved what many consider improbable: becoming a full-fledged machine learning engineer before I can legally drink in the United States. This is my story of determination, strategic learning, and breaking traditional career paradigms.

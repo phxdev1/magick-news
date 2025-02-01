@@ -1,7 +1,34 @@
 import { spawn } from 'child_process';
-import { unlink, copyFile, mkdir } from 'fs/promises';
+import { unlink, copyFile, mkdir, readFile } from 'fs/promises';
 import { resolve, join } from 'path';
 import { existsSync } from 'fs';
+import { load as loadYaml } from 'js-yaml';
+
+async function validateFrontmatter(filePath) {
+  try {
+    const content = await readFile(filePath, 'utf8');
+    const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+    
+    if (!frontmatterMatch) {
+      return { valid: false, error: 'No frontmatter found' };
+    }
+
+    const frontmatter = frontmatterMatch[1];
+    try {
+      loadYaml(frontmatter);
+      return { valid: true };
+    } catch (yamlError) {
+      return {
+        valid: false,
+        error: yamlError.message,
+        line: yamlError.mark ? yamlError.mark.line + 1 : 'unknown',
+        column: yamlError.mark ? yamlError.mark.column + 1 : 'unknown'
+      };
+    }
+  } catch (error) {
+    return { valid: false, error: error.message };
+  }
+}
 
 const MAX_DELETIONS = 5;
 let deletionCount = 0;
@@ -40,17 +67,25 @@ async function runBuild() {
         // Look for file paths in various error message formats
         let fileMatch = null;
         
-        // Try to match YAML parsing errors
-        const yamlMatch = output.match(/Location:\s+([^:]+\.md):(\d+):(\d+)/);
-        if (yamlMatch) {
-          fileMatch = yamlMatch[1];
-        }
-        
-        // Try to match other error formats
-        if (!fileMatch) {
-          const otherMatch = output.match(/(?:Error|error|Invalid).*?(?:in|at|file) ['"]?(.*?\.md)['"]?[\s\n]/i);
-          if (otherMatch) {
-            fileMatch = otherMatch[1];
+        // Try to match various error formats
+        const patterns = [
+          // YAML parsing errors
+          /Location:\s+([^:]+\.md):(\d+):(\d+)/,
+          // YAML indentation errors
+          /Location:\s*\n\s*([^:]+\.md):(\d+):(\d+)/,
+          // General file errors
+          /(?:Error|error|Invalid).*?(?:in|at|file) ['"]?(.*?\.md)['"]?[\s\n]/i,
+          // Astro content errors
+          /No files found.*?"([^"]+)"/,
+          // Fallback for paths in quotes
+          /"([^"]+\.md)"/
+        ];
+
+        for (const pattern of patterns) {
+          const match = output.match(pattern);
+          if (match) {
+            fileMatch = match[1];
+            break;
           }
         }
 
@@ -105,14 +140,38 @@ async function buildWithCleanup() {
       }
 
       deletionCount++;
-      console.log(`\n🗑️  Removing problematic file (${deletionCount}/${MAX_DELETIONS}): ${problematicFile}`);
+      
+      // Validate frontmatter before deletion
+      const validation = await validateFrontmatter(fullPath);
+      
+      console.log(`\n🔍 Found issue in ${problematicFile}:`);
+      if (!validation.valid) {
+        console.log(`   Error: ${validation.error}`);
+        if (validation.line !== 'unknown') {
+          console.log(`   Line ${validation.line}, Column ${validation.column}`);
+        }
+      }
+      
+      console.log(`\n🗑️  Removing problematic file (${deletionCount}/${MAX_DELETIONS})`);
       
       try {
         // Backup file before deletion
         await backupFile(fullPath);
+        
+        // Log the problematic content for debugging
+        const content = await readFile(fullPath, 'utf8');
+        const frontmatterMatch = content.match(/^---([\s\S]*?)---/);
+        if (frontmatterMatch) {
+          console.log('\nProblematic frontmatter:');
+          console.log(frontmatterMatch[1].split('\n').map((line, i) =>
+            `${String(i + 1).padStart(3)}: ${line}`
+          ).join('\n'));
+        }
+        
         // Delete file
         await unlink(fullPath);
         console.log('✅ File removed successfully');
+        console.log('\n💡 Tip: Check the backup file and fix any YAML formatting issues');
       } catch (err) {
         console.error('❌ Failed to remove file:', err);
         process.exit(1);

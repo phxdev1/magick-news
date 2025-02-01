@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "node scripts/cli.mjs dev",
-    "build": "node scripts/cli.mjs build",
+    "fix-frontmatter": "node scripts/fix-frontmatter.mjs",
+    "build": "npm run fix-frontmatter && node scripts/cli.mjs build",
     "preview": "node scripts/cli.mjs preview",
     "deploy": "node scripts/cli.mjs deploy",
     "help": "node scripts/cli.mjs --help",

@@ -1,13 +1,13 @@
 ---
-title: 'The Rise of AI-Powered Digital Assistants in Enterprise'
-subtitle: 'How AI assistants are transforming business operations'
-description: 'Explore how AI-powered digital assistants are revolutionizing enterprise operations with capabilities beyond simple chatbots. Learn about their impact across business functions like customer service, HR, and IT support, and how they are transforming workplace productivity and efficiency.'
-author: 'Alexander Hunt'
-read_time: '8 mins'
-publish_date: '2025-02-01'
-created_date: '2025-02-01'
-heroImage: 'https://i.magick.ai/PIXE/1738419398156_magick_img.webp'
-cta: "Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!"
+title: '"\"\\"\\\"\\\\"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''The Rise of AI-Powered Digital Assistants in Enterprise''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\\\\"\\\"\\"\""'
+description: '"\"\\"\\\"\\\\"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''Explore how AI-powered digital assistants are revolutionizing enterprise operations with capabilities beyond simple chatbots. Learn about their impact across business functions like customer service, HR, and IT support, and how they are transforming workplace productivity and efficiency.''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\\\\"\\\"\\"\""'
+author: '"\"\\"\\\"\\\\"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''Yuki Sato''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\\\\"\\\"\\"\""'
+read_time: '"\"\\"\\\"\\\\"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''8 mins''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\\\\"\\\"\\"\""'
+publish_date: '''2025-02-01'''
+created_date: '''2025-02-01'''
+heroImage: '"\"\\"\\\"\\\\"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''https://i.magick.ai/PIXE/1738419398156_magick_img.webp''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\\\\"\\\"\\"\""'
+cta: '"\"\\"\\\"\\\\"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\\\\"\\\"\\"\""'
+subtitle: '"\"\\"\\\"\\\\"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''How AI assistants are transforming business operations''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\\\\"\\\"\\"\""'
 ---
 
 Artificial intelligence is rapidly transforming how enterprises operate, with AI-powered digital assistants leading the charge in revolutionizing workplace productivity. These sophisticated AI systems are moving far beyond simple chatbots, evolving into comprehensive virtual teammates that can handle complex tasks across multiple business functions.

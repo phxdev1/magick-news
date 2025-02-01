@@ -1,13 +1,13 @@
 ---
-title: 'Revolutionizing Data Analysis: How Copilot and Plotly Are Transforming Rapid Data Visualization'
-subtitle: 'AI and visualization tools combine to streamline data analysis workflows'
-description: 'Explore how GitHub Copilot and Plotly are reshaping data visualization by merging AI-powered assistance with advanced visualization capabilities. Learn how these innovations are revolutionizing the way developers and data scientists analyze, interpret, and present data.'
-author: 'Sophia Martín'
-read_time: '8 mins'
-publish_date: '2024-02-01'
-created_date: '2025-02-01'
-heroImage: 'https://assets.magick.ai/visualization-hero.jpg'
-cta: "Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!"
+title: '"\"\\"\\\"\\\\"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''Revolutionizing Data Analysis: How Copilot and Plotly Are Transforming Rapid Data Visualization''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\\\\"\\\"\\"\""'
+description: '"\"\\"\\\"\\\\"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''Explore how GitHub Copilot and Plotly are reshaping data visualization by merging AI-powered assistance with advanced visualization capabilities. Learn how these innovations are revolutionizing the way developers and data scientists analyze, interpret, and present data.''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\\\\"\\\"\\"\""'
+author: '"\"\\"\\\"\\\\"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''James Wilson''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\\\\"\\\"\\"\""'
+read_time: '"\"\\"\\\"\\\\"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''8 mins''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\\\\"\\\"\\"\""'
+publish_date: '''2024-02-01'''
+created_date: '''2025-02-01'''
+heroImage: '"\"\\"\\\"\\\\"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''https://assets.magick.ai/visualization-hero.jpg''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\\\\"\\\"\\"\""'
+cta: '"\"\\"\\\"\\\\"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\\\\"\\\"\\"\""'
+subtitle: '"\"\\"\\\"\\\\"''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''AI and visualization tools combine to streamline data analysis workflows''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''\\\\"\\\"\\"\""'
 ---
 
 In an era where data drives decision-making, the ability to quickly transform raw numbers into meaningful visualizations has become increasingly crucial. The combination of GitHub Copilot's AI-powered assistance and Plotly's sophisticated visualization capabilities is revolutionizing how developers and data scientists approach data visualization, making it faster and more intuitive than ever before.
