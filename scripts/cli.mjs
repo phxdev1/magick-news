@@ -126,27 +126,37 @@ async function checkEnvironment() {
 }
 
 async function needsInitialization() {
-  // Check for key directories and files
-  const checks = [
-    'node_modules',
-    'public/vector-db'
-  ];
-
-  // Check if authors need to be generated
-  const authors = await loadAuthors();
-  if (!authors) {
-    return true;
+  // Only check for node_modules during regular builds
+  if (process.argv[2] === 'build' || process.argv[2] === 'preview' || process.argv[2] === 'deploy') {
+    return !existsSync(resolve(process.cwd(), 'node_modules'));
   }
 
-  // Validate existing authors
-  const validation = validateAuthors(authors);
-  if (!validation.valid) {
-    console.log(`\n${colors.yellow}⚠${colors.reset} Author validation failed:`);
-    validation.errors.forEach(error => console.log(`  ${colors.red}✗${colors.reset} ${error}`));
-    return true;
+  // Full initialization check for dev command
+  if (process.argv[2] === 'dev') {
+    const checks = [
+      'node_modules',
+      'public/vector-db',
+      'public/images/authors'
+    ];
+
+    // Check if authors need to be generated
+    const authors = await loadAuthors();
+    if (!authors) {
+      return true;
+    }
+
+    // Validate existing authors
+    const validation = validateAuthors(authors);
+    if (!validation.valid) {
+      console.log(`\n${colors.yellow}⚠${colors.reset} Author validation failed:`);
+      validation.errors.forEach(error => console.log(`  ${colors.red}✗${colors.reset} ${error}`));
+      return true;
+    }
+
+    return checks.some(path => !existsSync(resolve(process.cwd(), path)));
   }
 
-  return checks.some(path => !existsSync(resolve(process.cwd(), path)));
+  return false;
 }
 
 const commands = {
@@ -162,10 +172,6 @@ const commands = {
   build: {
     description: 'Build for production',
     steps: [
-      {
-        command: 'npm run build:vectors',
-        description: 'Building vector database'
-      },
       {
         command: 'npm run validate-authors',
         description: 'Validating author data'
@@ -193,8 +199,8 @@ const commands = {
     description: 'Deploy to production',
     steps: [
       {
-        command: 'npm run build:vectors',
-        description: 'Building vector database'
+        command: 'npm run validate-authors',
+        description: 'Validating author data'
       },
       {
         command: 'astro build',
