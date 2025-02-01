@@ -36,13 +36,45 @@ function generatePrompt(author) {
   return prompt;
 }
 
+async function waitForPrediction(predictionId) {
+  const maxAttempts = 60; // 5 minutes with 5-second intervals
+  let attempts = 0;
+
+  while (attempts < maxAttempts) {
+    const response = await fetch(`https://api.replicate.com/v1/predictions/${predictionId}`, {
+      headers: {
+        'Authorization': `Bearer ${process.env.REPLICATE_API_TOKEN}`,
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to check prediction status: ${response.status} ${response.statusText}`);
+    }
+
+    const prediction = await response.json();
+    
+    if (prediction.status === 'succeeded') {
+      return prediction.output[0];
+    } else if (prediction.status === 'failed') {
+      throw new Error(`Prediction failed: ${prediction.error}`);
+    }
+
+    // Wait 5 seconds before checking again
+    await new Promise(resolve => setTimeout(resolve, 5000));
+    attempts++;
+  }
+
+  throw new Error('Prediction timed out');
+}
+
 async function makeReplicateRequest(prompt) {
+  // Start the prediction
   const response = await fetch('https://api.replicate.com/v1/predictions', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${process.env.REPLICATE_API_TOKEN}`,
-      'Content-Type': 'application/json',
-      'Prefer': 'wait'
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({
       version: "39b3434f194f87a900d1bc2b6d4b983e90f0dde1d5022c27b52c143d670758fa",
@@ -66,12 +98,7 @@ async function makeReplicateRequest(prompt) {
   const prediction = await response.json();
   
   // Wait for the prediction to complete
-  const outputUrl = prediction.output?.[0];
-  if (!outputUrl) {
-    throw new Error('No output URL in prediction response');
-  }
-
-  return outputUrl;
+  return await waitForPrediction(prediction.id);
 }
 
 async function generateAvatar(author) {

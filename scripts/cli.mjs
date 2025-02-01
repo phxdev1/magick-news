@@ -38,27 +38,70 @@ class Spinner {
   }
 
   stop() {
-    clearInterval(this.interval);
-    process.stdout.write('\r\x1b[K'); // Clear line
+    if (this.interval) {
+      clearInterval(this.interval);
+      this.interval = null;
+      process.stdout.write('\r\x1b[K'); // Clear line
+    }
+  }
+
+  update(message) {
+    this.message = message;
   }
 }
 
-async function runCommand(command, description) {
+async function runCommand(command, description, options = {}) {
   const spinner = new Spinner(description);
   spinner.start();
 
-  try {
-    const { stdout, stderr } = await exec(command);
-    spinner.stop();
-    if (stdout) console.log(stdout);
-    if (stderr) console.error(stderr);
-    console.log(`${colors.green}✓${colors.reset} ${description}`);
-    return true;
-  } catch (error) {
-    spinner.stop();
-    console.error(`${colors.red}✗${colors.reset} ${description} failed:`, error.message);
-    return false;
-  }
+  return new Promise((resolve, reject) => {
+    const child = spawn(command, [], {
+      shell: true,
+      stdio: options.stdio || ['ignore', 'pipe', 'pipe']
+    });
+
+    let output = '';
+
+    if (child.stdout) {
+      child.stdout.on('data', (data) => {
+        const str = data.toString();
+        output += str;
+        
+        // Update spinner with last line of output
+        const lines = str.trim().split('\n');
+        if (lines.length > 0) {
+          const lastLine = lines[lines.length - 1].trim();
+          if (lastLine) {
+            spinner.update(`${description} - ${lastLine}`);
+          }
+        }
+      });
+    }
+
+    if (child.stderr) {
+      child.stderr.on('data', (data) => {
+        output += data.toString();
+      });
+    }
+
+    child.on('close', (code) => {
+      spinner.stop();
+      if (code === 0) {
+        console.log(`${colors.green}✓${colors.reset} ${description}`);
+        resolve(output);
+      } else {
+        console.error(`${colors.red}✗${colors.reset} ${description} failed with code ${code}`);
+        console.error(output);
+        reject(new Error(`Command failed with code ${code}`));
+      }
+    });
+
+    child.on('error', (err) => {
+      spinner.stop();
+      console.error(`${colors.red}✗${colors.reset} ${description} failed:`, err.message);
+      reject(err);
+    });
+  });
 }
 
 async function checkEnvironment() {
@@ -146,7 +189,8 @@ const initSteps = [
   },
   {
     command: 'npm run generate-avatars',
-    description: 'Generating author avatars'
+    description: 'Generating author avatars',
+    options: { stdio: ['ignore', 'inherit', 'inherit'] }
   },
   {
     command: 'npm run generate-authors',
@@ -174,12 +218,14 @@ async function runInitialization() {
   console.log(`\n${colors.yellow}⚡ Project needs initialization${colors.reset}\n`);
   
   for (const step of initSteps) {
-    const result = await runCommand(step.command, step.description);
-    if (!result) {
+    try {
+      await runCommand(step.command, step.description, step.options);
+      // Add delay between steps
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    } catch (error) {
       console.error(`\n${colors.red}✗${colors.reset} Initialization failed`);
       process.exit(1);
     }
-    await new Promise(resolve => setTimeout(resolve, 1000));
   }
   
   console.log(`\n${colors.green}✓${colors.reset} Initialization complete\n`);
@@ -210,13 +256,14 @@ async function main() {
   console.log(`\n${colors.bright}${selectedCommand.description}${colors.reset}\n`);
 
   for (const step of selectedCommand.steps) {
-    const result = await runCommand(step.command, step.description);
-    if (!result) {
+    try {
+      await runCommand(step.command, step.description, step.options);
+      // Add delay between steps
+      if (step !== selectedCommand.steps[selectedCommand.steps.length - 1]) {
+        await new Promise(resolve => setTimeout(resolve, 1000));
+      }
+    } catch (error) {
       process.exit(1);
-    }
-    // Add small delay between steps
-    if (step !== selectedCommand.steps[selectedCommand.steps.length - 1]) {
-      await new Promise(resolve => setTimeout(resolve, 1000));
     }
   }
 
