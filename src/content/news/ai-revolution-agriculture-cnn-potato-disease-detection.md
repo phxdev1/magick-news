@@ -1,13 +1,14 @@
 ---
-title: '"''''AI Revolution in Agriculture: How CNN-Based Detection Is Transforming Potato Disease Management''''"'
-description: '"''''Discover how Convolutional Neural Networks are revolutionizing potato farming with disease detection accuracy exceeding 97%. This AI technology is transforming agricultural practices, reducing chemical usage, and ensuring food security through early disease detection and prevention.''''"'
-author: '"''''David Jenkins''''"'
-read_time: '"''''8 mins''''"'
-publish_date: 2025-02-01T00:00:00.000Z
-created_date: 2025-02-01T00:00:00.000Z
-heroImage: '"''''https://i.magick.ai/PIXE/1738432915220_magick_img.webp''''"'
-cta: '"''''Stay at the forefront of AI agricultural innovations! Follow us on LinkedIn for the latest updates on how technology is transforming farming practices and ensuring global food security.''''"'
-subtitle: '"''''Deep learning brings superhuman accuracy to crop disease detection''''"'
+title: 'AI Revolution in Agriculture: How CNN-Based Detection Is Transforming Potato Disease Management'
+description: 'Discover how Convolutional Neural Networks are revolutionizing potato farming with disease detection accuracy exceeding 97%. This AI technology is transforming agricultural practices, reducing chemical usage, and ensuring food security through early disease detection and prevention.'
+author: 'David Jenkins'
+read_time: '8 mins'
+publish_date: 2025-02-01
+created_date: 2025-02-01
+heroImage: 'https://i.magick.ai/PIXE/1738432915220_magick_img.webp'
+cta: 'Stay at the forefront of AI agricultural innovations! Follow us on LinkedIn for the latest updates on how technology is transforming farming practices and ensuring global food security.'
+subtitle: 'Deep learning brings superhuman accuracy to crop disease detection'
+
 ---
 
 The intersection of artificial intelligence and agriculture is yielding groundbreaking solutions to age-old farming challenges. Among these innovations, the application of Convolutional Neural Networks (CNNs) in potato leaf disease detection stands as a testament to how deep learning is revolutionizing crop management and food security. This technological advancement isn't just another incremental improvement – it's a paradigm shift in how we approach agricultural disease management.

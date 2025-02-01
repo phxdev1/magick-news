@@ -28,19 +28,41 @@ const validAuthors = [
   'Yuki Sato', 'Fatima Ahmad', 'Sarah Thompson', 'Min Park'
 ];
 
+function normalizeString(value, isDate = false) {
+  if (typeof value !== 'string') return value;
+  
+  // Remove all quotes and clean the string
+  let normalized = value.trim()
+    .replace(/^['"]+|['"]+$/g, '')  // Remove outer quotes
+    .replace(/'''/g, '')            // Remove triple quotes
+    .replace(/\\'/g, "'")           // Unescape single quotes
+    .replace(/\\"/g, '"')           // Unescape double quotes
+    .replace(/'{2,}/g, "'")         // Collapse multiple single quotes
+    .replace(/"{2,}/g, '"')         // Collapse multiple double quotes
+    .trim();                        // Final trim
+
+  // Return unquoted dates
+  if (isDate) return normalized;
+  
+  // For values containing single quotes, wrap in double quotes
+  if (normalized.includes("'")) {
+    return `"${normalized}"`;
+  }
+  
+  // Otherwise wrap in single quotes
+  return `'${normalized}'`;
+}
+
 async function backupFile(filePath) {
   try {
-    // Get just the filename without the path
     const fileName = filePath.split(/[\/\\]/).pop();
     const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
     const backupPath = join(BACKUP_DIR, `${fileName}.${timestamp}.bak`);
     
-    // Create backup directory if it doesn't exist
     if (!existsSync(BACKUP_DIR)) {
       await mkdir(BACKUP_DIR, { recursive: true });
     }
     
-    // Read and write the file
     const content = await readFile(filePath, 'utf8');
     await writeFile(backupPath, content);
     console.log(`📦 Backed up file to: ${backupPath}`);
@@ -61,50 +83,54 @@ function validateFrontmatter(frontmatter) {
     }
   }
 
-  // Check required fields
-  for (const field of requiredFields) {
-    if (!frontmatter[field]) {
-      errors.push(`Missing required field: ${field}`);
-    }
-  }
-
-  // All validation passed
-  return errors;
-
   return errors;
 }
 
 function cleanFrontmatter(frontmatter) {
-  const cleaned = { ...frontmatter };
+  const cleaned = {};
 
-  // Ensure consistent quote style (single quotes)
-  for (const [key, value] of Object.entries(cleaned)) {
-    if (typeof value === 'string') {
-      // Remove any extra whitespace
-      cleaned[key] = value.trim();
-      
-      // Handle special characters in strings
-      if (value.includes("'")) {
-        // If string contains single quotes, wrap in double quotes
-        cleaned[key] = `"${value.replace(/"/g, '\\"')}"`;
-      } else {
-        // Otherwise use single quotes
-        cleaned[key] = `'${value}'`;
+  // Process each field
+  for (const [key, value] of Object.entries(frontmatter)) {
+    const isDate = key === 'publish_date' || key === 'created_date';
+    
+    if (isDate) {
+      // Handle dates
+      try {
+        const date = new Date(value);
+        if (!isNaN(date.getTime())) {
+          cleaned[key] = date.toISOString().split('T')[0];
+          continue;
+        }
+      } catch (err) {
+        // Fall through to string handling if date parsing fails
       }
+      
+      // Try to extract YYYY-MM-DD
+      const dateMatch = String(value).match(/(\d{4})-(\d{2})-(\d{2})/);
+      cleaned[key] = dateMatch ? dateMatch[0] : new Date().toISOString().split('T')[0];
+    } else if (typeof value === 'string') {
+      // Handle string values
+      cleaned[key] = normalizeString(value);
+    } else {
+      // Pass through non-string values unchanged
+      cleaned[key] = value;
     }
   }
 
   // Ensure fields are in a consistent order
   const orderedFrontmatter = {};
+  
+  // Add required fields first
   requiredFields.forEach(field => {
-    if (cleaned[field]) {
+    if (cleaned[field] !== undefined) {
       orderedFrontmatter[field] = cleaned[field];
     }
   });
 
-  // Add any additional fields not in required list
+  // Add remaining fields
   Object.keys(cleaned)
     .filter(key => !requiredFields.includes(key))
+    .sort()
     .forEach(key => {
       orderedFrontmatter[key] = cleaned[key];
     });
@@ -114,6 +140,7 @@ function cleanFrontmatter(frontmatter) {
 
 async function processFile(filePath) {
   try {
+    console.log(`\nProcessing file: ${filePath}`);
     const content = await readFile(filePath, 'utf8');
     const frontmatterMatch = content.match(/^---([\s\S]*?)\n---/);
     
@@ -124,80 +151,48 @@ async function processFile(filePath) {
 
     let frontmatter;
     try {
-      // Try to fix common YAML issues before parsing
-      let yamlContent = frontmatterMatch[1];
-      
-      // Parse the content into lines and clean up
-      const lines = yamlContent.split('\n');
-      const cleanedLines = [];
-      
-      // Process each line
-      for (const line of lines) {
-        const trimmedLine = line.trim();
-        if (!trimmedLine) continue; // Skip empty lines
-        
-        // If line contains a colon, it's a key-value pair
-        if (trimmedLine.includes(':')) {
-          const colonIndex = trimmedLine.indexOf(':');
-          const key = trimmedLine.substring(0, colonIndex).trim();
-          let value = trimmedLine.substring(colonIndex + 1).trim();
+      // Clean up YAML content before parsing
+      const yamlContent = frontmatterMatch[1]
+        .split('\n')
+        .map(line => {
+          const trimmedLine = line.trim();
+          if (!trimmedLine || !trimmedLine.includes(':')) return trimmedLine;
           
-          // Handle values with quotes
-          if (value) {
-            // Remove existing quotes
-            value = value.replace(/^['"]|['"]$/g, '');
-            
-            // Handle dates without quotes
-            if (key === 'publish_date' || key === 'created_date') {
-              value = value.replace(/^['"]|['"]$/g, '');
-            } else {
-              // For non-date fields, handle quotes
-              if (value.includes("'")) {
-                // Replace single quotes with escaped single quotes
-                value = value.replace(/'/g, "''");
-                value = `'${value}'`;
-              } else {
-                // Otherwise use single quotes
-                value = `'${value}'`;
-              }
-            }
-          }
+          const [key, ...valueParts] = trimmedLine.split(':');
+          let value = valueParts.join(':').trim();
           
-          // Add to cleaned lines with proper formatting
-          cleanedLines.push(`${key}: ${value}`);
-        } else {
-          cleanedLines.push(trimmedLine);
-        }
-      }
-      
-      // Join lines with proper line endings
-      yamlContent = cleanedLines.join('\n');
+          if (!value) return `${key}:`;
 
-      // Try to parse the cleaned YAML
-      try {
-        frontmatter = loadYaml(yamlContent);
-      } catch (yamlError) {
-        // If parsing fails, try a more aggressive fix
-        yamlContent = yamlContent.split('\n').map(line => {
-          // Remove all indentation and colons from non-empty lines
-          if (line.trim()) {
-            const [key, ...values] = line.trim().split(':');
-            if (values.length) {
-              return `${key}: ${values.join(':').trim()}`;
-            }
+          // Remove any quotes and clean the value
+          value = value
+            .replace(/^['"]+|['"]+$/g, '')  // Remove outer quotes
+            .replace(/'''/g, '')            // Remove triple quotes
+            .replace(/\\'/g, "'")           // Unescape single quotes
+            .replace(/\\"/g, '"')           // Unescape double quotes
+            .replace(/'{2,}/g, "'")         // Collapse multiple single quotes
+            .replace(/"{2,}/g, '"')         // Collapse multiple double quotes
+            .trim();
+
+          // Handle dates without quotes
+          if (key.trim() === 'publish_date' || key.trim() === 'created_date') {
+            return `${key}: ${value}`;
           }
-          return line;
-        }).join('\n');
 
-        try {
-          frontmatter = loadYaml(yamlContent);
-        } catch (finalError) {
-          console.error(`❌ YAML parsing error in ${filePath}:`, finalError.message);
-          return false;
-        }
-      }
+          // Use double quotes if value contains single quotes
+          if (value.includes("'")) {
+            return `${key}: "${value}"`;
+          }
+
+          // Use single quotes otherwise
+          return `${key}: '${value}'`;
+        })
+        .filter(Boolean)
+        .join('\n');
+
+      console.log('Cleaned YAML content:', yamlContent);
+      frontmatter = loadYaml(yamlContent);
     } catch (error) {
-      console.error(`❌ Error processing frontmatter in ${filePath}:`, error.message);
+      console.error(`❌ Error parsing frontmatter in ${filePath}:`, error.message);
       return false;
     }
 
@@ -211,19 +206,63 @@ async function processFile(filePath) {
 
     // Clean and format frontmatter
     const cleanedFrontmatter = cleanFrontmatter(frontmatter);
-    const newFrontmatter = dumpYaml(cleanedFrontmatter, {
-      lineWidth: -1, // Prevent line wrapping
-      quotingType: "'", // Use single quotes
-      forceQuotes: true // Always quote strings
+    
+    // Convert to YAML with custom quote handling
+    let newFrontmatter = dumpYaml(cleanedFrontmatter, {
+      lineWidth: -1,
+      quotingType: "'",
+      forceQuotes: true,
+      noRefs: true,
+      indent: 2,
+      flowLevel: -1
     });
 
-    // Replace old frontmatter with new
+    // Additional cleanup for any remaining triple quotes
+    newFrontmatter = newFrontmatter
+      .split('\n')
+      .map(line => {
+        if (line.includes(':')) {
+          const [key, ...valueParts] = line.split(':');
+          let value = valueParts.join(':').trim();
+          value = value
+            .replace(/'''/g, '')
+            .replace(/^['"]|['"]$/g, '')
+            .trim();
+          
+          // Skip quotes for dates
+          if (key.trim() === 'publish_date' || key.trim() === 'created_date') {
+            return `${key}: ${value}`;
+          }
+          
+          // Handle values with apostrophes and possessives
+          value = value
+            .replace(/^["']+|["']+$/g, '')  // Remove any outer quotes
+            .replace(/'''/g, '')            // Remove triple quotes
+            .replace(/"{2,}/g, '"')         // Collapse multiple double quotes
+            .replace(/'{2,}/g, "'");        // Collapse multiple single quotes
+
+          // Special handling for possessives
+          if (value.includes("'s")) {
+            // Keep possessives with single quotes
+            return `${key}: '${value}'`;
+          } else if (value.includes("'")) {
+            // Use double quotes for other single quotes
+            return `${key}: "${value}"`;
+          } else {
+            // Use single quotes for everything else
+            return `${key}: '${value}'`;
+          }
+        }
+        return line;
+      })
+      .join('\n');
+
+    // Always write the cleaned frontmatter
     const newContent = content.replace(
       /^---([\s\S]*?)\n---/,
-      `---\n${newFrontmatter}---`
+      `---\n${newFrontmatter}\n---`
     );
 
-    // Write back to file
     await writeFile(filePath, newContent, 'utf8');
     console.log(`✅ Fixed frontmatter in ${filePath}`);
     return true;
@@ -234,49 +273,76 @@ async function processFile(filePath) {
 }
 
 async function main() {
-  console.log('🔍 Checking for problematic frontmatter...\n');
+  try {
+    console.log('🔍 Checking for problematic frontmatter...\n');
 
-  // Create backup directory if it doesn't exist
-  if (!existsSync(BACKUP_DIR)) {
-    await mkdir(BACKUP_DIR, { recursive: true });
-  }
-
-  // Get all markdown files in the news directory
-  const files = await glob('src/content/news/**/*.md');
-  
-  let success = 0;
-  let failed = 0;
-  let deleted = 0;
-
-  for (const file of files) {
-    console.log(`\nProcessing: ${file}`);
-    
-    // Try to process the file
-    const result = await processFile(file);
-    
-    if (!result) {
-      // Backup and delete file if it can't be fixed
-      if (await backupFile(file)) {
-        try {
-          await unlink(file);
-          console.log(`🗑️  Deleted ${file}`);
-          deleted++;
-        } catch (err) {
-          console.error(`❌ Failed to delete ${file}:`, err.message);
-          failed++;
-        }
-      } else {
-        failed++;
-      }
-    } else {
-      success++;
+    if (!existsSync(BACKUP_DIR)) {
+      await mkdir(BACKUP_DIR, { recursive: true });
     }
-  }
 
-  console.log('\n📊 Results:');
-  console.log(`✅ Successfully fixed: ${success}`);
-  console.log(`🗑️  Deleted: ${deleted}`);
-  console.log(`❌ Failed: ${failed}`);
+    // Get all markdown files in the news directory
+    const files = await glob('src/content/news/**/*.md', {
+      ignore: ['**/node_modules/**', '**/backup-news-articles/**'],
+      absolute: true,
+      nodir: true,
+      follow: true
+    });
+
+    if (files.length === 0) {
+      console.warn('⚠️  No markdown files found in news directory');
+      return;
+    }
+
+    console.log(`📝 Found ${files.length} files to process\n`);
+    
+    let success = 0;
+    let failed = 0;
+    let errors = [];
+
+    // Process files sequentially
+    for (const file of files) {
+      try {
+        const backupResult = await backupFile(file);
+        if (!backupResult) {
+          console.error(`❌ Failed to backup ${file} - skipping processing`);
+          failed++;
+          errors.push({ file, error: 'Backup failed' });
+          continue;
+        }
+        
+        const result = await processFile(file);
+        if (result) {
+          success++;
+        } else {
+          failed++;
+          errors.push({ file, error: 'Processing failed' });
+        }
+      } catch (err) {
+        console.error(`❌ Error processing ${file}:`, err.message);
+        failed++;
+        errors.push({ file, error: err.message });
+      }
+    }
+
+    console.log('\n📊 Results:');
+    console.log(`✅ Successfully fixed: ${success}`);
+    console.log(`❌ Failed: ${failed}`);
+
+    if (errors.length > 0) {
+      console.log('\n❌ Errors:');
+      errors.forEach(({ file, error }) => {
+        console.log(`   ${file}: ${error}`);
+      });
+      process.exit(1);
+    }
+
+    if (failed > 0) {
+      process.exit(1);
+    }
+  } catch (err) {
+    console.error('\n❌ Script failed:', err);
+    process.exit(1);
+  }
 }
 
 main().catch(err => {
