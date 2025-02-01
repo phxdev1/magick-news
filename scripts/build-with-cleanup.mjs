@@ -37,10 +37,27 @@ async function runBuild() {
       if (code === 0) {
         resolve(null);
       } else {
-        // Look for file paths in error messages
-        const fileMatch = output.match(/(?:Error|error|Invalid).*?(?:in|at|file) ['"]?(.*?\.md)['"]?[\s\n]/i);
-        if (fileMatch && fileMatch[1]) {
-          resolve(fileMatch[1]);
+        // Look for file paths in various error message formats
+        let fileMatch = null;
+        
+        // Try to match YAML parsing errors
+        const yamlMatch = output.match(/Location:\s+([^:]+\.md):(\d+):(\d+)/);
+        if (yamlMatch) {
+          fileMatch = yamlMatch[1];
+        }
+        
+        // Try to match other error formats
+        if (!fileMatch) {
+          const otherMatch = output.match(/(?:Error|error|Invalid).*?(?:in|at|file) ['"]?(.*?\.md)['"]?[\s\n]/i);
+          if (otherMatch) {
+            fileMatch = otherMatch[1];
+          }
+        }
+
+        // Clean up the file path if it contains /opt/buildhome/repo/
+        if (fileMatch) {
+          fileMatch = fileMatch.replace('/opt/buildhome/repo/', '');
+          resolve(fileMatch);
         } else {
           reject(new Error('Build failed but could not identify problematic file'));
         }
