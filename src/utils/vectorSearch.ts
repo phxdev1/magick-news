@@ -23,6 +23,7 @@ interface Article {
   url: string;
   type: 'blog' | 'news';
   date: string | Date;
+  author?: string;
 }
 
 // Ensure vector DB directory exists
@@ -81,7 +82,7 @@ export async function buildVectorDB(articles: Article[]) {
   
   for (let i = 0; i < articles.length; i++) {
     const article = articles[i];
-    const text = `${article.title} ${article.subtitle || ''} ${article.description || ''}`;
+    const text = `${article.title} ${article.subtitle || ''} ${article.description || ''} ${article.author ? `by ${article.author}` : ''}`;
     const embedding = await getEmbedding(text);
     index.addPoint(Array.from(embedding), i);
     console.log(`Processed ${i + 1}/${articles.length} articles`);

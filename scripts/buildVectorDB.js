@@ -17,7 +17,8 @@ async function main() {
         subtitle: article.data.subtitle,
         url: `/news/${article.id}`,
         type: 'news',
-        date: article.data.publish_date
+        date: article.data.publish_date,
+        author: article.data.author
       })),
       ...blogArticles.map(article => ({
         title: article.data.title,
@@ -25,7 +26,8 @@ async function main() {
         subtitle: article.data.subtitle,
         url: `/blog/${article.id}`,
         type: 'blog',
-        date: article.data.publish_date
+        date: article.data.publish_date,
+        author: article.data.author
       }))
     ];
 

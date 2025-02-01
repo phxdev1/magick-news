@@ -63,6 +63,9 @@ async function waitForPrediction(predictionId) {
     // Wait 5 seconds before checking again
     await new Promise(resolve => setTimeout(resolve, 5000));
     attempts++;
+
+    // Log progress
+    console.log(`Waiting for image generation... (${attempts}/${maxAttempts})`);
   }
 
   throw new Error('Prediction timed out');
@@ -92,18 +95,54 @@ async function makeReplicateRequest(prompt) {
   });
 
   if (!response.ok) {
-    throw new Error(`Replicate API error: ${response.status} ${response.statusText}`);
+    const text = await response.text();
+    throw new Error(`Replicate API error: ${response.status} ${response.statusText}\n${text}`);
   }
 
   const prediction = await response.json();
+  console.log('Started prediction:', prediction.id);
   
   // Wait for the prediction to complete
   return await waitForPrediction(prediction.id);
 }
 
+async function processImage(imageBuffer, name) {
+  try {
+    // First try with face detection
+    const processedImage = await sharp(imageBuffer)
+      .resize({
+        width: 400,
+        height: 400,
+        fit: sharp.fit.cover,
+        position: sharp.strategy.entropy
+      })
+      .webp({ 
+        quality: 90,
+        effort: 6
+      })
+      .toBuffer();
+
+    return processedImage;
+  } catch (err) {
+    console.warn(`Warning: Advanced image processing failed, falling back to simple resize for ${name}:`, err.message);
+    
+    // Fallback to simple center crop
+    return await sharp(imageBuffer)
+      .resize(400, 400, {
+        fit: 'cover',
+        position: 'center'
+      })
+      .webp({ 
+        quality: 90,
+        effort: 6
+      })
+      .toBuffer();
+  }
+}
+
 async function generateAvatar(author) {
   const { name } = author;
-  console.log(`🎨 Generating avatar for ${name}...`);
+  console.log(`\n🎨 Generating avatar for ${name}...`);
   
   try {
     const prompt = generatePrompt(author);
@@ -119,19 +158,11 @@ async function generateAvatar(author) {
     }
     
     const imageBuffer = await imageResponse.arrayBuffer();
-    
-    // Process with sharp
-    const processedImage = await sharp(Buffer.from(imageBuffer))
-      .resize(400, 400, {
-        fit: 'cover',
-        position: 'face'
-      })
-      .webp({ 
-        quality: 90,
-        effort: 6
-      })
-      .toBuffer();
+    console.log('Downloaded image, processing...');
 
+    // Process the image
+    const processedImage = await processImage(Buffer.from(imageBuffer), name);
+    
     const avatarPath = join(AVATAR_DIR, `${name.toLowerCase().replace(/\s+/g, '-')}.webp`);
     await writeFile(avatarPath, processedImage);
     
@@ -148,6 +179,7 @@ async function main() {
   
   let success = 0;
   let failed = 0;
+  const errors = [];
 
   // Process male authors
   for (const author of authors.male) {
@@ -159,10 +191,12 @@ async function main() {
         await new Promise(resolve => setTimeout(resolve, 2000));
       } else {
         failed++;
+        errors.push(`Failed to generate avatar for ${author.name}`);
       }
     } catch (err) {
       console.error(`❌ Failed to process ${author.name}:`, err);
       failed++;
+      errors.push(`Error processing ${author.name}: ${err.message}`);
     }
   }
 
@@ -176,10 +210,12 @@ async function main() {
         await new Promise(resolve => setTimeout(resolve, 2000));
       } else {
         failed++;
+        errors.push(`Failed to generate avatar for ${author.name}`);
       }
     } catch (err) {
       console.error(`❌ Failed to process ${author.name}:`, err);
       failed++;
+      errors.push(`Error processing ${author.name}: ${err.message}`);
     }
   }
 
@@ -187,7 +223,9 @@ async function main() {
   console.log(`✅ Successfully generated: ${success}`);
   console.log(`❌ Failed: ${failed}`);
 
-  if (failed > 0) {
+  if (errors.length > 0) {
+    console.log('\n❌ Errors:');
+    errors.forEach(error => console.log(`  - ${error}`));
     process.exit(1);
   }
 }

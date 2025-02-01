@@ -4,6 +4,7 @@ import { promisify } from 'util';
 import { exec as execCallback } from 'child_process';
 import { existsSync } from 'fs';
 import { resolve } from 'path';
+import { loadAuthors, validateAuthors } from './authors.mjs';
 
 const exec = promisify(execCallback);
 
@@ -75,12 +76,23 @@ async function runCommand(command, description, options = {}) {
             spinner.update(`${description} - ${lastLine}`);
           }
         }
+
+        // If stdio is inherit, also write to stdout
+        if (options.stdio && options.stdio[1] === 'inherit') {
+          process.stdout.write(str);
+        }
       });
     }
 
     if (child.stderr) {
       child.stderr.on('data', (data) => {
-        output += data.toString();
+        const str = data.toString();
+        output += str;
+        
+        // If stdio is inherit, also write to stderr
+        if (options.stdio && options.stdio[2] === 'inherit') {
+          process.stderr.write(str);
+        }
       });
     }
 
@@ -91,7 +103,9 @@ async function runCommand(command, description, options = {}) {
         resolve(output);
       } else {
         console.error(`${colors.red}✗${colors.reset} ${description} failed with code ${code}`);
-        console.error(output);
+        if (!options.stdio || options.stdio[1] !== 'inherit') {
+          console.error(output);
+        }
         reject(new Error(`Command failed with code ${code}`));
       }
     });
@@ -111,14 +125,26 @@ async function checkEnvironment() {
   }
 }
 
-function needsInitialization() {
-  // Check for key directories and files that should exist after initialization
+async function needsInitialization() {
+  // Check for key directories and files
   const checks = [
-    'public/images/authors',
-    'src/content/authors',
     'node_modules',
     'public/vector-db'
   ];
+
+  // Check if authors need to be generated
+  const authors = await loadAuthors();
+  if (!authors) {
+    return true;
+  }
+
+  // Validate existing authors
+  const validation = validateAuthors(authors);
+  if (!validation.valid) {
+    console.log(`\n${colors.yellow}⚠${colors.reset} Author validation failed:`);
+    validation.errors.forEach(error => console.log(`  ${colors.red}✗${colors.reset} ${error}`));
+    return true;
+  }
 
   return checks.some(path => !existsSync(resolve(process.cwd(), path)));
 }
@@ -194,7 +220,8 @@ const initSteps = [
   },
   {
     command: 'npm run generate-authors',
-    description: 'Generating author profiles'
+    description: 'Generating author profiles',
+    options: { stdio: ['ignore', 'inherit', 'inherit'] }
   },
   {
     command: 'npm run validate-authors',
@@ -223,7 +250,11 @@ async function runInitialization() {
       // Add delay between steps
       await new Promise(resolve => setTimeout(resolve, 1000));
     } catch (error) {
-      console.error(`\n${colors.red}✗${colors.reset} Initialization failed`);
+      console.error(`\n${colors.red}✗${colors.reset} Initialization failed during ${step.description}`);
+      console.error(`\n${colors.yellow}ℹ${colors.reset} You may need to run initialization steps manually:`);
+      initSteps.forEach(s => {
+        console.log(`  ${colors.cyan}${s.command}${colors.reset}`);
+      });
       process.exit(1);
     }
   }
@@ -249,7 +280,7 @@ async function main() {
   await checkEnvironment();
 
   // Check if initialization is needed
-  if (needsInitialization()) {
+  if (await needsInitialization()) {
     await runInitialization();
   }
 
