@@ -294,8 +294,6 @@ function validateFrontmatter(frontmatter) {
   const errors = [];
   const filename = frontmatter._filename || '';
   const now = new Date();
-  const defaultAuthor = validAuthors[0];
-  
   // Generate default values for required fields
   if (filename) {
     const baseName = filename
@@ -306,15 +304,17 @@ function validateFrontmatter(frontmatter) {
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
 
-    // Set default values for missing fields
-    if (!frontmatter.title || !frontmatter.title.trim()) {
+    // Set default values only for completely missing fields
+    if (typeof frontmatter.title === 'undefined') {
       frontmatter.title = baseName;
     }
-    if (!frontmatter.description || !frontmatter.description.trim()) {
+    if (typeof frontmatter.description === 'undefined') {
       frontmatter.description = `Comprehensive guide exploring ${baseName.toLowerCase()} and its impact on modern technology.`;
     }
-    if (!frontmatter.author || !frontmatter.author.trim()) {
-      frontmatter.author = defaultAuthor;
+    if (typeof frontmatter.author === 'undefined') {
+      // Randomly select an author
+      const randomIndex = Math.floor(Math.random() * validAuthors.length);
+      frontmatter.author = validAuthors[randomIndex];
     }
     if (!frontmatter.read_time || !frontmatter.read_time.trim()) {
       frontmatter.read_time = "8 mins";
@@ -325,9 +325,9 @@ function validateFrontmatter(frontmatter) {
     if (!frontmatter.created_date) {
       frontmatter.created_date = now.toISOString().split('T')[0];
     }
-    // Only set heroImage if it's completely missing
-    if (!frontmatter.heroImage) {
-      frontmatter.heroImage = `https://assets.magick.ai/${baseName.toLowerCase().replace(/\s+/g, '-')}.png`;
+    // Only set heroImage if it's completely missing (undefined)
+    if (typeof frontmatter.heroImage === 'undefined') {
+      frontmatter.heroImage = `https://i.magick.ai/PIXE/${baseName.toLowerCase().replace(/\s+/g, '-')}.webp`;
     }
     if (!frontmatter.cta || !frontmatter.cta.trim()) {
       frontmatter.cta = `Stay ahead of the curve! Follow us on LinkedIn for more insights about ${baseName.toLowerCase()} and other cutting-edge developments in AI and technology.`;
