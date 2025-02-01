@@ -1,7 +1,7 @@
 ---
 title: 'Transformer Architecture Explained: Unlocking the Power of Large Language Models'
 subtitle: 'How Transformer Architecture Revolutionized AI and Natural Language Processing'
-description: 'Discover how transformer architecture revolutionized AI and natural language processing, enabling unprecedented capabilities in machine learning. From self-attention mechanisms to real-world applications, explore the technology that powers today'\''s most advanced AI systems.'
+description: 'Discover how transformer architecture revolutionized AI and natural language processing, enabling unprecedented capabilities in machine learning. From self-attention mechanisms to real-world applications, explore the technology that powers today''s most advanced AI systems.'
 author: 'Scott Marker'
 read_time: '8 mins'
 publish_date: '2024-02-01'
