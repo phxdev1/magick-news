@@ -7,7 +7,7 @@ read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'
 heroImage: 'https://i.magick.ai/PIXE/1738422121681_magick_img.webp'
-cta: 'Want to stay updated on the latest in educational technology and AI? Follow us on LinkedIn at [Magick AI](https://www.linkedin.com/company/magick-ai) for more insights into preparing the next generation for a tech-driven future!'
+cta: "Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!"
 ---
 
 In an era where technology shapes every aspect of our lives, introducing robotics to children has become more than just an entertaining activity – it's an investment in their future. For 7-8 year olds, who are naturally curious and eager to explore, robotics offers an exciting gateway into the world of STEM (Science, Technology, Engineering, and Mathematics) while fostering crucial life skills.

@@ -7,7 +7,7 @@ read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'
 heroImage: 'https://magick.ai/images/ml-engineer-desk.jpg'
-cta: 'Ready to start your own journey in AI and machine learning? Follow us on [LinkedIn](https://www.linkedin.com/company/magick-ai) for the latest insights, tutorials, and opportunities in the world of artificial intelligence!'
+cta: "Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!"
 ---
 
 The soft glow of my monitor illuminates my workspace as neural networks train in the background—a scene that would have seemed like science fiction to me just three years ago. At 20, I've achieved what many consider improbable: becoming a full-fledged machine learning engineer before I can legally drink in the United States. This is my story of determination, strategic learning, and breaking traditional career paradigms.

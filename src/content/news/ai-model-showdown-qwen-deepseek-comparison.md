@@ -7,7 +7,7 @@ read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'
 heroImage: 'https://i.magick.ai/PIXE/1738419564934_magick_img.webp'
-cta: 'Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts! Follow us on LinkedIn at [Magick AI](https://www.linkedin.com/company/magick-ai) for regular updates on AI advancements and expert insights.'
+cta: "Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!"
 ---
 
 In the rapidly evolving landscape of artificial intelligence, two powerful contenders have emerged as frontrunners in the race for AI supremacy: Qwen 2.5 and DeepSeek. As organizations and developers increasingly seek the most capable language models for their applications, understanding the nuances between these sophisticated AI systems becomes crucial. Let's dive deep into what makes each of these models unique and how they stack up against each other.

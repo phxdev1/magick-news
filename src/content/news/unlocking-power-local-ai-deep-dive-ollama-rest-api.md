@@ -7,7 +7,7 @@ read_time: '8 mins'
 publish_date: '2024-02-01'
 created_date: '2025-02-01'
 heroImage: 'https://i.magick.ai/PIXE/1738419730834_magick_img.webp'
-cta: 'Stay updated on the latest developments in AI technology and Ollama''s evolving API capabilities by following us on LinkedIn. Connect with our community of innovators and developers at [Magick AI](https://www.linkedin.com/company/magick-ai).'
+cta: "Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!"
 ---
 
 In the rapidly evolving landscape of artificial intelligence, Ollama has emerged as a game-changing solution for developers seeking to run and interact with large language models locally. While many are familiar with Ollama's command-line interface, its REST API represents a powerful yet often overlooked capability that's transforming how developers integrate AI into their applications. Today, we're taking an extensive look at Ollama's REST API endpoints and exploring how they're shaping the future of local AI development.

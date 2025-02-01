@@ -7,7 +7,7 @@ read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'
 heroImage: 'https://i.magick.ai/PIXE/1738421120428_magick_img.webp'
-cta: 'Want to stay updated on the latest developments in AI and aviation? Follow Magick.ai on LinkedIn at https://www.linkedin.com/company/magick-ai for cutting-edge insights and innovations shaping the future of flight.'
+cta: "Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!"
 ---
 
 ![Futuristic Cockpit](https://i.magick.ai/PIXE/1738421120428_magick_img.webp)

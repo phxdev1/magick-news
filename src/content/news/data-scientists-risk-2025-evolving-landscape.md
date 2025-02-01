@@ -7,7 +7,7 @@ read_time: '8 mins'
 publish_date: '2025-02-01'
 created_date: '2025-02-01'
 heroImage: 'https://i.magick.ai/PIXE/1738425806552_magick_img.webp'
-cta: 'Stay ahead of the curve in data science and AI developments by following us on LinkedIn. Join our community of forward-thinking professionals and get exclusive insights into the future of tech: [Magick AI](https://www.linkedin.com/company/magick-ai).'
+cta: "Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!"
 ---
 
 ![Evolution of Data Scientist Roles in 2025](https://i.magick.ai/PIXE/1738425806555_magick_img.webp)

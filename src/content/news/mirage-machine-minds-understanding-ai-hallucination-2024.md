@@ -7,7 +7,7 @@ read_time: "8 mins"
 publish_date: "2024-02-01"
 created_date: "2025-02-01"
 heroImage: "https://i.magick.ai/PIXE/1738421445830_magick_img.webp"
-cta: "Want to stay updated on the latest AI and machine learning developments? Follow us on LinkedIn at [Magick AI](https://www.linkedin.com/company/magick-ai) for exclusive insights and updates on challenges like AI hallucination."
+cta: "Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!"
 ---
 
 ![AI creating new protein structures](https://i.magick.ai/PIXE/1738421445834_magick_img.webp)

@@ -7,7 +7,7 @@ read_time: '8 mins'
 publish_date: '2024-02-01'
 created_date: '2025-02-01'
 heroImage: 'https://assets.magick.ai/visualization-hero.jpg'
-cta: 'Want to stay updated on the latest developments in AI and data visualization? Follow us on LinkedIn at [Magick AI](https://www.linkedin.com/company/magick-ai) for regular insights and updates on how AI is transforming the technology landscape.'
+cta: "Stay informed about the latest developments in AI technology and join our growing community of tech enthusiasts!"
 ---
 
 In an era where data drives decision-making, the ability to quickly transform raw numbers into meaningful visualizations has become increasingly crucial. The combination of GitHub Copilot's AI-powered assistance and Plotly's sophisticated visualization capabilities is revolutionizing how developers and data scientists approach data visualization, making it faster and more intuitive than ever before.
