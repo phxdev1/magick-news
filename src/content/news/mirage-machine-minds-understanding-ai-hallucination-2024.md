@@ -1,13 +1,13 @@
 ---
-title: 'The Mirage of Machine Minds: Understanding AI Hallucination in 2024'
-subtitle: 'A deep dive into AI's tendency to generate false information and how researchers are addressing it'
-description: 'Explore the causes, implications, and potential solutions to AI hallucination, including developments in Retrieval-Augmented Generation and the importance of AI literacy.'
-author: 'Alexander Hunt'
-read_time: '8 mins'
-publish_date: '2024-02-01'
-created_date: '2025-02-01'
-heroImage: 'https://i.magick.ai/PIXE/1738421445830_magick_img.webp'
-cta: 'Want to stay updated on the latest AI and machine learning developments? Follow us on LinkedIn at [Magick AI](https://www.linkedin.com/company/magick-ai) for exclusive insights and updates on challenges like AI hallucination.'
+title: "The Mirage of Machine Minds: Understanding AI Hallucination in 2024"
+subtitle: "A deep dive into AI's tendency to generate false information and how researchers are addressing it"
+description: "Explore the causes, implications, and potential solutions to AI hallucination, including developments in Retrieval-Augmented Generation and the importance of AI literacy."
+author: "Alexander Hunt"
+read_time: "8 mins"
+publish_date: "2024-02-01"
+created_date: "2025-02-01"
+heroImage: "https://i.magick.ai/PIXE/1738421445830_magick_img.webp"
+cta: "Want to stay updated on the latest AI and machine learning developments? Follow us on LinkedIn at [Magick AI](https://www.linkedin.com/company/magick-ai) for exclusive insights and updates on challenges like AI hallucination."
 ---
 
 ![AI creating new protein structures](https://i.magick.ai/PIXE/1738421445834_magick_img.webp)
