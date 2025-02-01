@@ -7,7 +7,7 @@ read_time: '8 mins'
 publish_date: '2024-02-01'
 created_date: '2025-02-01'
 heroImage: 'https://i.magick.ai/PIXE/1738427789985_magick_img.webp'
-cta: 'Want to stay on the cutting edge of AI innovations? Follow us on LinkedIn at [Magick AI](https://www.linkedin.com/company/magick-ai) for the latest updates on how artificial intelligence is transforming creative industries!'
+cta: 'Want to stay on the cutting edge of AI innovations? Follow us on LinkedIn for the latest updates on how artificial intelligence is transforming creative industries!'
 ---
 
 The pulsating lights dim, and an ethereal glow bathes the stage. But tonight's performance is unlike any other – where human dancers once moved alone, they now share the spotlight with an invisible partner: artificial intelligence. Welcome to the dawn of a new era in dance, where technology and human expression merge in an unprecedented fusion of creativity and computation.
