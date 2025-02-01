@@ -4,6 +4,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
+import RelatedArticles from '../components/RelatedArticles.astro';
 
 type Props = CollectionEntry<'news'>['data'];
 
@@ -796,17 +797,22 @@ const { title, subtitle, description, publish_date, created_date, heroImage, rea
 					</button>
 				</aside>
 
-				<div class="article-content" role="article">
-					<slot />
-					{
-						created_date.valueOf() !== publish_date.valueOf() && (
-							<footer class="last-updated-on" role="contentinfo" aria-label="Last update information">
-								Last updated on <time datetime={created_date.toISOString()}>
-									<FormattedDate date={created_date} />
-								</time>
-							</footer>
-						)
-					}
+				<div class="max-w-[90rem] mx-auto px-4 xl:grid xl:grid-cols-[1fr_20rem] xl:gap-8">
+					<div class="article-content relative" role="article">
+						<div class="prose prose-lg dark:prose-invert max-w-none">
+							<slot />
+						</div>
+						{
+							created_date.valueOf() !== publish_date.valueOf() && (
+								<footer class="last-updated-on mt-16" role="contentinfo" aria-label="Last update information">
+									Last updated on <time datetime={created_date.toISOString()}>
+										<FormattedDate date={created_date} />
+									</time>
+								</footer>
+							)
+						}
+					</div>
+					<RelatedArticles currentArticle={{title, description: description || subtitle || '', url: Astro.url.pathname}} />
 				</div>
 			</article>
 		</main>

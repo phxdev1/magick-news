@@ -25,10 +25,6 @@ interface Article {
   date: Date;
 }
 
-interface SearchResult extends Article {
-  score: number;
-}
-
 // Ensure vector DB directory exists
 if (!fs.existsSync(VECTOR_DB_PATH)) {
   fs.mkdirSync(VECTOR_DB_PATH, { recursive: true });
@@ -54,7 +50,7 @@ async function getEmbedding(text: string): Promise<Float32Array> {
 
 // Create or load vector index
 function createVectorIndex() {
-  const index = new hnsw.HierarchicalNSW('cosine', EMBEDDING_DIM);
+  const index = new hnsw.HierarchicalNSW('ip', EMBEDDING_DIM);
   index.initIndex(MAX_ELEMENTS);
   return index;
 }
@@ -72,7 +68,7 @@ function loadVectorDB(): { index: any, metadata: Article[] } {
     return { index, metadata: [] };
   }
 
-  const index = new hnsw.HierarchicalNSW('cosine', EMBEDDING_DIM);
+  const index = new hnsw.HierarchicalNSW('ip', EMBEDDING_DIM);
   index.readIndex(EMBEDDINGS_FILE);
   const metadata = JSON.parse(fs.readFileSync(METADATA_FILE, 'utf-8'));
   return { index, metadata };
@@ -95,6 +91,10 @@ export async function buildVectorDB(articles: Article[]) {
   console.log('Vector database built successfully');
 }
 
+interface SearchResult extends Article {
+  score: number;
+}
+
 // Search vector database
 export async function searchVectorDB(query: string, k: number = 5): Promise<SearchResult[]> {
   const { index, metadata } = loadVectorDB();
@@ -103,7 +103,7 @@ export async function searchVectorDB(query: string, k: number = 5): Promise<Sear
   const results = index.searchKnn(Array.from(queryEmbedding), k);
   return results.neighbors.map((idx: number, i: number) => ({
     ...metadata[idx],
-    score: 1 - results.distances[i] // Convert cosine distance to similarity score
+    score: results.distances[i] // Inner product scores are already similarity scores
   }));
 }
 

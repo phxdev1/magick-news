@@ -10,7 +10,6 @@ async function main() {
     console.log('\nSearch results:');
     results.forEach((result, i) => {
       console.log(`\n${i + 1}. ${result.title}`);
-      console.log(`   Score: ${(result.score * 100).toFixed(1)}%`);
       if (result.description) {
         console.log(`   ${result.description}`);
       }

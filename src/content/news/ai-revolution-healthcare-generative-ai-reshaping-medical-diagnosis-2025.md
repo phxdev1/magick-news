@@ -1,5 +1,3 @@
-Now, I'll create the markdown content for the article using the provided information and generated images:
-
 ---
 title: 'The AI Revolution in Healthcare: How Generative AI is Reshaping Medical Diagnosis and Treatment in 2025'
 subtitle: 'AI transforms healthcare with personalized medicine and improved diagnostics'

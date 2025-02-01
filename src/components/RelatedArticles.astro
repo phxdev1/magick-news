@@ -1,0 +1,345 @@
+---
+import { searchVectorDB } from '../utils/vectorSearch';
+import FormattedDate from './FormattedDate.astro';
+
+interface Props {
+  currentArticle: {
+    title: string;
+    description?: string;
+    url: string;
+  };
+}
+
+const { currentArticle } = Astro.props;
+
+// Get related articles based on the current article's content
+const searchText = `${currentArticle.title} ${currentArticle.description || ''}`;
+const results = await searchVectorDB(searchText, 6);
+
+// Filter out the current article
+const relatedArticles = results
+  .filter(article => article.url !== currentArticle.url)
+  .slice(0, 5);
+
+// Split articles for different placements
+const [inlineArticle, sidebarArticles, nextArticle] = [
+  relatedArticles[0],
+  relatedArticles.slice(1, 4),
+  relatedArticles[4]
+];
+---
+
+{/* Semantic markup for related content */}
+<div class="related-content mt-8 xl:mt-0 relative" role="complementary" aria-label="Related articles">
+  <aside class="related-sidebar print:hidden" data-current-url={currentArticle.url}>
+    <div class="sticky top-32 bg-gray-100 dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-lg xl:max-h-[calc(100vh-8rem)] xl:overflow-y-auto">
+      {nextArticle && (
+        <div class="mb-8 pb-6 border-b border-gray-200 dark:border-gray-700">
+          <p class="text-sm text-primary-500 font-medium mb-2 dark:text-primary-400">Up Next</p>
+          <a href={nextArticle.url} class="group">
+            <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 group-hover:text-primary-500 transition-colors">
+              {nextArticle.title}
+            </h3>
+          </a>
+        </div>
+      )}
+
+      <h3 class="text-sm font-medium text-gray-300 dark:text-gray-200 mb-4">Related Coverage</h3>
+      <div class="space-y-6">
+        {sidebarArticles.map(article => (
+          <a href={article.url} class="block group hover:scale-[1.02] transition-transform">
+            <article class="relative hover:shadow-lg hover:shadow-primary-500/10 rounded-lg p-2 -m-2 transition-all">
+              <div class="absolute -left-2 top-0 bottom-0 w-0.5 bg-gray-700 dark:bg-gray-600 group-hover:bg-primary-500 transition-colors"></div>
+              <h4 class="text-sm font-medium text-gray-200 dark:text-gray-100 group-hover:text-primary-400 transition-colors mb-2">
+                {article.title}
+              </h4>
+              <FormattedDate date={new Date(article.date)} class="text-xs text-gray-400 dark:text-gray-400 group-hover:text-gray-300 transition-colors" />
+            </article>
+          </a>
+        ))}
+      </div>
+    </div>
+  </aside>
+
+  {/* Inline article - shows on all devices */}
+  {inlineArticle && (
+    <div class="inline-article my-12 xl:my-8 border-l-4 border-primary-500/20 pl-6 print:my-8 print:border-gray-300 print:pl-4 bg-gray-50 dark:bg-gray-900/50 rounded-r-lg shadow-md xl:col-span-2" data-paragraph-target="0.4">
+      <p class="text-sm font-medium mb-3 text-primary-500 print:text-gray-700">Related Article</p>
+      <a href={inlineArticle.url} class="block group">
+        <article>
+          <h3 class="text-lg font-medium group-hover:text-primary-500 transition-colors mb-2 print:text-black">
+            {inlineArticle.title}
+          </h3>
+          {inlineArticle.description && (
+            <p class="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mb-3 group-hover:text-gray-400 dark:group-hover:text-gray-300 transition-colors print:text-gray-600">
+              {inlineArticle.description}
+            </p>
+          )}
+          <FormattedDate date={new Date(inlineArticle.date)} class="text-sm text-gray-400 dark:text-gray-500 print:text-gray-600" />
+        </article>
+      </a>
+    </div>
+  )}
+</div>
+
+  {/* No-JS fallback and print version */}
+  <noscript>
+    <div class="space-y-8 print:space-y-4 xl:col-span-2">
+      {relatedArticles.map(article => (
+        <article class="border-t border-gray-200 dark:border-gray-800 print:border-gray-300 pt-6 print:pt-4">
+          <a href={article.url} class="block">
+            <h3 class="text-lg font-medium mb-2 print:text-black">{article.title}</h3>
+            {article.description && (
+              <p class="text-gray-500 dark:text-gray-400 print:text-gray-600 mb-3">{article.description}</p>
+            )}
+            <FormattedDate date={new Date(article.date)} class="text-sm text-gray-400 dark:text-gray-500 print:text-gray-600" />
+          </a>
+        </article>
+      ))}
+    </div>
+  </noscript>
+</div>
+
+<script>
+  class RelatedContent {
+    private container: HTMLElement;
+    private currentUrl: string;
+    private readingProgress: number = 0;
+    private hasShownInline: boolean = false;
+    private mediaQuery: MediaQueryList;
+
+    constructor(container: HTMLElement) {
+      this.container = container;
+      this.currentUrl = container.dataset.currentUrl || '';
+      this.mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      
+      this.initSidebar();
+      this.initInlineArticle();
+      this.setupScrollTracking();
+      this.handleColorScheme();
+    }
+
+    private initSidebar() {
+      const sidebar = document.querySelector('.related-sidebar');
+      if (!sidebar) return;
+
+      let lastScrollY = window.scrollY;
+      let ticking = false;
+
+      const updateSidebar = () => {
+        const scrollY = window.scrollY;
+        const header = document.querySelector('header');
+        const headerHeight = header?.getBoundingClientRect().height || 0;
+        
+        // Show sidebar after scrolling past header
+        if (scrollY > headerHeight) {
+          sidebar.classList.remove('opacity-0');
+          sidebar.classList.add('translate-y-0');
+        } else {
+          sidebar.classList.add('opacity-0');
+          sidebar.classList.remove('translate-y-0');
+        }
+        
+        lastScrollY = scrollY;
+        ticking = false;
+      };
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            updateSidebar();
+          });
+          ticking = true;
+        }
+      });
+
+      // Initial position
+      updateSidebar();
+    }
+
+    private initInlineArticle() {
+      const inlineArticle = document.querySelector('.inline-article');
+      if (!inlineArticle) return;
+
+      const target = parseFloat(inlineArticle.dataset.paragraphTarget || '0.4');
+      const paragraphs = document.querySelectorAll('.article-content > .prose > p');
+      const targetIndex = Math.floor(paragraphs.length * target);
+      
+      if (paragraphs[targetIndex]) {
+        paragraphs[targetIndex].after(inlineArticle);
+        this.revealInlineArticle(inlineArticle);
+      }
+    }
+
+    private revealInlineArticle(element: Element) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting && !this.hasShownInline) {
+            element.classList.add('visible');
+            this.hasShownInline = true;
+            observer.disconnect();
+          }
+        },
+        { threshold: 0.5 }
+      );
+      
+      observer.observe(element);
+    }
+
+    // Next preview is now always visible in the sidebar
+
+    private setupScrollTracking() {
+      let ticking = false;
+
+      document.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            this.updateReadingProgress();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+    }
+
+    private updateReadingProgress() {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.scrollY;
+      const targetHeight = documentHeight - windowHeight;
+      
+      this.readingProgress = Math.min(scrollTop / targetHeight, 1);
+
+      const preview = document.querySelector('.next-preview');
+      if (preview) {
+        const targetProgress = parseFloat(preview.dataset.progressTarget || '0.85');
+        if (this.readingProgress >= targetProgress && !this.hasShownPreview) {
+          preview.classList.add('translate-y-0');
+          this.hasShownPreview = true;
+        }
+      }
+
+      if (this.readingProgress >= 0.7) {
+        const nextLink = document.querySelector('.next-preview a') as HTMLAnchorElement;
+        if (nextLink && !nextLink.dataset.prefetched) {
+          const link = document.createElement('link');
+          link.rel = 'prefetch';
+          link.href = nextLink.href;
+          document.head.appendChild(link);
+          nextLink.dataset.prefetched = 'true';
+        }
+      }
+    }
+
+    private handleColorScheme() {
+      const updateColors = (e: MediaQueryListEvent | MediaQueryList) => {
+        document.documentElement.classList.toggle('dark', e.matches);
+      };
+
+      this.mediaQuery.addEventListener('change', updateColors);
+      updateColors(this.mediaQuery);
+    }
+  }
+
+  // Initialize related content
+  document.addEventListener('DOMContentLoaded', () => {
+    const containers = document.querySelectorAll('[data-current-url]');
+    containers.forEach(container => new RelatedContent(container as HTMLElement));
+  });
+</script>
+
+<style>
+  /* Base styles that work without JavaScript */
+  .related-content {
+    margin-top: 2rem;
+  }
+
+  /* Enhanced styles for JavaScript-enabled browsers */
+  .related-sidebar {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+  }
+
+  .related-sidebar.opacity-0 {
+    pointer-events: none;
+  }
+
+  .related-sidebar.translate-y-0 {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .inline-article {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .inline-article.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* No next preview styles needed since it's in the sidebar */
+
+  /* Print styles */
+  @media print {
+    .related-content {
+      margin-top: 2rem;
+      border-top: 1px solid #ccc;
+      padding-top: 2rem;
+    }
+
+    .related-sidebar,
+    .next-preview {
+      display: none !important;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    a::after {
+      content: " (" attr(href) ")";
+      font-size: 0.9em;
+      color: #666;
+    }
+  }
+
+  /* E-reader styles */
+  @media (monochrome) {
+    .related-content {
+      border-top: 1px solid #000;
+      margin-top: 2rem;
+      padding-top: 2rem;
+    }
+
+    .inline-article {
+      border-left: 2px solid #000;
+      margin: 2rem 0;
+      padding-left: 1rem;
+      opacity: 1;
+      transform: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+    }
+
+    .related-sidebar,
+    .next-preview {
+      display: none !important;
+    }
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 640px) {
+    .next-preview {
+      padding: 0.75rem 1rem;
+    }
+  }
+</style>
