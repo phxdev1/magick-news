@@ -316,20 +316,19 @@ function validateFrontmatter(frontmatter) {
       const randomIndex = Math.floor(Math.random() * validAuthors.length);
       frontmatter.author = validAuthors[randomIndex];
     }
-    if (!frontmatter.read_time || !frontmatter.read_time.trim()) {
+    if (typeof frontmatter.read_time === 'undefined') {
       frontmatter.read_time = "8 mins";
     }
-    if (!frontmatter.publish_date) {
+    if (typeof frontmatter.publish_date === 'undefined') {
       frontmatter.publish_date = now.toISOString().split('T')[0];
     }
-    if (!frontmatter.created_date) {
+    if (typeof frontmatter.created_date === 'undefined') {
       frontmatter.created_date = now.toISOString().split('T')[0];
     }
-    // Only set heroImage if it's completely missing (undefined)
     if (typeof frontmatter.heroImage === 'undefined') {
       frontmatter.heroImage = `https://i.magick.ai/PIXE/${baseName.toLowerCase().replace(/\s+/g, '-')}.webp`;
     }
-    if (!frontmatter.cta || !frontmatter.cta.trim()) {
+    if (typeof frontmatter.cta === 'undefined') {
       frontmatter.cta = `Stay ahead of the curve! Follow us on LinkedIn for more insights about ${baseName.toLowerCase()} and other cutting-edge developments in AI and technology.`;
     }
   }
